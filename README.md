@@ -1,4 +1,4 @@
-# orange-frontend
+# peoplenet-frontend
 
 ## Project setup
 ```
