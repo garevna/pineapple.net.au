@@ -1,32 +1,30 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-content class="mx-0">
+      <router-view class="mt-12 mx-0 px-0"></router-view>
+    </v-content>
+  </v-app>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.v-application .mx-0 {
+  padding-bottom: 0!important;
 }
 </style>
+
+<script>
+
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+export default {
+  name: 'App',
+
+  data: () => ({
+
+  }),
+  mounted () {
+    AOS.init()
+  }
+}
+</script>

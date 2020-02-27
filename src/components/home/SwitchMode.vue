@@ -1,0 +1,140 @@
+<template>
+  <div class="d-flex justify-center">
+    <input type="checkbox" value="Residential" :class="`checkbox ${activeClass}`">
+  </div>
+</template>
+
+<style>
+
+.checkbox {
+  position: relative;
+  display: inline-block;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  height: 60px;
+  width: 360px;
+  font-size: 16px;
+  border-radius: 80px;
+  background-color: #72BF44;
+  border-color: transparent;
+  background-clip: padding-box;
+  color: #72BF44;
+  vertical-align: middle;
+}
+
+.checkbox:before {
+    padding: 20px 40px;
+    font-family: 'Gilroy';
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: #20731C;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 50%;
+    background-color: white;
+    border-radius: 80px;
+    border: 0.125em solid transparent;
+    background-clip: padding-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    z-index: 2;
+}
+.checkbox:after {
+    position: absolute;
+    top: 16px;
+    line-height: 2;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Gilroy';
+    color: #FFFFFF;
+    letter-spacing: 0.02em;
+    z-index: 1;
+}
+
+.checkbox--residential:before {
+  content: "Residential";
+  transform-origin: right center;
+  animation: switch-on-transform 0.25s ease-out forwards;
+}
+.checkbox--business:before {
+  content: "Business";
+  transform-origin: left center;
+  animation: switch-off-transform 0.25s ease-out forwards;
+}
+
+.checkbox--residential:after {
+  content: "Business";
+  left: 40px;
+}
+.checkbox--business:after {
+  content: "Residential";
+  right: 40px;
+}
+
+.checkbox:focus {
+  color: white;
+  border-color: transparent;
+  background-color: #72BF44;
+  outline: none;
+}
+
+.checkbox:checked {
+  color: white;
+  background-color: $green;
+  border-color: transparent;
+}
+
+@keyframes switch-on-transform {
+    0% { transform: translateX(0) scaleX(1) translateZ(0); }
+   25% { transform: translateX(0) scaleX(1.33) translateZ(0); }
+  100% { transform: translateX(100%) scaleX(1) translateZ(0); }
+}
+
+@keyframes switch-off-transform {
+    0% { transform: translateX(100%) scaleX(1) translateZ(0) }
+   25% { transform: translateX(100%) scaleX(1.33) translateZ(0) }
+  100% { transform: translateX(0) scaleX(1) translateZ(0) }
+}
+</style>
+
+<script>
+export default {
+  name: 'SwitchMode',
+  props: {
+    mode: String
+  },
+  data () {
+    return {
+      checkbox: null,
+      value: null
+    }
+  },
+  computed: {
+    activeClass () {
+      return `checkbox--${this.value}`
+    },
+    passiveClass () {
+      return `checkbox--${this.value === 'residential' ? 'buisiness' : 'residential'}`
+    }
+  },
+  watch: {
+    mode (val) {
+      console.log('Mode has been changed: ', val)
+      this.value = val
+    }
+  },
+  mounted () {
+    this.value = this.mode
+    this.checkbox = document.querySelector('input[type="checkbox"]')
+    this.checkbox.onclick = function (event) {
+      console.log('mode: ', this.mode)
+      this.value = this.value === 'residential' ? 'business' : 'residential'
+      this.$emit('update:mode', this.value)
+      console.log('mode: ', this.mode)
+      event.target.classList.replace(this.activeClass, this.passiveClass)
+    }.bind(this)
+  }
+}
+</script>
