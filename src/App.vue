@@ -7,15 +7,62 @@
 </template>
 
 <style lang="scss">
-.v-application .mx-0 {
-  padding-bottom: 0!important;
+html, body {
+  margin-right: -20px;
+  background: #FBFBFB;
+}
+.v-application .px-0 {
+    padding-bottom: 0;
+}
+main {
+  padding: 0!important;
+}
+.green--text {
+  color: #363636;
+}
+h1 {
+  font-size: 46px;
+  font-style: normal;
+  line-height: 150%;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+h2 {
+  font-size: 32px;
+  font-style: normal;
+  line-height: 150%;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #363636;
+  width: 100%;
+}
+h3 {
+  font-size: 28px;
+  line-height: 150%;
+}
+h4 {
+  font-size: 24px;
+  color: #6D6D6D;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 150%;
+  letter-spacing: 0.02em;
+}
+@media (max-width: "600px"), (max-height: "600px") {
+  h1 { font-size: 28px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 18px; }
+  p { font-size: 16px; }
+
 }
 </style>
 
 <script>
 
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+// import AOS from 'aos'
+// import 'aos/dist/aos.css'
 
 export default {
   name: 'App',
@@ -24,7 +71,7 @@ export default {
 
   }),
   mounted () {
-    AOS.init()
+    // AOS.init()
   }
 }
 </script>

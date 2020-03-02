@@ -10,7 +10,7 @@
     </v-row>
   </v-system-bar>
 
-  <v-app-bar app absolute hide-on-scroll height="80" flat background="#FAFAFA" class="app-bar">
+  <v-app-bar app absolute height="80" flat background="#FAFAFA" class="app-bar">
     <v-row align="center" justify="center">
       <span height="35" width="110" class="ml-10">
         <v-img src="@/assets/home/logo-top-left.png" contain></v-img>
@@ -20,7 +20,7 @@
       <v-menu class="d-lg-none" transition="slide-y-transition">
           <template v-slot:activator="{ on }">
             <v-btn text v-on="on" class="mr-10 d-lg-none">
-              <v-img src="@/assets/home/burger.png" width="18"></v-img>
+              <v-img src="@/assets/home/icons/burger.png" width="18"></v-img>
             </v-btn>
           </template>
           <v-list expand flat>

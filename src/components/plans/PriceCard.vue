@@ -2,7 +2,7 @@
   <v-card
       flat
       hover
-      class="pa-10 my-10 mx-2"
+      class="white pa-10 my-10 mx-2"
       :width="width"
       :height="height"
   >
@@ -16,46 +16,27 @@
       <p class="question">Does your building contain more then 60<br>apartments?</p>
     </v-card-text>
     <v-img src="@/assets/price-card-image.png" class="price-card-image"></v-img>
+
     <div class="text-center">
-      <v-menu>
-        <template v-slot:activator="{ on: menu }">
-          <v-btn
-            text
-            outlined
-            rounded
-            class="green-border"
-            ripple
-            color="#20731C"
-            v-on="{ ...menu }"
-          >
-            {{selected}}
-            <v-icon class="ml-12">mdi-chevron-down</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="selected='Yes'">
-            <v-list-item-title>Yes</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="selected='No'">
-            <v-list-item-title>No</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <Menu :confirm.sync="selected"/>
     </div>
+
     <div class="text-center mt-12">
       <v-btn
           color="#72BF44"
           dark
           rounded
           class="px-12"
+          @click="signUp('Sign Up button event\n', $event)"
       >
         Sign up now
-    </v-btn>
+      </v-btn>
     </div>
   </v-card>
 </template>
 
 <style>
+
 p {
   text-align: center;
   color: #000;
@@ -79,6 +60,7 @@ p {
   position: absolute;
   bottom: 0;
   right: 0;
+  z-index: 0;
 }
 
 .green-border {
@@ -88,9 +70,14 @@ p {
 </style>
 
 <script>
+import Menu from '@/components/plans/Menu.vue'
 
 export default {
   name: 'PriceCard',
+
+  components: {
+    Menu
+  },
 
   props: {
     price: {
@@ -112,7 +99,8 @@ export default {
   },
   data () {
     return {
-      selected: 'Yes'
+      selected: true,
+      menu_visible: false
     }
   },
   computed: {
@@ -121,6 +109,19 @@ export default {
     },
     height () {
       return this.mode === 'residential' ? 566 : 581
+    }
+  },
+  watch: {
+    selected (val) {
+      console.log('Selected: ', val)
+    }
+  },
+  methods: {
+    signUp (message, event) {
+      console.log(message, event)
+    },
+    changeHandler (message, event) {
+      console.log(message, event)
     }
   }
 }
