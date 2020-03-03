@@ -28,6 +28,7 @@
                   v-for="(item, index) in residential"
                   :key="index"
                   mode="residential"
+                  :name="item.name"
                   :upload="item.upload"
                   :download="item.download"
                   :price="item.price"
@@ -46,6 +47,7 @@
                     v-for="(item, index) in business"
                     :key="index"
                     mode="business"
+                    :name="item.name"
                     :upload="item.upload"
                     :download="item.download"
                     :price="item.price"
@@ -76,15 +78,14 @@ export default {
     return {
       regime: null,
       residential: [
-        { upload: 50, download: 50, price: 50 },
-        { upload: 150, download: 150, price: 69 },
-        { upload: 500, download: 500, price: 140 },
-        { upload: 1000, download: 1000, price: 250 }
+        { name: 'Orange', upload: 150, download: 150, price: 69 },
+        { name: 'Mango', upload: 500, download: 500, price: 140 },
+        { name: 'Pineapple', upload: 1000, download: 1000, price: 250 }
       ],
       business: [
-        { upload: 150, download: 150, price: 150 },
-        { upload: 500, download: 500, price: 240 },
-        { upload: 1000, download: 1000, price: 500 }
+        { name: 'Orange', upload: 150, download: 150, price: 150 },
+        { name: 'Mango', upload: 500, download: 500, price: 240 },
+        { name: 'Pineapple', upload: 1000, download: 1000, price: 500 }
       ]
     }
   },

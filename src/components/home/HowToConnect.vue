@@ -1,46 +1,56 @@
 <template>
-  <v-card class="d-flex flex-wrap justify-center transparent">
-    <v-card flat class="transparent">
-          <ContactUs/>
-          <ContactUsIcon class="icon"/>
+  <v-container fluid>
+    <v-card flat class="d-flex flex-wrap justify-center transparent">
+      <v-card flat class="transparent text-centered mx-10" width="240">
+        <ContactUs/>
+        <v-card-title>
+          <h3>Contact Us</h3>
+        </v-card-title>
+        <v-card-text>
+          <p>Get in touch to find out if pineapple is available at your address</p>
+        </v-card-text>
+      </v-card>
+      <v-card flat class="transparent text-centered mx-10" width="240">
+        <GetConnected/>
+        <v-card-title>
+          <h3>Get connected</h3>
+        </v-card-title>
+        <v-card-text>
+          <p>Our team of installers get you connected to our network</p>
+        </v-card-text>
+      </v-card>
+      <v-card flat class="transparent text-centered mx-10" width="240">
+        <Enjoy/>
+        <v-card-title>
+          <h3>Enjoy</h3>
+        </v-card-title>
+        <v-card-text>
+          <p>Fast fibre internet</p>
+        </v-card-text>
+      </v-card>
     </v-card>
-    <v-card flat class="transparent">
-          <ContactUs/>
-          <ContactUsIcon class="icon"/>
-    </v-card>
-    <v-card flat class="transparent">
-          <ContactUs/>
-          <ContactUsIcon class="icon"/>
-    </v-card>
-  </v-card>
+  </v-container>
 </template>
 
 <style>
-.wrapper {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 290px;
-  height: 290px;
-}
-.content {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 290px;
-  height: 290px;
+h3, p {
+  width: 100%;
+  text-align: center;
+  color: #000;
 }
 </style>
 
 <script>
 import ContactUs from '@/components/svg/ContactUs.vue'
-import ContactUsIcon from '@/components/svg/ContactUsIcon.vue'
+import GetConnected from '@/components/svg/GetConnected.vue'
+import Enjoy from '@/components/svg/Enjoy.vue'
 
 export default {
   name: 'HowToConnect',
   components: {
     ContactUs,
-    ContactUsIcon
+    GetConnected,
+    Enjoy
   },
   data () {
     return {

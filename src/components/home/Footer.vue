@@ -1,5 +1,4 @@
 <template>
-  <!-- <v-card flat width="100%" class="transparent"> -->
   <v-container fluid>
     <v-img src="@/assets/home/footer-top.png" cover>
       <v-card flat width="100%" class="mx-auto transparent" style="margin-top: 198px">
@@ -75,10 +74,10 @@
         </v-container>
     </v-img>
 
-    <v-container fluid style="background: #003000; margin-bottom: -20px" class="mx-0 pl-auto pr-0 pb-0">
+    <v-container fluid style="background: #003000; margin-bottom: -20px" class="mx-auto px-auto">
       <v-row class="transparent mx-auto">
-        <v-col cols="12" xs="12" sm="8" md="6" lg="6">
-          <v-card flat class="transparent">
+        <v-col cols="12" xs="12" sm="8" md="6" lg="4">
+          <v-card flat class="transparent mx-12" width="320">
             <v-card-title>
               <p class="left-16">ABOUT PINEAPPLE NET</p>
             </v-card-title>
@@ -91,7 +90,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" xs="4" sm="4" md="6" lg="2">
-          <v-card flat class="transparent">
+          <v-card flat class="transparent mx-12">
             <v-card-title>
               <p class="left-16">COMPANY</p>
             </v-card-title>
@@ -105,8 +104,8 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" xs="4" sm="8" md="6" lg="2">
-          <v-card flat class="transparent">
+        <v-col cols="12" xs="4" sm="8" md="6" lg="3">
+          <v-card flat class="transparent mx-12">
             <v-card-title>
               <p class="left-16">PRODUCTS</p>
             </v-card-title>
@@ -116,8 +115,8 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" xs="4" sm="4" md="6" lg="2">
-          <v-card flat class="transparent">
+        <v-col cols="12" xs="4" sm="4" md="6" lg="3">
+          <v-card flat class="transparent mx-12">
             <v-card-title>
               <p class="left-16">CONNECT</p>
             </v-card-title>

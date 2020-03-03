@@ -22,7 +22,7 @@
       <section id="top" class="mb-12">
         <div class="base-title">
           <a href="#about" class="mr-2 d-inline-flex core-goto text--primary"></a>
-          <CentralFone/>
+          <WhoAreWe/>
         </div>
       </section>
 
@@ -69,7 +69,7 @@ import AppHeader from '@/components/home/AppHeader.vue'
 import Top from '@/components/home/Top.vue'
 // import CheckAvailability from '@/components/home/CheckAvailability.vue'
 // import HomeFonePictures from '@/components/home/HomeFonePictures.vue'
-import CentralFone from '@/components/home/CentralFone.vue'
+import WhoAreWe from '@/components/home/WhoAreWe.vue'
 import InternetPlans from '@/components/home/InternetPlans.vue'
 import Footer from '@/components/home/Footer.vue'
 import HowToConnect from '@/components/home/HowToConnect.vue'
@@ -82,7 +82,7 @@ export default {
     Top,
     // CheckAvailability,
     // HomeFonePictures,
-    CentralFone,
+    WhoAreWe,
     Footer,
     HowToConnect
   },

@@ -1,22 +1,31 @@
 <template>
-  <v-app>
-    <v-content class="mx-0">
+  <v-app class="transparent">
+    <!-- <v-content class="mx-0"> -->
       <router-view class="mt-12 mx-0 px-0"></router-view>
-    </v-content>
+    <!-- </v-content> -->
   </v-app>
 </template>
 
 <style lang="scss">
-html, body {
+html {
   margin-right: -20px;
+  margin-bottom: -10px;
   background: #FBFBFB;
 }
-.v-application .px-0 {
-    padding-bottom: 0;
-}
+
 main {
   padding: 0!important;
+  margin: 0!important;
 }
+
+.container {
+  padding: 0!important;
+}
+
+.v-application .mx-auto {
+  margin-right: 10px !important;
+}
+
 .green--text {
   color: #363636;
 }
@@ -49,6 +58,19 @@ h4 {
   line-height: 150%;
   letter-spacing: 0.02em;
 }
+
+p {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 150%;
+  letter-spacing: 0.02em;
+}
+
+.row {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
 @media (max-width: "600px"), (max-height: "600px") {
   h1 { font-size: 28px; }
   h2 { font-size: 24px; }

@@ -1,4 +1,6 @@
-# peoplenet-frontend
+# pineapple.net
+
+[**demo**](https://garevna.github.io/pineapple.net/)
 
 ## Project setup
 ```

@@ -6,6 +6,9 @@
       :width="width"
       :height="height"
   >
+    <v-card-title>
+      <h3 style="color: #353535; ">{{name}}</h3>
+    </v-card-title>
     <v-card-text align="center">
       <h1 class="price"><sup>$</sup>{{ price }}<span class="mo">/mo</span></h1>
       <p>{{ download }} Mbps Download</p>
@@ -80,6 +83,7 @@ export default {
   },
 
   props: {
+    name: String,
     price: {
       type: [Number, String],
       required: true
@@ -105,10 +109,10 @@ export default {
   },
   computed: {
     width () {
-      return this.mode === 'residential' ? 280 : 380
+      return this.mode === 'residential' ? 380 : 380
     },
     height () {
-      return this.mode === 'residential' ? 566 : 581
+      return this.mode === 'residential' ? 689 : 689
     }
   },
   watch: {
