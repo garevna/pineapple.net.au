@@ -55,3 +55,9 @@ figure > div {
   overflow: hidden;
 }
 </style>
+
+<script>
+export default {
+  name: 'CentralGreen'
+}
+</script>

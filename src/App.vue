@@ -71,6 +71,17 @@ p {
   margin-right: 0!important;
 }
 
+svg.defs-only {
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
 @media (max-width: "600px"), (max-height: "600px") {
   h1 { font-size: 28px; }
   h2 { font-size: 24px; }
@@ -92,8 +103,28 @@ export default {
   data: () => ({
 
   }),
+  methods: {
+    onResize () {
+      // this.mode = this.$vuetify.breakpoint.name
+      let mode
+      if (window.innerWidth < 600) mode = 'xs'
+      else if (window.innerWidth < 960) mode = 'sm'
+      else if (window.innerWidth < 1264) mode = 'md'
+      else if (window.innerWidth < 1904) mode = 'lg'
+      else mode = 'xl'
+
+      console.log(mode)
+      this.$store.commit('CHANGE_VIEWPORT', mode)
+    }
+  },
   mounted () {
-    // AOS.init()
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+  beforeDestroy () {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
   }
 }
 </script>

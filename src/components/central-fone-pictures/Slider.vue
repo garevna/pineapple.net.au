@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <v-row align="center" justify="center" class="mx-10">
+    <v-row align="center" justify="center" class="mx-4 mt-4">
       <v-col cols="12" md="6">
         <v-carousel
                 :show-arrows="false"
                 cycle
                 continuous
-                height="215"
-                width="320"
+                height="161"
+                width="300"
                 hide-delimiters
                 vertical
         >
@@ -15,8 +15,8 @@
               v-for="(item,i) in items"
               :key="i"
               :src="item.src"
-              width="320"
-              height="215"
+              width="300"
+              height="161"
               style="border-radius: 15px"
           ></v-carousel-item>
         </v-carousel>

@@ -2,13 +2,13 @@
   <v-card
       flat
       hover
-      class="white pa-10 my-10 mx-2"
+      :class="`white ${activeClass}`"
       :width="width"
       :height="height"
   >
-    <v-card-title>
+    <!-- <v-card-title>
       <h3 style="color: #353535; ">{{name}}</h3>
-    </v-card-title>
+    </v-card-title> -->
     <v-card-text align="center">
       <h1 class="price"><sup>$</sup>{{ price }}<span class="mo">/mo</span></h1>
       <p>{{ download }} Mbps Download</p>
@@ -16,20 +16,20 @@
       <p>Unlimited Data</p>
     </v-card-text>
     <v-card-text>
-      <p class="question">Does your building contain more then 60<br>apartments?</p>
+      <p class="question">Does your building contain more then 60 apartments?</p>
     </v-card-text>
     <v-img src="@/assets/price-card-image.png" class="price-card-image"></v-img>
 
     <div class="text-center">
-      <Menu :confirm.sync="selected"/>
+      <Menu :confirm.sync="selected" :fontSize="fontSize"/>
     </div>
 
-    <div class="text-center mt-12">
+    <div class="text-center mt-8">
       <v-btn
           color="#72BF44"
           dark
           rounded
-          class="px-12"
+          class="px-auto"
           @click="signUp('Sign Up button event\n', $event)"
       >
         Sign up now
@@ -43,11 +43,15 @@
 p {
   text-align: center;
   color: #000;
-  line-height: 250%;
+  /* line-height: 180%; */
+  font-size: var(--font-size);
+  line-height: var(--price-card-text-line-height);
 }
 .question {
   font-weight: bold;
-  line-height: 150%;
+  /* line-height: 150%; */
+  font-size: var(--price-card-font-size);
+  line-height: var(--price-card-question-line-height);
 }
 
 .price {
@@ -73,6 +77,9 @@ p {
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 import Menu from '@/components/plans/Menu.vue'
 
 export default {
@@ -108,16 +115,29 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      screen: 'viewport'
+    }),
+    activeClass () {
+      return this.screen === 'xs' || this.screen === 'sm' ? 'pa-2 my-6 mx-1'
+        : 'pa-10 my-10 mx-4'
+    },
     width () {
-      return this.mode === 'residential' ? 380 : 380
+      return this.screen === 'xs' || this.screen === 'sm' ? '247'
+        : this.mode === 'residential' ? 280 : 380
     },
     height () {
-      return this.mode === 'residential' ? 689 : 689
-    }
-  },
-  watch: {
-    selected (val) {
-      console.log('Selected: ', val)
+      return this.screen === 'xs' || this.screen === 'sm' ? '440'
+        : this.mode === 'residential' ? 566 : 581
+    },
+    fontSize () {
+      return this.screen === 'lg' ? '16px' : '13px'
+    },
+    questionLineHeight () {
+      return this.screen === 'lg' ? '150%' : '100%'
+    },
+    textLineHeight () {
+      return this.screen === 'lg' ? '180%' : '130%'
     }
   },
   methods: {
@@ -126,7 +146,17 @@ export default {
     },
     changeHandler (message, event) {
       console.log(message, event)
+    },
+    changeViewport (mode) {
+      [
+        { name: '--price-card-font-size', value: this.fontSize[screen] },
+        { name: '--price-card-question-line-height', value: this.questionLineHeight[screen] },
+        { name: '--price-card-text-line-height', value: this.textLineHeight[mode] }
+      ].forEach(item => document.documentElement.style.setProperty(item.name, item.value))
     }
+  },
+  mounted () {
+    this.changeViewport(this.mode)
   }
 }
 </script>

@@ -39,7 +39,7 @@
       <v-btn-toggle
             group
             flat
-            class="mr-10 d-none d-lg-flex d-xl-flex"
+            class="mr-10 d-none d-lg-flex"
             color="transparent"
             v-model="toggle"
       >

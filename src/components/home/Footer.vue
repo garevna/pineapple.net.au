@@ -26,7 +26,7 @@
                 >
                   <v-text-field
                     height="53"
-                    class="input-field rounded"
+                    class="input-field rounded transparent"
                     label="Name"
                     rounded
                     outlined
@@ -41,7 +41,7 @@
                 >
                   <v-text-field
                     height="53"
-                    class="input-field rounded"
+                    class="input-field rounded transparent"
                     label="Phone"
                     rounded
                     outlined

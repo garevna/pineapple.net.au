@@ -1,77 +1,93 @@
 <template>
-  <v-card flat width="100%" class="transparent">
-    <v-img src="@/assets/home/home-central-green-fone.png" cover>
-      <v-row>
-        <v-col cols="12" lg="6">
-          <img src="@/assets/home/images/2.png"
-               class="images images--2"
-          />
-          <img src="@/assets/home/images/1.png"
-               class="images images--1"
-          />
-          <img src="@/assets/home/images/3.png"
-               class="images images--3"
-          />
-          <img src="@/assets/home/images/4.png"
-               class="images images--4"
-          />
-        </v-col>
-        <v-col cols="12" lg="6" align="center" justify="center">
-          <v-card-title class="title">
-            <h2 style="color: #fff!important">Who are we?</h2>
-          </v-card-title>
-        </v-col>
-      </v-row>
-    </v-img>
-  </v-card>
+  <v-container fluid>
+    <div style="position: relative">
+      <FoneAsMap/>
+      <v-card flat class="transparent check-availability mx-auto mt-12 pt-12" width="100%">
+        <v-card-title class="mx-auto">
+          <h2>CHECK AVAILABILITY</h2>
+        </v-card-title>
+        <v-card-text>
+          <p>to find out if Pineapple Net is available at your home or business.</p>
+        </v-card-text>
+        <v-row align="center" justify="center">
+          <v-col cols="10" md="8" lg="6">
+            <v-card-text
+                class="input-address mx-auto"
+            >
+                  <v-text-field
+                    height="50"
+                    max-width="820"
+                    class="transparent"
+                    label="Enter your address"
+                    :v-model="address"
+                    rounded
+                    v-model="address"
+                    style="position: absolute; top: -14px; left: 0; font-size: 16px; v-align: middle"
+                  >
+                </v-text-field>
+                <v-btn
+                  class="input-address--button"
+                  max-width="225"
+                  min-width="225"
+                  depressed
+                  height="50"
+                  label="Check Now"
+                  dark
+                  color="#72BF44"
+                  @click="check"
+                  >Check Now</v-btn>
+            </v-card-text>
+          </v-col>
+        </v-row>
+      </v-card>
+    </div>
+  </v-container>
 </template>
 
-<style>
-.card-with-pictures {
+<style scoped>
+.check-availability {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-right: solid 10px transparent;
+}
+.input-address {
   position: relative;
-  width: 100%;
+  max-width: 820px;
+  width: 90%;
+  height: 50px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+  border-radius: 1000px;
+  border-right: solid 10px transparent;
 }
-.title {
+.input-address--button {
   position: absolute;
-  top: 35%;
-  right: 30%;
-  color: #fff;
-  /* font-family: 'Gilroy';
-  font-size: 36px;
-  font-weight: 900; */
-}
-.fone-image {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-.images {
-  position: absolute;
-  width: 21%;
-  min-with: 290px;
-  /* height: 230px; */
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px #0007;
-  transition: all 0.5s;
-}
-.images:hover {
-  box-shadow: 3px 3px 6px #0009;
-}
-
-.images--1 {
-  left: 13%;
-  top: 7%;
-}
-.images--2 {
-  left: 32%;
-  top: 28%;
-}
-.images--3 {
-  left: 10%;
-  top: 36%;
-}
-.images--4 {
-  left: 28%;
-  top: 57%;
+  top: 0px;
+  right: -10px;
+  border-radius: 1000px;
+  border: solid 2px #fff!important;
+  box-sizing: border-box;
 }
 </style>
+
+<script>
+import FoneAsMap from '@/components/check-availability/FoneAsMap.vue'
+
+export default {
+  name: 'CheckAvailability',
+  components: {
+    FoneAsMap
+  },
+  data () {
+    return {
+      address: ''
+    }
+  },
+  methods: {
+    check () {
+      console.log(this.address)
+    }
+  }
+}
+</script>

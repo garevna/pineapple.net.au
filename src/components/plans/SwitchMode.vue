@@ -11,9 +11,9 @@
   display: inline-block;
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
-  height: 60px;
-  width: 360px;
-  font-size: 16px;
+  height: var(--switch-height);
+  width: var(--switch-width);
+  font-size: var(--switch-font-size);
   border-radius: 80px;
   background-color: #72BF44;
   border-color: transparent;
@@ -24,8 +24,9 @@
 
 .checkbox:before {
     padding: 20px 40px;
+    padding-top: var(--switch-padding-top);
     font-family: 'Gilroy';
-    font-size: 16px;
+    font-size: var(--switch-font-size);
     letter-spacing: 0.02em;
     color: #20731C;
     position: absolute;
@@ -43,9 +44,9 @@
 }
 .checkbox:after {
     position: absolute;
-    top: 16px;
+    top: var(--switch-top);
     line-height: 2;
-    font-size: 16px;
+    font-size: var(--switch-font-size);
     font-weight: bold;
     font-family: 'Gilroy';
     color: #FFFFFF;
@@ -100,6 +101,9 @@
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: 'SwitchMode',
   props: {
@@ -112,27 +116,61 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      screen: 'viewport'
+    }),
     activeClass () {
       return `checkbox--${this.value}`
     },
     passiveClass () {
       return `checkbox--${this.value === 'residential' ? 'buisiness' : 'residential'}`
+    },
+    width () {
+      return this.screen === 'xs' || this.screen === 'sm' ? '305px' : '360px'
+    },
+    height () {
+      return this.screen === 'xs' || this.screen === 'sm' ? '48px' : '60px'
+    },
+    fontSize () {
+      return this.screen === 'lg' ? '16px' : '13px'
+    },
+    paddingTop () {
+      return this.screen === 'lg' ? '20px' : '12px'
+    },
+    top () {
+      return this.screen === 'lg' ? '16px' : '12px'
     }
   },
   watch: {
     mode (val) {
-      console.log('Mode has been changed: ', val)
+      console.log('Switch mode: ', val)
       this.value = val
+    },
+    activeClass (val) {
+      console.log('Active class: ', val)
+    },
+    passiveClass (val) {
+      console.log('Passive class: ', val)
+    }
+  },
+  methods: {
+    changeViewport () {
+      [
+        { name: '--switch-height', value: this.height },
+        { name: '--switch-width', value: this.width },
+        { name: '--switch-font-size', value: this.fontSize },
+        { name: '--switch-padding-top', value: this.paddingTop },
+        { name: '--switch-top', value: this.top }
+      ].forEach(item => document.documentElement.style.setProperty(item.name, item.value))
     }
   },
   mounted () {
+    this.changeViewport()
     this.value = this.mode
     this.checkbox = document.querySelector('input[type="checkbox"]')
     this.checkbox.onclick = function (event) {
-      console.log('mode: ', this.mode)
       this.value = this.value === 'residential' ? 'business' : 'residential'
       this.$emit('update:mode', this.value)
-      console.log('mode: ', this.mode)
       event.target.classList.replace(this.activeClass, this.passiveClass)
     }.bind(this)
   }

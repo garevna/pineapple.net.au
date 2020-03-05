@@ -1,0 +1,133 @@
+<template>
+  <v-container fluid fill-height>
+    <CentralGreenCircles>
+    <!-- <v-img src="@/assets/home/home-central-green-fone.png" cover> -->
+  <!-- <v-container
+          fluid
+          fill-height
+          class="full-background"
+          :style="{'background-image': `url(${require('')})`}"
+  > -->
+      <v-container fluid fill-height>
+          <v-row align-content="center" align="center" justify="space-around">
+            <v-col
+                cols="12"
+                sm="6"
+                order="last"
+                order-xs="first"
+                class="images"
+            >
+              <!-- <v-row align="center" justify="space-between"> -->
+                <!-- <v-card flat class="transparent images" width="100%"> -->
+                  <Pictures v-if="picturesVisibility"/>
+                  <Slider v-if="!picturesVisibility"/>
+                <!-- </v-card> -->
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+                  order-xs="first"
+                  order-sm="last"
+                  class="text"
+              >
+                <v-card flat class="transparent text mx-0" max-width="90%">
+                  <v-card-title>
+                    <h2 class="who-are-we--text">Who are we?</h2>
+                  </v-card-title>
+                  <v-card-text>
+                    <p class="who-are-we--text text-about">
+                      Pineapple Net is an authorised retail service provider.
+                      Our fibre optic broadband is a superior alternative to the NBN and our speeds start where the NBN typically maxes out.
+                    </P>
+                  </v-card-text>
+                </v-card>
+              <!-- </v-row> -->
+            </v-col>
+          </v-row>
+      </v-container>
+    </CentralGreenCircles>
+  </v-container>
+</template>
+
+<style scoped>
+
+.images {
+  margin-top: var(--pictures-margin-top);
+  margin-left: var(--pictures-margin-left);
+  max-width: var(--pictures-max-width);
+}
+
+.text {
+  margin-top: var(--text-margin-top);
+  margin-left: var(--text-margin-left);
+  max-width: var(--text-max-width);
+}
+
+.text-about {
+  line-height: 28px;
+}
+
+.who-are-we--text {
+  color: #fff!important;
+  text-align: left;
+}
+</style>
+
+<script>
+
+import { mapState } from 'vuex'
+
+import CentralGreenCircles from '@/components/central-fone-pictures/CentralGreenCircles.vue'
+import Pictures from '@/components/central-fone-pictures/Pictures.vue'
+import Slider from '@/components/central-fone-pictures/Slider.vue'
+
+export default {
+  name: 'WhoAreWe',
+  components: {
+    CentralGreenCircles,
+    Pictures,
+    Slider
+  },
+  data () {
+    return {
+      backImage: null,
+      foneElem: null,
+      picturesMarginLeft: { lg: '-250px', md: '-50px', sm: '10px', xs: '-200px' },
+      picturesMarginTop: { lg: '10px', md: '20px', sm: '-10px', xs: '220px' },
+      picturesDisplayMode: { lg: true, md: true, sm: false, xs: true },
+      picturesMaxWidth: { lg: '400px', md: '400px', sm: '300px', xs: '400px' },
+      textMarginLeft: { lg: '50pxt', md: '0px', sm: '0px', xs: '0px' },
+      textMarginTop: { lg: '40px', md: '40px', sm: '14px', xs: '0px' },
+      textMaxWidth: '400px'
+    }
+  },
+  watch: {
+    mode (val) {
+      this.changeViewport(val)
+    }
+  },
+  computed: {
+    ...mapState({
+      mode: 'viewport'
+    }),
+    picturesVisibility () {
+      return this.picturesDisplayMode[this.mode]
+    }
+  },
+  methods: {
+    changeViewport (mode) {
+      [
+        { name: '--pictures-margin-left', value: this.picturesMarginLeft[mode] },
+        { name: '--pictures-margin-top', value: this.picturesMarginTop[mode] },
+        { name: '--pictures-max-width', value: this.picturesMaxWidth[mode] },
+        { name: '--text-margin-left', value: this.textMarginLeft[mode] },
+        { name: '--text-margin-top', value: this.textMarginTop[mode] },
+        { name: '--text-max-width', value: this.textMaxWidth }
+      ].forEach(item => document.documentElement.style.setProperty(item.name, item.value))
+    }
+  },
+  mounted () {
+    this.changeViewport(this.mode)
+  }
+}
+</script>

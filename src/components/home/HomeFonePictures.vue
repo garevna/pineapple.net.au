@@ -1,9 +1,5 @@
 <template>
-  <v-container
-      fluid
-      data-aos="fade-up"
-      data-aos-anchor-placement="top-bottom"
-  >
+  <v-container fluid>
     <!-- <v-row width="100%"> -->
       <v-card flat class="mx-auto transparent" width="100%">
         <v-img src="@/assets/home/home-1-with-pictures.png" contain>

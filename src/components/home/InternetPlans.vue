@@ -24,7 +24,7 @@
               flat
               class="d-flex flex-wrap justify-center transparent"
       >
-        <PriceCard
+        <PriceCard class="d-none d-md-block"
                   v-for="(item, index) in residential"
                   :key="index"
                   mode="residential"
@@ -33,6 +33,40 @@
                   :download="item.download"
                   :price="item.price"
         />
+
+      <v-carousel
+          v-model="cardNum"
+          cycle
+          height="530"
+          hide-delimiter-background
+          show-arrows-on-hover
+          class="d-block d-md-none"
+        >
+          <v-carousel-item
+            v-for="(item, index) in residential"
+            :key="index"
+          >
+            <v-sheet
+              height="420"
+              light
+              class="transparent"
+            >
+              <v-row
+                class="fill-height transparent"
+                align="center"
+                justify="center"
+              >
+              <PriceCard
+                        mode="residential"
+                        :name="item.name"
+                        :upload="item.upload"
+                        :download="item.download"
+                        :price="item.price"
+              />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
       </v-card>
     </v-slide-x-transition>
 
@@ -43,7 +77,7 @@
               class="d-flex flex-wrap justify-center transparent"
               transition="slide-x-transition"
       >
-        <PriceCard
+        <PriceCard class="d-none d-md-block"
                     v-for="(item, index) in business"
                     :key="index"
                     mode="business"
@@ -52,6 +86,40 @@
                     :download="item.download"
                     :price="item.price"
         />
+
+        <v-carousel
+            v-model="cardNum"
+            cycle
+            height="530"
+            hide-delimiter-background
+            show-arrows-on-hover
+            class="d-block d-md-none"
+          >
+            <v-carousel-item
+              v-for="(item, index) in business"
+              :key="index"
+            >
+              <v-sheet
+                height="420"
+                light
+                class="transparent"
+              >
+                <v-row
+                  class="fill-height transparent"
+                  align="center"
+                  justify="center"
+                >
+                <PriceCard
+                          mode="business"
+                          :name="item.name"
+                          :upload="item.upload"
+                          :download="item.download"
+                          :price="item.price"
+                />
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
       </v-card>
     </v-slide-x-reverse-transition>
   </v-card>
@@ -63,12 +131,14 @@
 <script>
 
 import PriceCard from '@/components/plans/PriceCard.vue'
+// import PriceCardSmall from '@/components/plans/PriceCardSmall.vue'
 import SwitchMode from '@/components/plans/SwitchMode.vue'
 
 export default {
   name: 'InternetPlans',
   components: {
     PriceCard,
+    // PriceCardSmall,
     SwitchMode
   },
   props: {
@@ -76,27 +146,25 @@ export default {
   },
   data () {
     return {
-      regime: null,
+      regime: 'residential',
+      cardNum: 0,
       residential: [
-        { name: 'Orange', upload: 150, download: 150, price: 69 },
-        { name: 'Mango', upload: 500, download: 500, price: 140 },
-        { name: 'Pineapple', upload: 1000, download: 1000, price: 250 }
+        { upload: 50, download: 50, price: 50 },
+        { upload: 150, download: 150, price: 69 },
+        { upload: 500, download: 500, price: 140 },
+        { upload: 1000, download: 1000, price: 250 }
       ],
       business: [
-        { name: 'Orange', upload: 150, download: 150, price: 150 },
-        { name: 'Mango', upload: 500, download: 500, price: 240 },
-        { name: 'Pineapple', upload: 1000, download: 1000, price: 500 }
+        { upload: 150, download: 150, price: 150 },
+        { upload: 500, download: 500, price: 240 },
+        { upload: 1000, download: 1000, price: 500 }
       ]
     }
   },
   watch: {
-    regime (val) {
-      console.log('Regime was changed: ', val)
+    mode (val) {
+      this.regime = val
     }
-  },
-  mounted () {
-    console.log('Mode: ', this.mode)
-    this.regime = this.mode || 'residential'
   }
 }
 </script>

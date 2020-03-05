@@ -10,16 +10,14 @@
         </div>
       </section>
       <!-- ============================= CHECK AVAILABILITY ============================= -->
-      <!-- <section id="connect" class="my-12">
+      <section class="my-12">
         <div class="text-center base-title mx-auto">
-          <a href="#connect" class="core-goto"></a>
           <CheckAvailability/>
         </div>
-      </section> -->
+      </section>
 
       <!-- ============================= ABOUT ============================= -->
-      <a href="#about"></a>
-      <section id="top" class="mb-12">
+      <section id="about" class="mb-12">
         <div class="base-title">
           <a href="#about" class="mr-2 d-inline-flex core-goto text--primary"></a>
           <WhoAreWe/>
@@ -67,9 +65,8 @@
 
 import AppHeader from '@/components/home/AppHeader.vue'
 import Top from '@/components/home/Top.vue'
-// import CheckAvailability from '@/components/home/CheckAvailability.vue'
-// import HomeFonePictures from '@/components/home/HomeFonePictures.vue'
-import WhoAreWe from '@/components/home/WhoAreWe.vue'
+import CheckAvailability from '@/components/home/CheckAvailability.vue'
+import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
 import InternetPlans from '@/components/home/InternetPlans.vue'
 import Footer from '@/components/home/Footer.vue'
 import HowToConnect from '@/components/home/HowToConnect.vue'
@@ -80,7 +77,9 @@ export default {
     InternetPlans,
     AppHeader,
     Top,
-    // CheckAvailability,
+    CheckAvailability,
+    // CentralGreen,
+    // CentralGreen1,
     // HomeFonePictures,
     WhoAreWe,
     Footer,
@@ -89,18 +88,18 @@ export default {
   data () {
     return {
       page: 0,
-      plans: 'residential',
       pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
       selectors: ['#top', '#about', '#plans', '#plans', '#connect', null, null]
+    }
+  },
+  computed: {
+    plans () {
+      return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
     }
   },
   watch: {
     page (val) {
       if (val === 0) return
-      console.log(val, this.selectors[val])
-      if (this.pages[val] === 'Residential' || this.pages[val] === 'Business') {
-        this.plans = this.pages[val].toLowerCase()
-      }
       if (this.selectors[val]) {
         this.$vuetify.goTo(this.selectors[val], {
           duration: 500,
@@ -111,7 +110,7 @@ export default {
     }
   },
   mounted () {
-    this.plans = 'residentials'
+    //
   }
 }
 </script>

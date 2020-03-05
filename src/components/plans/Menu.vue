@@ -20,7 +20,7 @@
           <v-list-item @click="selectionHandler('Yes')" class="menu-item">
             <v-list-item-title>Yes</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="selectionHandler('No')" class="menu-item">
+          <v-list-item @click="selectionHandler('No')" class="menu-item" :style="`font-size: ${fontSize || '16px'}`">
             <v-list-item-title>No</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -58,7 +58,8 @@
 export default {
   name: 'Menu',
   props: {
-    confirm: Boolean
+    confirm: Boolean,
+    fontSize: [String, Number]
   },
   data () {
     return {
@@ -68,7 +69,6 @@ export default {
   },
   methods: {
     clickHandler (message, event) {
-      console.log(message, event)
       this.visible = !this.visible
     },
     selectionHandler (value) {
