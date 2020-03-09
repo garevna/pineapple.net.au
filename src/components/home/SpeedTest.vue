@@ -22,7 +22,7 @@
               md="5"
               lg="4"
             >
-              <v-card flat class="transparent text-center pt-md-12 pt-sm-0 mt-md-12 mt-sm-0">
+              <v-card flat class="transparent text-center pt-md-12 mt-md-12">
                 <v-card hover class="transparent text-center mx-auto px-4 py-8" width="352" height="540" style="position: relative">
                   <VueSpeedometer
                       :needleHeightRatio="0.7"
@@ -86,7 +86,7 @@ p {
   line-height: 150%;
 }
 .upload {
-  margin-top: -20px;
+  margin-top: -8px;
 }
 .download:before {
   content: 'Download: ';
