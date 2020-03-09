@@ -41,11 +41,6 @@ export default {
   name: 'FooterFoneSmall',
   computed: {
     ...mapState(['viewportWidth'])
-  },
-  watch: {
-    viewportWidth (val) {
-      console.log(val)
-    }
   }
 }
 </script>

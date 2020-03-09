@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid style="margin-top: -100px">
+  <v-container fluid :style="{ marginTop: containerMarginTop }">
       <v-row>
         <v-col xs="12" class="mx-xs-1 mx-sm-12">
           <v-row justify="center" class="mx-xs-1 mx-sm-12 mx-md-10 mx-lg-6">
@@ -126,11 +126,13 @@ export default {
       screen: 'viewportWidth'
     }),
     fontSize () {
-      console.log(this.screen, this.screen < 600 ? '13px' : '24px')
       return this.screen < 600 ? '13px' : '24px'
     },
     marginLeft () {
       return this.screen < 960 ? 'calc(50% - 176px)' : 'auto'
+    },
+    containerMarginTop () {
+      return this.screen < 600 ? '0px' : '-100px'
     }
   },
   // computed: {
