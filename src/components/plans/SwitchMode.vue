@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 
 .checkbox {
   position: relative;
@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     ...mapState({
-      screen: 'viewport'
+      screen: 'viewportWidth'
     }),
     activeClass () {
       return `checkbox--${this.value}`
@@ -126,31 +126,33 @@ export default {
       return `checkbox--${this.value === 'residential' ? 'buisiness' : 'residential'}`
     },
     width () {
-      return this.screen === 'xs' || this.screen === 'sm' ? '305px' : '360px'
+      return this.screen < 960 ? '305px' : '360px'
     },
     height () {
-      return this.screen === 'xs' || this.screen === 'sm' ? '48px' : '60px'
+      return this.screen < 960 ? '48px' : '60px'
     },
     fontSize () {
-      return this.screen === 'lg' ? '16px' : '13px'
+      return this.screen >= 960 ? '16px' : '13px'
     },
     paddingTop () {
-      return this.screen === 'lg' ? '20px' : '12px'
+      return this.screen >= 960 ? '20px' : '12px'
     },
     top () {
-      return this.screen === 'lg' ? '16px' : '12px'
+      return this.screen >= 960 ? '16px' : '12px'
     }
   },
   watch: {
+    screen (val) {
+      this.changeViewport()
+    },
     mode (val) {
-      console.log('Switch mode: ', val)
       this.value = val
     },
     activeClass (val) {
-      console.log('Active class: ', val)
+      //
     },
     passiveClass (val) {
-      console.log('Passive class: ', val)
+      //
     }
   },
   methods: {

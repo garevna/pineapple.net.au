@@ -22,16 +22,20 @@ export default new Vuetify({
       light: {
         primary: '#4CAF50',
         secondary: '#75BE00',
-        accent: '#4527A0',
-        error: '#D32F2F',
-        info: '#09b',
-        warning: '#FF6F00',
-        success: '#1B5E20',
-        fone: '#75BE00'
+        buttons: '#72BF44',
+        deepgreen: '#20731C',
+        homefone: '#FAFAFA',
+        plansfone: '#E5FDD7',
+        warning: '#FAFF00'
       },
       dark: {
         primary: '#4CAF50',
-        secondary: '#75BE00'
+        secondary: '#75BE00',
+        buttons: '#72BF44',
+        greentext: '#20731C',
+        homefone: '#FAFAFA',
+        plansfone: '#E5FDD7',
+        warning: '#FAFF00'
       }
     }
   }

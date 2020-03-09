@@ -63,16 +63,16 @@ export default {
     return {
       margins: {
         left: {
-          1: { xs: '10px', sm: '0px', md: '0px', lg: '10px' },
-          2: { xs: '150px', sm: '190px', md: '190px', lg: '320px' },
-          3: { xs: '-30px', sm: '-50px', md: '-50px', lg: '-20px' },
-          4: { xs: '120px', sm: '150px', md: '150px', lg: '230px' }
+          1: { xs: '10px', sm: '0px', md: '0px', lg: '10px', xl: '10px' },
+          2: { xs: '150px', sm: '190px', md: '190px', lg: '320px', xl: '320px' },
+          3: { xs: '-30px', sm: '-50px', md: '-50px', lg: '-20px', xl: '-20px' },
+          4: { xs: '120px', sm: '150px', md: '150px', lg: '230px', xl: '230px' }
         },
         top: {
-          1: { xs: '90px', sm: '90px', md: '90px', lg: '0px' },
-          2: { xs: '180px', sm: '190px', md: '190px', lg: '155px' },
-          3: { xs: '220px', sm: '255px', md: '255px', lg: '235px' },
-          4: { xs: '308px', sm: '350px', md: '350px', lg: '380px' }
+          1: { xs: '90px', sm: '90px', md: '90px', lg: '0px', xl: '0px' },
+          2: { xs: '180px', sm: '190px', md: '190px', lg: '155px', xl: '155px' },
+          3: { xs: '220px', sm: '255px', md: '255px', lg: '235px', xl: '235px' },
+          4: { xs: '308px', sm: '350px', md: '350px', lg: '380px', xl: '380px' }
         }
       },
       imageWidth: { xs: '170px', sm: '220px', md: '220px', lg: '325px' }

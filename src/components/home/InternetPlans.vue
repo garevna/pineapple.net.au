@@ -36,7 +36,6 @@
 
       <v-carousel
           v-model="cardNum"
-          cycle
           height="530"
           hide-delimiter-background
           show-arrows-on-hover
@@ -126,19 +125,23 @@
 </template>
 
 <style>
+.theme--dark.v-btn.v-btn--icon {
+  background: #94C578!important;
+}
+.v-window__prev .v-btn:hover, .v-window__next .v-btn:hover {
+  background: #20731C!important;
+}
 </style>
 
 <script>
 
 import PriceCard from '@/components/plans/PriceCard.vue'
-// import PriceCardSmall from '@/components/plans/PriceCardSmall.vue'
 import SwitchMode from '@/components/plans/SwitchMode.vue'
 
 export default {
   name: 'InternetPlans',
   components: {
     PriceCard,
-    // PriceCardSmall,
     SwitchMode
   },
   props: {

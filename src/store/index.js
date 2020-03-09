@@ -6,7 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    viewport: 'lg'
+    host: '',
+    viewport: 'lg',
+    viewportWidth: window.innerWidth,
+    viewportHeight: window.innerHeight
   },
   modules,
 
@@ -15,7 +18,17 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    CHANGE_VIEWPORT: (state, viewport) => { state.viewport = viewport },
+    CHANGE_VIEWPORT: (state) => {
+      state.viewport = window.innerWidth >= 1904 ? 'xl'
+        : window.innerWidth >= 1264 ? 'lg'
+          : window.innerWidth >= 960 ? 'md'
+            : window.innerWidth >= 600 ? 'sm' : 'xs'
+      state.viewportWidth = window.innerWidth
+      state.viewportHeight = window.innerHeight
+    },
+    CHANGE_VIEWPORT_WIDTH: (state, width) => { state.viewportWidth = width },
+    CHANGE_VIEWPORT_HEIGHT: (state, height) => { state.viewportHeight = height },
+
     ERROR_HANDLER: (state, { moduleName, error }) => {
       state.errorsLog.push({
         module: moduleName,

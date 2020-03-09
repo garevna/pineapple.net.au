@@ -94,9 +94,6 @@ svg.defs-only {
 
 <script>
 
-// import AOS from 'aos'
-// import 'aos/dist/aos.css'
-
 export default {
   name: 'App',
 
@@ -105,16 +102,7 @@ export default {
   }),
   methods: {
     onResize () {
-      // this.mode = this.$vuetify.breakpoint.name
-      let mode
-      if (window.innerWidth < 600) mode = 'xs'
-      else if (window.innerWidth < 960) mode = 'sm'
-      else if (window.innerWidth < 1264) mode = 'md'
-      else if (window.innerWidth < 1904) mode = 'lg'
-      else mode = 'xl'
-
-      console.log(mode)
-      this.$store.commit('CHANGE_VIEWPORT', mode)
+      this.$store.commit('CHANGE_VIEWPORT')
     }
   },
   mounted () {

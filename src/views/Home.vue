@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <AppHeader :pages="pages" :selected.sync="page"/>
-    <v-content tag="main" style="background: #E5E5E5;">
+    <v-content tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
       <section id="top" class="mb-12">
         <div class="base-title">
@@ -14,6 +14,7 @@
         <div class="text-center base-title mx-auto">
           <CheckAvailability/>
         </div>
+        <SpeedTest/>
       </section>
 
       <!-- ============================= ABOUT ============================= -->
@@ -32,24 +33,13 @@
         </div>
       </section>
 
-      <!-- ============================= ABOUT ============================= -->
-
-      <!-- <section id="about">
-        <div class="base-title">
-          <a href="#about" class="core-goto"></a>
-            <v-row width="100%">
-              <HomeFonePictures/>
-            </v-row>
-        </div>
-      </section> -->
-
       <!-- ============================= FOOTER ============================= -->
       <section id="connect">
         <div class="base-title">
           <a href="#connect" class="core-goto"></a>
             <HowToConnect/>
             <v-row width="100%">
-              <Footer/>
+              <Footer :page.sync="page"/>
             </v-row>
         </div>
       </section>
@@ -70,20 +60,19 @@ import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
 import InternetPlans from '@/components/home/InternetPlans.vue'
 import Footer from '@/components/home/Footer.vue'
 import HowToConnect from '@/components/home/HowToConnect.vue'
+import SpeedTest from '@/components/home/SpeedTest.vue'
 
 export default {
   name: 'Home',
   components: {
     InternetPlans,
-    AppHeader,
     Top,
     CheckAvailability,
-    // CentralGreen,
-    // CentralGreen1,
-    // HomeFonePictures,
     WhoAreWe,
     Footer,
-    HowToConnect
+    HowToConnect,
+    AppHeader,
+    SpeedTest
   },
   data () {
     return {
@@ -99,7 +88,11 @@ export default {
   },
   watch: {
     page (val) {
-      if (val === 0) return
+      // if (val === 0) return
+      if (this.selectors[val] === '#connect') {
+        this.$router.push({ name: 'plans' })
+        return
+      }
       if (this.selectors[val]) {
         this.$vuetify.goTo(this.selectors[val], {
           duration: 500,

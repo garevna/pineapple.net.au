@@ -26,10 +26,12 @@
 
     <div class="text-center mt-8">
       <v-btn
-          color="#72BF44"
+          color="buttons"
           dark
           rounded
-          class="px-auto"
+          width="220"
+          height="40"
+          :class="`${mode === 'residential' && screen >= 960 ? 'price-card-button' : ''} px-auto`"
           @click="signUp('Sign Up button event\n', $event)"
       >
         Sign up now
@@ -43,13 +45,11 @@
 p {
   text-align: center;
   color: #000;
-  /* line-height: 180%; */
   font-size: var(--font-size);
   line-height: var(--price-card-text-line-height);
 }
 .question {
   font-weight: bold;
-  /* line-height: 150%; */
   font-size: var(--price-card-font-size);
   line-height: var(--price-card-question-line-height);
 }
@@ -68,6 +68,10 @@ p {
   bottom: 0;
   right: 0;
   z-index: 0;
+}
+
+.price-card-button {
+  left: -8px;
 }
 
 .green-border {
@@ -116,36 +120,33 @@ export default {
   },
   computed: {
     ...mapState({
-      screen: 'viewport'
+      screen: 'viewportWidth'
     }),
     activeClass () {
-      return this.screen === 'xs' || this.screen === 'sm' ? 'pa-2 my-6 mx-1'
-        : 'pa-10 my-10 mx-4'
+      return this.screen < 960 ? 'pa-2 my-6 mx-1' : 'pa-10 my-10 mx-4'
     },
     width () {
-      return this.screen === 'xs' || this.screen === 'sm' ? '247'
-        : this.mode === 'residential' ? 280 : 380
+      return this.screen < 960 ? '247' : this.mode === 'residential' ? 280 : 380
     },
     height () {
-      return this.screen === 'xs' || this.screen === 'sm' ? '440'
-        : this.mode === 'residential' ? 566 : 581
+      return this.screen < 960 ? '440' : this.mode === 'residential' ? 566 : 581
     },
     fontSize () {
-      return this.screen === 'lg' ? '16px' : '13px'
+      return this.screen > 960 ? '16px' : '13px'
     },
     questionLineHeight () {
-      return this.screen === 'lg' ? '150%' : '100%'
+      return this.screen > 960 ? '150%' : '100%'
     },
     textLineHeight () {
-      return this.screen === 'lg' ? '180%' : '130%'
+      return this.screen > 960 ? '180%' : '130%'
     }
   },
   methods: {
     signUp (message, event) {
-      console.log(message, event)
+      //
     },
     changeHandler (message, event) {
-      console.log(message, event)
+      //
     },
     changeViewport (mode) {
       [

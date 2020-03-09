@@ -7,9 +7,9 @@
               rounded
               width="220"
               height="40"
-              class="green-border"
-                color="#20731C"
-                @click="clickHandler('Menu button event\n', $event)"
+              :style="{ 'border': border }"
+              :color="color || '#20731C'"
+              @click="clickHandler('Menu button event\n', $event)"
       >
                   {{ selected }}
                   <v-spacer></v-spacer>
@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .menu {
   position: absolute;
   top: 40px;
@@ -59,12 +59,18 @@ export default {
   name: 'Menu',
   props: {
     confirm: Boolean,
-    fontSize: [String, Number]
+    fontSize: [String, Number],
+    color: String
   },
   data () {
     return {
       selected: 'Yes',
       visible: false
+    }
+  },
+  computed: {
+    border () {
+      return `solid 1px ${this.color || '#20731C'}`
     }
   },
   methods: {

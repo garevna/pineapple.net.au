@@ -1,64 +1,50 @@
 <template>
-  <v-container fluid>
-    <v-img src="@/assets/home/footer-top.png" cover>
-      <v-card flat width="100%" class="mx-auto transparent" style="margin-top: 198px">
+  <v-container fluid fill-height style="position: relative">
+    <FooterFone/>
+    <FooterFoneSmall/>
+    <v-container fluid class="footer--top-content">
+      <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0">
         <v-card-title>
-          <h2 class="white-text centered">
-            READY TO GET STARTED?
-          </h2>
+          <h2 class="white-text centered">READY TO GET STARTED?</h2>
         </v-card-title>
-        <v-card-text>
+        <v-card-text max-width="100%">
           <h4 class="white-text centered">
-            Give us a call or drop by anytime, we endevaour to answer all<br>enquiries within 24 hours on business days.
+              Give us a call or drop by anytime, we endevaour to answer all enquiries within 24 hours on business days.
           </h4>
         </v-card-text>
-      </v-card>
-        <v-container class="transparent">
-          <v-row class="mx-auto">
-            <v-col cols="12" class="mx-auto">
-              <v-row
-                align="center"
-                justify="center"
-              >
-                <v-card
-                  class="transparent mx-1 my-1"
-                  flat
-                >
-                  <v-text-field
-                    height="53"
-                    class="input-field rounded transparent"
-                    label="Name"
-                    rounded
-                    outlined
-                    dark
-                    color="#fff"
-                    v-model="name"
-                  ></v-text-field>
-                </v-card>
-                <v-card
-                  class="transparent mx-1 my-1"
-                  flat
-                >
-                  <v-text-field
-                    height="53"
-                    class="input-field rounded transparent"
-                    label="Phone"
-                    rounded
-                    outlined
-                    dark
-                    color="#fff"
-                    v-model="phone"
-                    style="font-size: 16px; v-align: middle"
-                    background-color="transparent"
-                  ></v-text-field>
-                </v-card>
-                <v-card
-                  class="transparent mx-1 my-0"
-                  flat
-                >
+        <v-row class="mx-auto">
+          <v-col cols="12" class="mx-auto">
+            <v-row align="center" justify="center">
+              <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
+                <v-text-field
+                      height="53"
+                      class="input-field rounded transparent"
+                      label="Name"
+                      rounded
+                      outlined
+                      dark
+                      color="#fff"
+                      v-model="name"
+                ></v-text-field>
+              </v-card>
+              <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
+                <v-text-field
+                      height="53"
+                      class="input-field rounded transparent"
+                      label="Phone"
+                      rounded
+                      outlined
+                      dark
+                      color="#fff"
+                      v-model="phone"
+                      style="font-size: 16px"
+                      background-color="transparent"
+                ></v-text-field>
+              </v-card>
+              <v-card flat class="transparent mx-1 my-0">
                 <v-btn
-                  height="53"
-                  max-width="280"
+                    height="53"
+                    max-width="280"
                     min-width="280"
                     label="Phone"
                     dense
@@ -66,18 +52,18 @@
                     light
                     @click="submit"
                     style="color: #20731C; margin-bottom: 28px;"
-                  >Get started</v-btn>
-                </v-card>
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-container>
-    </v-img>
+                >Get started</v-btn>
+              </v-card>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-row>
+    </v-container>
 
-    <v-container fluid style="background: #003000; margin-bottom: -20px" class="mx-auto px-auto">
-      <v-row class="transparent mx-auto">
-        <v-col cols="12" xs="12" sm="8" md="6" lg="4">
-          <v-card flat class="transparent mx-12" width="320">
+    <v-container fluid class="footer--bottom-content" v-if="viewportWidth >= 770">
+      <v-row width="100%" justify="center" class="mx-auto">
+        <v-col style="min-width: 340px; max-width: 340px">
+          <v-card flat class="transparent mx-auto">
             <v-card-title>
               <p class="left-16">ABOUT PINEAPPLE NET</p>
             </v-card-title>
@@ -89,23 +75,23 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" xs="4" sm="4" md="6" lg="2">
-          <v-card flat class="transparent mx-12">
+        <v-col style="max-width: 180px">
+          <v-card flat class="transparent mx-auto">
             <v-card-title>
               <p class="left-16">COMPANY</p>
             </v-card-title>
             <v-card-text>
-              <p class="left-14">Home</p>
-              <p class="left-14">About</p>
-              <p class="left-14">Residential</p>
-              <p class="left-14">Business</p>
-              <p class="left-14">Connect</p>
-              <p class="left-14">Contact Us</p>
+              <p class="left-14" @click="$emit('update:page', 0)">Home</p>
+              <p class="left-14" @click="$emit('update:page', 1)">About</p>
+              <p class="left-14" @click="$emit('update:page', 2)">Residential</p>
+              <p class="left-14" @click="$emit('update:page', 3)">Business</p>
+              <p class="left-14" @click="$emit('update:page', 4)">Connect</p>
+              <p class="left-14" @click="$emit('update:page', 5)">Contact Us</p>
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" xs="4" sm="8" md="6" lg="3">
-          <v-card flat class="transparent mx-12">
+        <v-col style="max-width: 180px">
+          <v-card flat class="transparent mx-auto">
             <v-card-title>
               <p class="left-16">PRODUCTS</p>
             </v-card-title>
@@ -115,8 +101,8 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="12" xs="4" sm="4" md="6" lg="3">
-          <v-card flat class="transparent mx-12">
+        <v-col style="max-width: 180px">
+          <v-card flat class="transparent mx-auto">
             <v-card-title>
               <p class="left-16">CONNECT</p>
             </v-card-title>
@@ -132,6 +118,19 @@
 </template>
 
 <style>
+
+.footer--top-content {
+  position: absolute;
+  width: 100%;
+  top: 197px;
+}
+.footer--bottom-content {
+  position: absolute;
+  top: 604px;
+  left: 0;
+  margin-bottom: -16px;
+}
+
 .title {
   margin-top: 198px;
 }
@@ -164,13 +163,25 @@
 .input-field {
   width: 280px;
 }
+
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
+import FooterFone from '@/components/footer/FooterFone.vue'
+import FooterFoneSmall from '@/components/footer/FooterFoneSmall.vue'
+
 export default {
   name: 'Footer',
+  components: {
+    FooterFone,
+    FooterFoneSmall
+  },
   props: {
-    user: Object
+    user: Object,
+    page: Number
   },
   data () {
     return {
@@ -178,6 +189,9 @@ export default {
       phone: '',
       send: false
     }
+  },
+  computed: {
+    ...mapState(['viewportWidth'])
   },
   methods: {
     submit () {

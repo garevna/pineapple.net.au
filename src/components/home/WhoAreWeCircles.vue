@@ -92,12 +92,12 @@ export default {
     return {
       backImage: null,
       foneElem: null,
-      picturesMarginLeft: { lg: '-250px', md: '-50px', sm: '10px', xs: '-200px' },
-      picturesMarginTop: { lg: '10px', md: '20px', sm: '-10px', xs: '220px' },
-      picturesDisplayMode: { lg: true, md: true, sm: false, xs: true },
-      picturesMaxWidth: { lg: '400px', md: '400px', sm: '300px', xs: '400px' },
-      textMarginLeft: { lg: '50pxt', md: '0px', sm: '0px', xs: '0px' },
-      textMarginTop: { lg: '40px', md: '40px', sm: '14px', xs: '0px' },
+      picturesMarginLeft: { xl: '-100px', lg: '-250px', md: '-50px', sm: '10px', xs: '-200px' },
+      picturesMarginTop: { xl: '-50px', lg: '10px', md: '20px', sm: '-10px', xs: '220px' },
+      picturesDisplayMode: { xl: true, lg: true, md: true, sm: false, xs: true },
+      picturesMaxWidth: { xl: '400px', lg: '400px', md: '400px', sm: '300px', xs: '400px' },
+      textMarginLeft: { xl: '-50px', lg: '50px', md: '0px', sm: '0px', xs: '0px' },
+      textMarginTop: { xl: '40px', lg: '40px', md: '40px', sm: '14px', xs: '0px' },
       textMaxWidth: '400px'
     }
   },

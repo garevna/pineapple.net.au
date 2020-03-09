@@ -3,7 +3,7 @@
   <v-row width="100%" align="center" justify="center">
     <v-col sm="12" md="6">
         <v-card flat class="transparent">
-          <v-img src="@/assets/home/home-top-picture.png" max-width="509" class="mx-auto"></v-img>
+          <v-img src="@/assets/home/home-top-picture.png" max-width="750" class="mx-auto"></v-img>
         </v-card>
       </v-col>
       <v-col sm="12" md="6">
@@ -23,8 +23,10 @@
 <style>
 .width-100 {
   width: 100%;
+  max-width: 569px;
   border-right: solid 10px transparent;
 }
+
 </style>
 
 <script>

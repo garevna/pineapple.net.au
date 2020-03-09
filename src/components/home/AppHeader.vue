@@ -10,7 +10,7 @@
     </v-row>
   </v-system-bar>
 
-  <v-app-bar app absolute hide-on-scroll height="80" flat background="#FAFAFA" class="app-bar">
+  <v-app-bar app absolute hide-on-scroll height="80" flat class="homefone app-bar">
     <v-row align="center" justify="center">
       <span height="35" width="110" class="ml-10">
         <v-img src="@/assets/home/logo-top-left.png" contain></v-img>
