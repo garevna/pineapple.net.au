@@ -22,10 +22,6 @@ main {
   padding: 0!important;
 }
 
-.v-application .mx-auto {
-  margin-right: 10px !important;
-}
-
 .green--text {
   color: #363636;
 }
