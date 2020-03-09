@@ -126,10 +126,10 @@ export default {
       return this.screen < 960 ? 'pa-2 my-6 mx-1' : 'pa-10 my-10 mx-4'
     },
     width () {
-      return this.screen < 960 ? '247' : this.mode === 'residential' ? 280 : 380
+      return this.screen < 600 ? '247' : this.mode === 'residential' ? 280 : 380
     },
     height () {
-      return this.screen < 960 ? '440' : this.mode === 'residential' ? 566 : 581
+      return this.screen < 600 ? '440' : this.mode === 'residential' ? 566 : 581
     },
     fontSize () {
       return this.screen > 960 ? '16px' : '13px'

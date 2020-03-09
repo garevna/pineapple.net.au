@@ -36,7 +36,7 @@
 
       <v-carousel
           v-model="cardNum"
-          height="530"
+          :height="carouselHeight"
           hide-delimiter-background
           show-arrows-on-hover
           class="d-block d-md-none"
@@ -88,8 +88,7 @@
 
         <v-carousel
             v-model="cardNum"
-            cycle
-            height="530"
+            :height="carouselHeight"
             hide-delimiter-background
             show-arrows-on-hover
             class="d-block d-md-none"
@@ -135,6 +134,8 @@
 
 <script>
 
+import { mapState } from 'vuex'
+
 import PriceCard from '@/components/plans/PriceCard.vue'
 import SwitchMode from '@/components/plans/SwitchMode.vue'
 
@@ -162,6 +163,14 @@ export default {
         { upload: 500, download: 500, price: 240 },
         { upload: 1000, download: 1000, price: 500 }
       ]
+    }
+  },
+  computed: {
+    ...mapState({
+      screen: 'viewportWidth'
+    }),
+    carouselHeight () {
+      return this.screen < 960 ? this.screen < 600 ? 530 : 580 : 530
     }
   },
   watch: {
