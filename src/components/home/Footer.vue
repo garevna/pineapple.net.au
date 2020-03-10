@@ -81,12 +81,12 @@
               <p class="left-16">COMPANY</p>
             </v-card-title>
             <v-card-text>
-              <p class="left-14" @click="$emit('update:page', 0)">Home</p>
-              <p class="left-14" @click="$emit('update:page', 1)">About</p>
-              <p class="left-14" @click="$emit('update:page', 2)">Residential</p>
-              <p class="left-14" @click="$emit('update:page', 3)">Business</p>
-              <p class="left-14" @click="$emit('update:page', 4)">Connect</p>
-              <p class="left-14" @click="$emit('update:page', 5)">Contact Us</p>
+              <p class="left-14 ref" @click="$emit('update:page', 0)">Home</p>
+              <p class="left-14 ref" @click="$emit('update:page', 1)">About</p>
+              <p class="left-14 ref" @click="$emit('update:page', 2)">Residential</p>
+              <p class="left-14 ref" @click="$emit('update:page', 3)">Business</p>
+              <p class="left-14 ref" @click="$emit('update:page', 4)">Connect</p>
+              <p class="left-14 ref" @click="$emit('update:page', 5)">Contact Us</p>
             </v-card-text>
           </v-card>
         </v-col>
@@ -96,8 +96,8 @@
               <p class="left-16">PRODUCTS</p>
             </v-card-title>
             <v-card-text>
-              <p class="left-14">Residential Internet</p>
-              <p class="left-14">Business Internet</p>
+              <p class="left-14 ref">Residential Internet</p>
+              <p class="left-14 ref">Business Internet</p>
             </v-card-text>
           </v-card>
         </v-col>
@@ -107,8 +107,20 @@
               <p class="left-16">CONNECT</p>
             </v-card-title>
             <v-card-text>
-              <p class="left-14"><v-icon></v-icon>Facebook</p>
-              <p class="left-14"><v-icon></v-icon>Linkedin</p>
+              <a href="https://www.facebook.com/PineappleNetAU/" target="_blank" class="ref">
+                <p class="left-14 ref">
+                  <v-img src="@/assets/home/icons/system-bar-facebook.png" class="icon"></v-img>Facebook
+                </p>
+              </a>
+              <a href="https://www.linkedin.com/company/dgtek/" target="_blank" class="ref">
+                <p class="left-14 ref">
+                  <v-img src="@/assets/home/icons/system-bar-linkedin.png" class="icon"></v-img> Linkedin
+                </p>
+              </a>
+              <br>
+              <br>
+              <br>
+              <p class="left-14 ref">FAQs & Support</p>
             </v-card-text>
           </v-card>
         </v-col>
@@ -146,6 +158,11 @@
 .centered {
   text-align: center;
 }
+.icon {
+  display: inline-block;
+  width: 10px;
+  margin-right: 10px;
+}
 
 .left-16 {
   font-size: 16px;
@@ -158,6 +175,14 @@
   font-weight: normal;
   text-align: left;
   color: #fff;
+}
+
+.ref {
+  text-decoration: none;
+  cursor: pointer;
+}
+.ref:hover {
+  color: #E5FDD7;
 }
 
 .input-field {

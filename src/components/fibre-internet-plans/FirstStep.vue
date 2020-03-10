@@ -179,7 +179,7 @@
   line-height: 150%;
 }
 .normal-text {
-  font-weight: regular;
+  font-weight: normal;
   line-height: 250%;
 }
 

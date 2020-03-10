@@ -33,11 +33,24 @@
         </div>
       </section>
 
+      <!-- <section id="testimonials">
+        <div class="base-title">
+          <a href="#testimonials" class="core-goto"></a>
+          <Testimonials/>
+        </div>
+      </section> -->
+
       <!-- ============================= FOOTER ============================= -->
+      <v-row width="100%">
+        <HowToConnect/>
+      </v-row>
+      <v-row width="100%">
+        <Testimonials/>
+      </v-row>
+
       <section id="connect">
         <div class="base-title">
           <a href="#connect" class="core-goto"></a>
-            <HowToConnect/>
             <v-row width="100%">
               <Footer :page.sync="page"/>
             </v-row>
@@ -61,6 +74,7 @@ import InternetPlans from '@/components/home/InternetPlans.vue'
 import Footer from '@/components/home/Footer.vue'
 import HowToConnect from '@/components/home/HowToConnect.vue'
 import SpeedTest from '@/components/home/SpeedTest.vue'
+import Testimonials from '@/views/Testimonials.vue'
 
 export default {
   name: 'Home',
@@ -72,7 +86,8 @@ export default {
     Footer,
     HowToConnect,
     AppHeader,
-    SpeedTest
+    SpeedTest,
+    Testimonials
   },
   data () {
     return {
