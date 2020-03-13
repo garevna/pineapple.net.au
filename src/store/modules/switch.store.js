@@ -9,7 +9,8 @@ const state = {
 }
 
 const getters = {
-  endpoint: (state, getters, rootState) => `${rootState.host}/faq`
+  viewport: (state, getters, rootState) => rootState.viewport,
+  viewportWidth: (state, getters, rootState) => rootState.viewportWidth
 }
 
 const mutations = {

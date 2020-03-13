@@ -60,8 +60,8 @@
       </v-row>
 
     <v-row dense justify="end" class="mx-4 my-0">
-      <!-- <v-col></v-col> -->
-      <!-- <v-col>
+      <v-col></v-col>
+      <v-col>
         <v-btn
             color="deepgreen"
             rounded
@@ -69,12 +69,12 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: prev', true)"
+            @click="$emit('update:prev', true)"
         >
           Back
         </v-btn>
-      </v-col> -->
-      <!-- <v-col> -->
+      </v-col>
+      <v-col>
         <v-btn
             color="buttons"
             dark
@@ -82,11 +82,11 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: next', true)"
+            @click="$emit('update:next', true)"
         >
           Continue
         </v-btn>
-      <!-- </v-col> -->
+      </v-col>
     </v-row>
   </v-card>
 </v-card>

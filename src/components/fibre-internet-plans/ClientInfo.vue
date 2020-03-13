@@ -6,9 +6,13 @@
 
     <v-card flat class="transparent about mx-auto my-2">
       <div class="about--radio">
-        <v-radio-group v-model="plan" :mandatory="false">
-          <v-radio class="radio-custom" color="deepgreen" label="i'm a business" value="business" @click="change">
-          </v-radio>
+        <v-radio-group v-model="business">
+          <v-radio class="radio-custom"
+                   color="deepgreen"
+                   label="i'm a business"
+                   :value=true
+                   @click="togglePlan"
+          ></v-radio>
         </v-radio-group>
       </div>
 
@@ -59,34 +63,52 @@
 
       <v-row>
         <v-col>
-          <p class="normal-text">email*</p>
+          <p
+              class="normal-text"
+              :style="{ color: emailColor }"
+          >
+              email*
+          </p>
           <v-text-field
             outlined
             dense
             height="42"
             v-model="email"
+            :error="emailError"
+            :error-message="emailErrorMessage"
           ></v-text-field>
         </v-col>
         <v-col>
-          <p class="normal-text">date of birth*</p>
-          <v-menu
+          <p
+              class="normal-text"
+              :style="{ color: dateColor }"
+          >
+            date of birth*
+          </p>
+            <v-menu
               v-model="datePicker"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
               offset-y
               min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                v-model="birthDate"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-on="on"
-              ></v-text-field>
-            </template>
-            <v-date-picker v-model="birthDate" @input="datePicker = false; testBirthday()"></v-date-picker>
-          </v-menu>
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="birthDate"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                     v-model="birthDate"
+                     @input="datePicker = false"
+                     year-icon="mdi-calendar-blank"
+                     prev-icon="mdi-skip-previous"
+                     next-icon="mdi-skip-next"
+              ></v-date-picker>
+            </v-menu>
         </v-col>
       </v-row>
 
@@ -102,24 +124,26 @@
         </v-col>
         <v-col>
           <p class="normal-text">occupancy type*</p>
-          <v-text-field
+          <v-combobox
+            v-model="occupancyType"
+            :items="occupancyTypes"
             outlined
             dense
-            height="42"
-            v-model="occupancyType"
-          ></v-text-field>
+            autocomplete="off"
+          ></v-combobox>
         </v-col>
       </v-row>
 
       <v-row>
         <v-col>
           <p class="normal-text">where did you hear about us?*</p>
-          <v-text-field
+          <v-combobox
+            v-model="infoSource"
+            :items="infoSources"
             outlined
             dense
-            height="42"
-            v-model="source"
-          ></v-text-field>
+            autocomplete="off"
+          ></v-combobox>
         </v-col>
       </v-row>
     </v-card>
@@ -134,7 +158,7 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: prev', true)"
+            @click="$emit('update:prev', true)"
         >
           Back
         </v-btn>
@@ -147,7 +171,7 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: next', true)"
+            @click="$emit('update:next', true)"
         >
           Continue
         </v-btn>
@@ -217,7 +241,11 @@
 
 <script>
 
+import { mapState } from 'vuex'
+
 import ThirdStep from '@/components/fibre-internet-plans/steps/ThirdStep.vue'
+
+const emailValidator = require('email-validator')
 
 export default {
   name: 'Modems',
@@ -225,37 +253,89 @@ export default {
     ThirdStep
   },
   props: {
-    business: Boolean,
     next: Boolean,
     prev: Boolean
   },
   data () {
     return {
-      plan: 'residential',
-      businessName: '',
-      abnNumber: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      birthDate: new Date().toISOString().substr(0, 10),
-      occupancyType: '',
-      source: '',
+      business: this.plan === 'business',
+      emailError: false,
+      emailErrorMessage: '',
+      emailColor: '#000',
+      dateError: false,
       datePicker: false,
+      dateColor: '#000',
       minDate: new Date(new Date() - 18 * 365 * 24 * 60 * 60 * 1000),
       maxDate: new Date(new Date() - 100 * 365 * 24 * 60 * 60 * 1000)
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.internetPlans.userInfo,
+      occupancyTypes: state => state.internetPlans.occupancyTypes,
+      infoSources: state => state.internetPlans.infoSources
+    }),
+    plan: {
+      get () { return this.userInfo.plan },
+      set (val) { this.$store.commit('internetPlans/USER_PLAN', val) }
+    },
+    businessName: {
+      get () { return this.userInfo.businessName },
+      set (val) { this.$store.commit('internetPlans/USER_BUSINESS_NAME', val) }
+    },
+    abnNumber: {
+      get () { return this.userInfo.abnNumber },
+      set (val) { this.$store.commit('internetPlans/USER_ABN_NUMBER', val) }
+    },
+    firstName: {
+      get () { return this.userInfo.firstName },
+      set (val) { this.$store.commit('internetPlans/USER_FIRST_NAME', val) }
+    },
+    lastName: {
+      get () { return this.userInfo.lastName },
+      set (val) { this.$store.commit('internetPlans/USER_LAST_NAME', val) }
+    },
+    email: {
+      get () { return this.userInfo.email },
+      set (val) {
+        this.emailError = !emailValidator.validate(val)
+        this.emailColor = this.emailError ? '#f00' : '#000'
+        this.emailError || this.$store.commit('internetPlans/USER_EMAIL', val)
+      }
+    },
+    birthDate: {
+      get () {
+        return this.userInfo.birthDate
+      },
+      set (val) {
+        this.$store.commit('internetPlans/USER_BIRTHDATE', val)
+        this.dateError = new Date(this.birthDate) > this.minDate || new Date(this.birthDate) < this.maxDate
+        this.dateColor = this.dateError ? '#f00' : '#000'
+      }
+    },
+    phone: {
+      get () { return this.userInfo.phone },
+      set (val) { this.$store.commit('internetPlans/USER_PHONE', val) }
+    },
+    occupancyType: {
+      get () { return this.userInfo.occupancyType },
+      set (val) { this.$store.commit('internetPlans/USER_OCCUPANCY', val) }
+    },
+    infoSource: {
+      get () { return this.userInfo.infoSource },
+      set (val) { this.$store.commit('internetPlans/USER_INFO_SOURCE', val) }
+    }
+  },
+
   methods: {
-    change () {
-      this.plan = this.plan === 'business' ? 'residential' : 'business'
+    togglePlan () {
+      this.business = !this.business
+      this.plan = this.business ? 'business' : 'residential'
+      this.$store.commit('internetPlans/USER_PLAN', this.plan)
     },
     getRelativeData (data, days) {
       if (!(data instanceof Date)) return
       return new Date(data.setDate(data.getDate() + days))
-    },
-    testBirthday () {
-      return this.birthDate <= this.minDate && this.birthDate > this.maxDate
     }
   }
 }

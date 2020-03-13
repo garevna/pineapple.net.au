@@ -1,5 +1,5 @@
 <template>
-<v-container fluid v-if="viewportWidth <= 420">
+<v-container fluid v-if="viewportWidth <= 7700">
   <svg class="defs-only" width="360" height="563" viewBox="0 0 360 563" fill="none" xmlns="http://www.w3.org/2000/svg">
     <symbol id="footer-background-small">
       <path d="M -6 43.34 V 258.19 C 171.87 231.79 227.42 265.69 377 279.94 V 34.29 C 225.7 33.77 144.19 -48.29 -6 43.34 Z" fill="#94C578"></path>
@@ -20,7 +20,7 @@
 
   <figure class="footer-background-small">
     <svg :width="viewportWidth" height="563">
-        <use xlink:href="#footer-background-small" style="transform: scale(1.05, 1.05)"></use>
+        <use xlink:href="#footer-background-small" style="transform: scale(1.1, 1.1)"></use>
     </svg>
   </figure>
 </v-container>

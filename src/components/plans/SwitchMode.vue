@@ -147,6 +147,7 @@ export default {
     },
     mode (val) {
       this.value = val
+      this.$store.commit('CHANGE_PLAN', val)
     },
     activeClass (val) {
       //

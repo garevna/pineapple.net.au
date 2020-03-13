@@ -9,7 +9,8 @@ export default new Vuex.Store({
     host: '',
     viewport: 'lg',
     viewportWidth: window.innerWidth,
-    viewportHeight: window.innerHeight
+    viewportHeight: window.innerHeight,
+    plan: 'residential'
   },
   modules,
 
@@ -28,6 +29,8 @@ export default new Vuex.Store({
     },
     CHANGE_VIEWPORT_WIDTH: (state, width) => { state.viewportWidth = width },
     CHANGE_VIEWPORT_HEIGHT: (state, height) => { state.viewportHeight = height },
+
+    CHANGE_PLAN: (state, plan) => { state.plan = plan },
 
     ERROR_HANDLER: (state, { moduleName, error }) => {
       state.errorsLog.push({

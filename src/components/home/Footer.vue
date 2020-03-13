@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height style="position: relative">
     <FooterFone/>
-    <FooterFoneSmall/>
+    <!-- <FooterFoneSmall/> -->
     <v-container fluid class="footer--top-content">
       <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0">
         <v-card-title>
@@ -60,7 +60,9 @@
       </v-row>
     </v-container>
 
-    <v-container fluid class="footer--bottom-content" v-if="viewportWidth >= 770">
+    <FooterBottomContent  v-if="viewportWidth >= 770" />
+    <FooterBottomContentSmall  v-if="viewportWidth < 770" class="footer--bottom-content-small"/>
+    <!-- <v-container fluid class="footer--bottom-content" v-if="viewportWidth >= 770">
       <v-row width="100%" justify="center" class="mx-auto">
         <v-col style="min-width: 340px; max-width: 340px">
           <v-card flat class="transparent mx-auto">
@@ -112,7 +114,7 @@
                   <v-img src="@/assets/home/icons/system-bar-facebook.png" class="icon"></v-img>Facebook
                 </p>
               </a>
-              <a href="https://www.linkedin.com/company/dgtek/" target="_blank" class="ref">
+              <a href="https://www.linkedin.com/company/pineapplenet/" target="_blank" class="ref">
                 <p class="left-14 ref">
                   <v-img src="@/assets/home/icons/system-bar-linkedin.png" class="icon"></v-img> Linkedin
                 </p>
@@ -125,7 +127,8 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
+
   </v-container>
 </template>
 
@@ -136,11 +139,11 @@
   width: 100%;
   top: 197px;
 }
-.footer--bottom-content {
+.footer--bottom-content-small {
   position: absolute;
-  top: 604px;
+  top: 640px;
   left: 0;
-  margin-bottom: -16px;
+  /* margin-bottom: -16px; */
 }
 
 .title {
@@ -196,13 +199,16 @@
 import { mapState } from 'vuex'
 
 import FooterFone from '@/components/footer/FooterFone.vue'
-import FooterFoneSmall from '@/components/footer/FooterFoneSmall.vue'
+// import FooterFoneSmall from '@/components/footer/FooterFoneSmall.vue'
+import FooterBottomContent from '@/components/footer/BottomContent.vue'
+import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 
 export default {
   name: 'Footer',
   components: {
     FooterFone,
-    FooterFoneSmall
+    FooterBottomContentSmall,
+    FooterBottomContent
   },
   props: {
     user: Object,

@@ -33,13 +33,6 @@
         </div>
       </section>
 
-      <!-- <section id="testimonials">
-        <div class="base-title">
-          <a href="#testimonials" class="core-goto"></a>
-          <Testimonials/>
-        </div>
-      </section> -->
-
       <!-- ============================= FOOTER ============================= -->
       <v-row width="100%">
         <HowToConnect/>
@@ -48,19 +41,20 @@
         <Testimonials/>
       </v-row>
 
-      <section id="connect">
+      <section id="footer">
         <div class="base-title">
-          <a href="#connect" class="core-goto"></a>
+          <a href="#footer" class="core-goto"></a>
             <v-row width="100%">
               <Footer :page.sync="page"/>
             </v-row>
         </div>
       </section>
+
     </v-content>
   </v-container>
 </template>
 
-<style lang="scss">
+<style>
 
 </style>
 
@@ -93,7 +87,7 @@ export default {
     return {
       page: 0,
       pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-      selectors: ['#top', '#about', '#plans', '#plans', '#connect', null, null]
+      selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', null]
     }
   },
   computed: {
@@ -108,6 +102,10 @@ export default {
         this.$router.push({ name: 'plans' })
         return
       }
+      if (this.selectors[val] === '#contact') {
+        this.$router.push({ name: 'contact' })
+        return
+      }
       if (this.selectors[val]) {
         this.$vuetify.goTo(this.selectors[val], {
           duration: 500,
@@ -118,7 +116,7 @@ export default {
     }
   },
   mounted () {
-    //
+    this.page = this.$route.params.page || 0
   }
 }
 </script>

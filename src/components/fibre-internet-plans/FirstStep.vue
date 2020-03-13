@@ -114,7 +114,7 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: prev', true)"
+            @click="$emit('update:prev', true)"
         >
           Back
         </v-btn>
@@ -127,7 +127,7 @@
             width="220"
             height="40"
             class="my-10"
-            @click="$emit('update: next', true)"
+            @click="$emit('update:next', true)"
         >
           Continue
         </v-btn>

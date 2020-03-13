@@ -8,7 +8,7 @@
       </span>
       <span class="system-bar-phone ml-2 mr-12">1300 857 501</span>
       <span width="10" height="10" class="mr-4">
-        <a href="https://www.linkedin.com/company/dgtek/" target="_blank">
+        <a href="https://www.linkedin.com/company/pineapplenet/" target="_blank">
           <v-img src="@/assets/home/icons/system-bar-linkedin.png"></v-img>
         </a>
       </span>
@@ -66,7 +66,7 @@
 </v-container>
 </template>
 
-<style>
+<style scoped>
 .v-btn-toggle > .v-btn.v-btn--active {
   color: #72BF44!important;
 }
