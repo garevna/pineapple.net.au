@@ -25,7 +25,7 @@
           <p class="left-14 ref" @click="$emit('update:page', 2)">Residential</p>
           <p class="left-14 ref" @click="$emit('update:page', 3)">Business</p>
           <p class="left-14 ref" @click="$emit('update:page', 4)">Connect</p>
-          <p class="left-14 ref" @click="$emit('update:page', 5)">Contact Us</p>
+          <p class="left-14 ref" @click="$router.push({ name: 'contact' })">Contact Us</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -72,7 +72,8 @@
   position: absolute;
   top: 604px;
   left: 0;
-  margin-bottom: -16px;
+  overflow: hidden;
+  margin-bottom: -4px;
 }
 </style>
 

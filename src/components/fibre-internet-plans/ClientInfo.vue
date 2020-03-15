@@ -1,8 +1,6 @@
 <template>
-  <v-card flat class="transparent mt-0 mb-12 pa-0">
-    <v-card-title class="plans--title deepgreen text-center px-auto pt-0">
-      <ThirdStep/><span>tell us some more about yourself</span>
-    </v-card-title>
+  <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
+    <StepHeader :tab="2"/>
 
     <v-card flat class="transparent about mx-auto my-2">
       <div class="about--radio">
@@ -17,7 +15,7 @@
       </div>
 
       <v-row v-if="plan==='business'">
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">business name</p>
           <v-text-field
             outlined
@@ -26,7 +24,7 @@
             v-model="businessName"
           ></v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">abn number</p>
           <v-text-field
             outlined
@@ -41,7 +39,7 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">first name*</p>
           <v-text-field
             outlined
@@ -50,7 +48,7 @@
             v-model="firstName"
           ></v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">last name*</p>
           <v-text-field
             outlined
@@ -62,7 +60,7 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p
               class="normal-text"
               :style="{ color: emailColor }"
@@ -78,7 +76,7 @@
             :error-message="emailErrorMessage"
           ></v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p
               class="normal-text"
               :style="{ color: dateColor }"
@@ -113,7 +111,7 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">mobile number*</p>
           <v-text-field
             outlined
@@ -122,7 +120,7 @@
             v-model="phone"
           ></v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">occupancy type*</p>
           <v-combobox
             v-model="occupancyType"
@@ -135,7 +133,7 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col class="py-0">
           <p class="normal-text">where did you hear about us?*</p>
           <v-combobox
             v-model="infoSource"
@@ -148,29 +146,28 @@
       </v-row>
     </v-card>
 
-    <v-row dense justify="end" class="ma-4">
-      <v-col></v-col>
-      <v-col>
+    <v-row dense align="start" justify="center" class="mx-4 mt-10">
+      <v-col cols="12" md="6" class="text-center">
         <v-btn
             color="deepgreen"
             rounded
             outlined
             width="220"
             height="40"
-            class="my-10"
+            class="my-2"
             @click="$emit('update:prev', true)"
         >
           Back
         </v-btn>
       </v-col>
-      <v-col>
+      <v-col cols="12" md="6" class="text-center">
         <v-btn
             color="buttons"
             dark
             rounded
             width="220"
             height="40"
-            class="my-10"
+            class="my-2"
             @click="$emit('update:next', true)"
         >
           Continue
@@ -194,20 +191,6 @@
 </style>
 
 <style scoped>
-.plans--title {
-  height: 110px;
-  text-transform: uppercase;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  color: #fff;
-  padding: 0px 10px;
-}
-
-.plans--title > * {
-  margin-top: -24px;
-}
 
 .about {
   position: relative;
@@ -243,14 +226,14 @@
 
 import { mapState } from 'vuex'
 
-import ThirdStep from '@/components/fibre-internet-plans/steps/ThirdStep.vue'
+import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 
 const emailValidator = require('email-validator')
 
 export default {
-  name: 'Modems',
+  name: 'ClientInfo',
   components: {
-    ThirdStep
+    StepHeader
   },
   props: {
     next: Boolean,
@@ -270,14 +253,16 @@ export default {
     }
   },
   computed: {
+    ...mapState(['viewportWidth']),
     ...mapState({
       userInfo: state => state.internetPlans.userInfo,
       occupancyTypes: state => state.internetPlans.occupancyTypes,
       infoSources: state => state.internetPlans.infoSources
     }),
+    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
     plan: {
       get () { return this.userInfo.plan },
-      set (val) { this.$store.commit('internetPlans/USER_PLAN', val) }
+      set (val) { this.$store.commit('internetPlans/SELECT_PLAN', val) }
     },
     businessName: {
       get () { return this.userInfo.businessName },
@@ -331,7 +316,7 @@ export default {
     togglePlan () {
       this.business = !this.business
       this.plan = this.business ? 'business' : 'residential'
-      this.$store.commit('internetPlans/USER_PLAN', this.plan)
+      this.$store.commit('internetPlans/SELECT_PLAN', this.plan)
     },
     getRelativeData (data, days) {
       if (!(data instanceof Date)) return

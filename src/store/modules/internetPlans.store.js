@@ -5,19 +5,20 @@
 const state = {
   plans: {
     residential: [
-      { upload: 50, download: 50, price: 50, color: '#fff' },
-      { upload: 150, download: 150, price: 69, color: '#72BF44' },
-      { upload: 500, download: 500, price: 140, color: '#fff' },
-      { upload: 1000, download: 1000, price: 250, color: '#fff' }
+      { upload: 50, download: 50, price: 50, selected: false },
+      { upload: 150, download: 150, price: 69, selected: false },
+      { upload: 500, download: 500, price: 140, selected: false },
+      { upload: 1000, download: 1000, price: 250, selected: false }
     ],
     business: [
-      { upload: 150, download: 150, price: 150, color: '#fff' },
-      { upload: 500, download: 500, price: 240, color: '#fff' },
-      { upload: 1000, download: 1000, price: 500, color: '#fff' }
+      { upload: 150, download: 150, price: 150, selected: false },
+      { upload: 500, download: 500, price: 240, selected: false },
+      { upload: 1000, download: 1000, price: 500, selected: false }
     ]
   },
   userInfo: {
     plan: 'residential',
+    promocode: '',
     businessName: '',
     abnNumber: '',
     firstName: '',
@@ -33,25 +34,25 @@ const state = {
       ccv: '000'
     }
   },
-  occupancyTypes: [1, 2, 3],
+  occupancyTypes: ['first', 'second', 'third'],
   infoSources: ['1...', '2...', '3...']
 }
 
 const getters = {
   plan: (state, getters, rootState) => rootState.plan,
-  currentPlan: (state, getters) => state.plans[getters.plan]
-  // articleEndpoint: (state, getters, rootState) => `${rootState.host}/blog/article`,
-  // uploadPictureEndpoint: (state, getters, rootState) => `${rootState.host}/blog/picture`,
-  // uploadAvatarEndpoint: (state, getters, rootState) => `${rootState.host}/blog/avatar`,
-  // staticPictureEndpoint: (state, getters, rootState) => `${rootState.host}/images`,
-  // staticAvatarEndpoint: (state, getters, rootState) => `${rootState.host}/avatars`,
-  // picturesEndpoint: (state, getters, rootState) => `${rootState.host}/blog/images`,
-  // avatarsEndpoint: (state, getters, rootState) => `${rootState.host}/blog/avatars`,
+  // plans: (state, getters, rootState) => rootState.plans,
+  currentPlan: (state, getters) => getters.plans[getters.plan]
   // imageSrc: (folderName, fileName) => (state, getters, rootState) => `${rootState.host}/${folderName}/${fileName}`
 }
 
 const mutations = {
-  USER_PLAN: (state, bool) => { state.userInfo.plan = bool },
+  SELECT_PLAN: (state, plan) => { state.userInfo.plan = plan },
+  SELECT_TARIF: (state, tarifIndex) => { state.plans[state.userInfo.plan][tarifIndex].selected = true },
+  CLEAR_SELECTION: (state) => {
+    state.plans.residential.forEach((tarif) => { tarif.selected = false })
+    state.plans.business.forEach((tarif) => { tarif.selected = false })
+  },
+  SET_PROMO_CODE: (state, promo) => { state.userInfo.promocode = promo },
   USER_BUSINESS_NAME: (state, name) => { state.userInfo.businessName = name },
   USER_ABN_NUMBER: (state, num) => { state.userInfo.abnNumber = num },
   USER_FIRST_NAME: (state, name) => { state.userInfo.firstName = name },

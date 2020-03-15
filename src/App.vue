@@ -7,6 +7,7 @@
 </template>
 
 <style lang="scss">
+
 html {
   margin-right: -20px;
   margin-bottom: -10px;
@@ -84,8 +85,12 @@ svg.defs-only {
   h3 { font-size: 20px; }
   h4 { font-size: 18px; }
   p { font-size: 16px; }
-
 }
+
+@media (max-width: '400px'), (max-height: '400px') {
+  h4 { font-size: 16px; }
+}
+
 </style>
 
 <script>

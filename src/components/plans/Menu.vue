@@ -5,9 +5,9 @@
               text
               outlined
               rounded
-              width="220"
+              :width="menuWidth"
               height="40"
-              :style="{ 'border': border }"
+              :style="{ border: border, fontSize: font }"
               :color="color || '#20731C'"
               @click="clickHandler('Menu button event\n', $event)"
       >
@@ -17,10 +17,10 @@
       </v-btn>
       <v-slide-y-transition>
         <v-list v-if="visible" @mouseleave.native="visible=false" light class="menu" transition="expand">
-          <v-list-item @click="selectionHandler('Yes')" class="menu-item">
+          <v-list-item @click="selectionHandler('Yes')" class="menu-item" :style="{ fontSize: font }">
             <v-list-item-title>Yes</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="selectionHandler('No')" class="menu-item" :style="`font-size: ${fontSize || '16px'}`">
+          <v-list-item @click="selectionHandler('No')" class="menu-item" :style="{ fontSize: font }">
             <v-list-item-title>No</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -60,7 +60,8 @@ export default {
   props: {
     confirm: Boolean,
     fontSize: [String, Number],
-    color: String
+    color: String,
+    width: [Number, String]
   },
   data () {
     return {
@@ -71,6 +72,12 @@ export default {
   computed: {
     border () {
       return `solid 1px ${this.color || '#20731C'}`
+    },
+    font () {
+      return this.fontSize || '16px'
+    },
+    menuWidth () {
+      return this.width || 220
     }
   },
   methods: {

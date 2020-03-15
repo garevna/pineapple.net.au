@@ -1,170 +1,154 @@
 <template>
-  <v-card flat class="transparent mt-0 mb-12 pa-0">
-    <v-card-title class="plans--title deepgreen text-center px-auto pt-0">
-      <FirstStep/><span>I want an internet service</span>
-    </v-card-title>
+<v-container fluid>
+  <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
+    <StepHeader :tab="0"/>
 
-    <v-card flat class="transparent mx-auto my-2">
-      <SwitchMode :mode.sync="plan"/>
+    <v-card flat class="transparent mx-auto my-4">
+      <SwitchMode :mode.sync="currentPlan"/>
     </v-card>
 
-    <v-card flat hover class="white-card mx-auto my-2">
-      <v-row align="center" justify="space-around">
-        <v-col cols="3">
-          <sup class="dollar">$</sup>
-          <span class="price">50</span>
-          <span class="mo">/mo</span>
-        </v-col>
-        <v-col cols="4">
-          <p class="normal-text">
-            50 Mbps Download<br>
-            50 Mbps Upload<br>
-            Unlimited Data
-          </p>
-        </v-col>
-        <v-col cols="5">
-          <p class="bold-text">
-            Does your building contain more than 60 apartments?
-          </p>
-          <Menu :confirm.sync="apartments"/>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-card flat hover dark color="buttons" class="green-card text--white mx-auto my-2">
-      <v-row align="center" justify="space-around">
-        <v-col cols="3">
-          <sup class="dollar">$</sup>
-          <span class="price">69</span>
-          <span class="mo">/mo</span>
-        </v-col>
-        <v-col cols="4">
-          <p class="normal-text">
-            150 Mbps Download<br>
-            150 Mbps Upload<br>
-            Unlimited Data
-          </p>
-        </v-col>
-        <v-col cols="5">
-          <p class="bold-text">
-            Does your building contain more than 60 apartments?
-          </p>
-          <Menu
-              :confirm.sync="apartments"
-              color="#fff"
-              fontSize="14px"
-          />
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-card flat hover class="white-card mx-auto my-2">
-      <v-row align="center" justify="space-around">
-        <v-col cols="3">
-          <sup class="dollar">$</sup>
-          <span class="price">140</span>
-          <span class="mo">/mo</span>
-        </v-col>
-        <v-col cols="4">
-          <p class="normal-text">
-            500 Mbps Download<br>
-            500 Mbps Upload<br>
-            Unlimited Data
-          </p>
-        </v-col>
-        <v-col cols="5">
-          <p class="bold-text">
-            Does your building contain more than 60 apartments?
-          </p>
-          <Menu :confirm.sync="apartments"/>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-card flat hover class="white-card mx-auto my-2">
-      <v-row align="center" justify="space-around">
-        <v-col cols="3">
-          <sup class="dollar">$</sup>
-          <span class="price">250</span>
-          <span class="mo">/mo</span>
-        </v-col>
-        <v-col cols="4">
-          <p class="normal-text">
-            1000 Mbps Download<br>
-            1000 Mbps Upload<br>
-            Unlimited Data
-          </p>
-        </v-col>
-        <v-col cols="5">
-          <p class="bold-text">
-            Does your building contain more than 60 apartments?
-          </p>
-          <Menu :confirm.sync="apartments"/>
-        </v-col>
-      </v-row>
-    </v-card>
-
-    <v-row dense justify="end" class="mx-auto my-2">
-      <v-col></v-col>
-      <v-col>
-        <v-btn
-            color="deepgreen"
-            rounded
-            outlined
-            width="220"
-            height="40"
-            class="my-10"
-            @click="$emit('update:prev', true)"
-        >
-          Back
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-            color="buttons"
-            dark
-            rounded
-            width="220"
-            height="40"
-            class="my-10"
-            @click="$emit('update:next', true)"
-        >
-          Continue
-        </v-btn>
-      </v-col>
+    <v-row v-if="viewportWidth > 680" class="mx-auto">
+      <v-card
+            flat
+            hover
+            width="640"
+            height="140"
+            v-for="(tarif, index) in tarifs"
+            :key="index"
+            class="card--wide mx-auto my-2"
+            @click="selectTarif(index)"
+            :color="tarif.selected ? selectedColor : 'white'"
+      >
+        <v-row align="center" justify="space-around" width="100%">
+          <v-col cols="3">
+            <sup class="dollar" :style="{ color: greenTextColor(tarif) }">$</sup>
+            <span class="price" :style="{ color: greenTextColor(tarif) }">{{ tarif.price }}</span>
+            <span class="mo" :style="{ color: greenTextColor(tarif) }">/mo</span>
+          </v-col>
+          <v-col cols="4">
+            <p class="normal-text" :style="{ color: grayTextColor(tarif) }">
+              {{ tarif.download }} Mbps Download<br>
+              {{ tarif.download }} Mbps Upload<br>
+              Unlimited Data
+            </p>
+          </v-col>
+          <v-col cols="5">
+            <p class="bold-text"  :style="{ color: blackTextColor(tarif) }">
+              Does your building contain more than 60 apartments?
+            </p>
+            <Menu
+                :confirm.sync="apartments"
+                :color="tarif.selected ? '#fff' : '#20731C'"
+                fontSize="14px"
+            />
+          </v-col>
+        </v-row>
+      </v-card>
     </v-row>
+
+    <v-row v-else>
+      <v-card
+            flat
+            hover
+            width="340"
+            height="158"
+            v-for="(tarif, index) in tarifs"
+            :key="index"
+            class="mx-auto my-2"
+            @click="selectTarif(index)"
+            :color="tarif.selected ? selectedColor : 'white'"
+      >
+        <v-row align="center" justify="space-around" width="100%">
+          <v-col cols="6">
+            <sup class="dollar" :style="{ color: greenTextColor(tarif) }">$</sup>
+            <span class="price" :style="{ color: greenTextColor(tarif) }">{{ tarif.price }}</span>
+            <span class="mo" :style="{ color: greenTextColor(tarif) }">/mo</span>
+            <br><br>
+            <p class="normal-text shrink" :style="{ color: grayTextColor(tarif) }">
+              {{ tarif.download }} Mbps Download<br>
+              {{ tarif.download }} Mbps Upload<br>
+              Unlimited Data
+            </p>
+          </v-col>
+          <v-col cols="6">
+            <p class="bold-text"  :style="{ color: blackTextColor(tarif) }">
+              Does your building contain more than 60 apartments?
+            </p>
+            <Menu
+                :confirm.sync="apartments"
+                :color="tarif.selected ? '#fff' : '#20731C'"
+                fontSize="13px"
+                width="150"
+            />
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-row>
+
+    <v-row>
+        <v-col xs="12" class="mx-xs-1 mx-sm-12">
+          <v-row justify="center" class="mx-xs-1 mx-sm-12 mx-md-10 mx-lg-6">
+            <v-col
+              cols="12"
+              md="9"
+              lg="8"
+            >
+              <v-card flat class="transparent text-center pa-4">
+                <v-text-field
+                    single-line
+                    dense
+                    solo
+                    flat
+                    background-color="transparent"
+                    placeholder="Add a promo code"
+                    color="deepgreen"
+                    height="40"
+                    min-width="320"
+                    class="promo-code"
+                    v-model="promocode"
+                ></v-text-field>
+               </v-card>
+            </v-col>
+
+            <v-col
+              cols="12"
+              md="3"
+              lg="4"
+            >
+              <v-card flat class="transparent text-center pa-4">
+                <v-btn
+                    color="buttons"
+                    dark
+                    rounded
+                    :width="buttonWidth"
+                    height="40"
+                    @click="$emit('update:next', true)"
+                >
+                  Continue
+                </v-btn>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
   </v-card>
+</v-container>
 </template>
 
 <style scoped>
-.plans--title {
-  height: 110px;
-  text-transform: uppercase;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  color: #fff;
-  padding: 0px 10px;
-}
 
-.plans--title > * {
-  margin-top: -24px;
-}
-
-.white-card, .green-card {
+.card {
   position: relative;
   top: 14px;
   height: 140px;
   width: 638px;
   margin-top: 16px;
 }
-.white-card {
-  background-color: #fff;
-  color: #353535;
-}
-.green-card {
-  color: #fff;
+
+.shrink {
+  font-size: 13px!important;
+  line-height: 150%!important;
 }
 
 .bold-text, .normal-text {
@@ -212,18 +196,29 @@
   color: #fff;
 }
 
+.promo-code {
+  border: solid 1px #20731C;
+  border-radius: 40px!important;
+  height: 40px;
+  font-size: 14px;
+  padding: 0 16px;
+  color: #20731C;
+}
+
 </style>
 
 <script>
 
-import FirstStep from '@/components/fibre-internet-plans/steps/FirstStep.vue'
+import { mapState } from 'vuex'
+
+import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 import SwitchMode from '@/components/plans/SwitchMode.vue'
 import Menu from '@/components/plans/Menu.vue'
 
 export default {
-  name: 'Modems',
+  name: 'FirstStep',
   components: {
-    FirstStep,
+    StepHeader,
     SwitchMode,
     Menu
   },
@@ -233,8 +228,42 @@ export default {
   },
   data () {
     return {
-      plan: 'residential',
-      apartments: false
+      currentPlan: 'residential',
+      apartments: false,
+      selectedColor: '#72BF44',
+      promocode: ''
+    }
+  },
+  computed: {
+    ...mapState(['viewportWidth']),
+    ...mapState('internetPlans', ['plans']),
+    tarifs () {
+      return this.plans[this.currentPlan]
+    },
+    buttonWidth () { return this.viewportWidth < 600 ? '100%' : '220px' },
+    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' }
+  },
+  watch: {
+    currentPlan (val) {
+      this.$store.commit('internetPlans/SELECT_PLAN', val)
+    },
+    promocode (val) {
+      this.$store.commit('internetPlans/SET_PROMO_CODE', val)
+    }
+  },
+  methods: {
+    grayTextColor (tarif) {
+      return tarif.selected ? '#fff' : '#353535'
+    },
+    blackTextColor (tarif) {
+      return tarif.selected ? '#fff' : '#000'
+    },
+    greenTextColor (tarif) {
+      return tarif.selected ? '#fff' : '#20731C'
+    },
+    selectTarif (index) {
+      this.$store.commit('internetPlans/CLEAR_SELECTION')
+      this.$store.commit('internetPlans/SELECT_TARIF', index)
     }
   },
   mounted () {

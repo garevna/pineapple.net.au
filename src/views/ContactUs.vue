@@ -18,26 +18,31 @@
         </v-col>
         <v-col cols="12" md="8" class="mx-auto">
           <v-card flat class="transparent mx-auto" max-width="700">
-            <v-row>
-              <v-col cols="12" md="6">
+            <v-row class="my-0">
+              <v-col cols="12" md="6" class="input my-0">
                 <p><b>Full name</b></p>
                 <v-text-field
                         dence
                         outlined
                         v-model="fullName"
+                        :hint="fullNameHint"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" md="6">
-                <p><b>Email</b></p>
+              <v-col cols="12" md="6" class="input my-0">
+                <p
+                    :style="{ color: emailColor }"
+                ><b>Email</b></p>
                 <v-text-field
                         dence
                         outlined
                         v-model="email"
+                        :error="emailError"
+                        :hint="emailHint"
                 ></v-text-field>
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12">
+              <v-col cols="12" class="input my-0">
                 <p><b>Your enquiry</b></p>
                 <v-textarea
                         outlined
@@ -45,11 +50,12 @@
                         height="110"
                         value=""
                         v-model="message"
+                        hint="20 symbols or more"
                 ></v-textarea>
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
+              <v-col class="input my-0">
                 <v-btn
                     color="buttons"
                     dark
@@ -57,7 +63,9 @@
                     width="220"
                     height="40"
                     class="my-10"
+                    :disabled="disabledButton"
                     @click="sendMessage"
+                    :value="buttonValue"
                 >
                   Send message
                 </v-btn>
@@ -75,6 +83,7 @@
         <FooterBottomContentSmall v-if="viewportWidth < 770" class="footer-bottom-content" :style="{ top: bottomContentTop }" />
       </v-row>
     </v-content>
+    <SuccessPopup :success.sync="success"/>
   </v-container>
 </template>
 
@@ -82,12 +91,17 @@
 .footer-bottom-content {
   position: absolute;
   overflow: hidden;
+  margin-bottom: -10px;
 }
 .contact-fone {
   margin-top: 120px!important;
 }
 h3, p, small {
   text-align: left;
+}
+.input {
+  margin-bottom: 0;
+  line-height: 0;
 }
 </style>
 
@@ -100,6 +114,9 @@ import FooterFone from '@/components/footer/FooterFone.vue'
 import Map from '@/components/map/Map.vue'
 import FooterBottomContent from '@/components/footer/BottomContent.vue'
 import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
+import SuccessPopup from '@/components/contact/SuccessPopup.vue'
+
+const emailValidator = require('email-validator')
 
 export default {
   name: 'Home',
@@ -108,19 +125,26 @@ export default {
     FooterFone,
     FooterBottomContent,
     FooterBottomContentSmall,
-    Map
+    Map,
+    SuccessPopup
   },
   data () {
     return {
-      page: 0,
-      pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-      fullName: '',
-      email: '',
-      message: ''
+      page: null,
+      pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Sign In'],
+      emailError: false,
+      emailHint: '',
+      emailColor: '#000',
+      messageError: true,
+      fullNameError: true,
+      fullNameHint: '',
+      buttonValue: '',
+      success: false
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
     },
@@ -135,6 +159,34 @@ export default {
     },
     mapMargin () {
       return this.viewportWidth <= 420 ? '0%' : '10%'
+    },
+    fullName: {
+      get () { return this.userFullName },
+      set (val) {
+        this.$store.commit('contact/USER_FULL_NAME', val)
+        this.fullNameError = this.fullName.length < 2
+        this.fullNameHint = this.fullNameError ? 'Enter your full name please' : ''
+      }
+    },
+    email: {
+      get () { return this.userEmail },
+      set (val) {
+        this.emailError = !emailValidator.validate(val)
+        this.emailColor = val && this.emailError ? '#f00' : '#000'
+        this.emailHint = this.emailError ? 'Invalid email' : ''
+        this.$store.commit('contact/USER_EMAIL', val)
+      }
+    },
+    message: {
+      get () { return this.userMessage },
+      set (val) {
+        this.messageError = this.message.length < 20
+        this.$store.commit('contact/USER_MESSAGE', val)
+      }
+    },
+    disabledButton () {
+      const duplicated = this.buttonValue === this.fullName + this.email + this.message
+      return duplicated || this.fullNameError || this.emailError || this.messageError
     }
   },
   watch: {
@@ -149,11 +201,14 @@ export default {
   },
   methods: {
     sendMessage () {
-      console.log(this.fullName, this.email, this.message)
+      // if (this.buttonValue === this.fullName + this.email + this.message) return
+      this.buttonValue = this.fullName + this.email + this.message
+      this.fullName = this.email = this.message = ''
+      // const res = await this.$store.dispatch('contact/SEND_MESSAGE')
+      // if (res) {
+      this.success = true
+      // }
     }
-  },
-  mounted () {
-    //
   }
 }
 </script>

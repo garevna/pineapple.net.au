@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <AppHeader :pages="pages" :selected.sync="page"/>
+    <AppHeader :pages="activePages" :selected.sync="page"/>
     <v-content tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
       <section id="top" class="mb-12">
@@ -93,6 +93,11 @@ export default {
   computed: {
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
+    },
+    activePages () {
+      console.log(this.page)
+      console.log(this.pages.filter((page, index) => index !== this.page, this))
+      return this.pages.filter(page => page !== this.page, this)
     }
   },
   watch: {

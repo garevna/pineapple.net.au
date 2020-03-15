@@ -1,10 +1,10 @@
 <template>
   <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
-    <StepHeader :tab="3"/>
+    <StepHeader :tab="4"/>
 
     <v-card flat class="transparent about mx-auto my-2">
       <v-row dense justify="end" class="mx-4 my-0">
-        <v-col cols="12" md="6">
+        <v-col>
           <p class="normal-text">first name*</p>
           <v-text-field
             outlined
@@ -13,7 +13,7 @@
             v-model="firstName"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col>
           <p class="normal-text">last name*</p>
           <v-text-field
             outlined
@@ -37,7 +37,7 @@
       </v-row>
 
       <v-row dense justify="end" class="mx-4 my-0">
-        <v-col cols="12" md="6">
+        <v-col>
           <p class="normal-text">card expiry</p>
           <v-text-field
             outlined
@@ -46,7 +46,7 @@
             v-model="cardExpiry"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col>
           <p class="normal-text">ccv</p>
           <v-text-field
             outlined
@@ -57,28 +57,29 @@
         </v-col>
       </v-row>
 
-    <v-row dense align="start" justify="center" class="mx-4 mt-10">
-      <v-col cols="12" md="6" class="text-center">
+    <v-row dense justify="end" class="mx-4 my-0">
+      <v-col></v-col>
+      <v-col>
         <v-btn
             color="deepgreen"
             rounded
             outlined
             width="220"
             height="40"
-            class="my-2"
+            class="my-10"
             @click="$emit('update:prev', true)"
         >
           Back
         </v-btn>
       </v-col>
-      <v-col cols="12" md="6" class="text-center">
+      <v-col>
         <v-btn
             color="buttons"
             dark
             rounded
             width="220"
             height="40"
-            class="my-2"
+            class="my-10"
             @click="$emit('update:next', true)"
         >
           Continue
@@ -90,7 +91,6 @@
 </template>
 
 <style>
-
 .radio-custom label {
   font-style: normal!important;
   font-weight: bold!important;
@@ -143,7 +143,7 @@ import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 import CreditCards from '@/components/fibre-internet-plans/cards/Cards.vue'
 
 export default {
-  name: 'PaymentDetails',
+  name: 'PaymentInfo',
   components: {
     StepHeader,
     CreditCards

@@ -151,24 +151,20 @@ export default {
   data () {
     return {
       regime: 'residential',
-      cardNum: 0,
-      residential: [
-        { upload: 50, download: 50, price: 50 },
-        { upload: 150, download: 150, price: 69 },
-        { upload: 500, download: 500, price: 140 },
-        { upload: 1000, download: 1000, price: 250 }
-      ],
-      business: [
-        { upload: 150, download: 150, price: 150 },
-        { upload: 500, download: 500, price: 240 },
-        { upload: 1000, download: 1000, price: 500 }
-      ]
+      cardNum: 0
     }
   },
   computed: {
     ...mapState({
       screen: 'viewportWidth'
     }),
+    ...mapState('internetPlans', ['plans']),
+    residential () {
+      return this.plans.residential
+    },
+    business () {
+      return this.plans.business
+    },
     carouselHeight () {
       return this.screen < 960 ? this.screen < 600 ? 530 : 580 : 530
     }
@@ -177,6 +173,9 @@ export default {
     mode (val) {
       this.regime = val
     }
+  },
+  mounted () {
+    //
   }
 }
 </script>

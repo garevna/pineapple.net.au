@@ -7,29 +7,31 @@
         background-color="primary"
         centered
         dark
-        icons-and-text
+        fixed-tabs
+        icons
         height="50"
+        mobile-break-point="50"
       >
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#tab-1">
-          <FirstTab/>
+          <v-icon>mdi-numeric-1-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-2">
-          <SecondTab/>
+          <v-icon>mdi-numeric-2-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-3">
-          <ThirdTab/>
+          <v-icon>mdi-numeric-3-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-4">
-          <FourthTab/>
+          <v-icon>mdi-numeric-4-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-5">
-          <LastTab/>
+          <v-icon>mdi-numeric-5-box</v-icon>
         </v-tab>
       </v-tabs>
 
@@ -47,36 +49,16 @@
           <PaymentDetails :prev.sync="fourthTabPrev" :next.sync="fourthTabNext"/>
         </v-tab-item>
         <v-tab-item value="tab-5">
-          <v-card flat class="plansfone mx-auto" width="480" height="342">
-            <v-card-title class="plans--title deepgreen text-center">
-              <span style="width: 100%; margin-top: 0">payment information</span>
-            </v-card-title>
-          </v-card>
+          <PaymentInfo :prev.sync="fourthTabPrev"/>
         </v-tab-item>
       </v-tabs-items>
     </v-card>
-
-      <!-- <v-row dense width="1180" align="start" align-content="start" justify="center">
-
-        <v-col width="680" class="main-column plansfone pa-0">
-          <FirstStep/>
-          <Modems/>
-          <ClientInfo/>
-          <PaymentDetails/>
-        </v-col>
-        <v-col width="480" class="additional-column">
-          <v-card flat class="plansfone mx-auto" width="480" height="342">
-            <v-card-title class="plans--title deepgreen text-center">
-              <span style="width: 100%; margin-top: 0">payment information</span>
-            </v-card-title>
-          </v-card>
-        </v-col>
-      </v-row> -->
     </v-row>
   </v-container>
 </template>
 
 <style scoped>
+
 .container-top-0 {
   margin-top: 0!important;
 }
@@ -86,51 +68,29 @@
   padding: 0;
   height: 3158px;
 }
-.additional-column {
+/* .additional-column {
   margin: 0;
-}
-.plans--title {
-  height: 110px;
-  text-transform: uppercase;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  color: #fff;
-  padding: 0px 20px;
-}
-
-.plans--title > * {
-  margin-top: -24px;
-}
+} */
 
 </style>
 
 <script>
-import FirstTab from '@/components/fibre-internet-plans/steps/FirstStep.vue'
-import SecondTab from '@/components/fibre-internet-plans/steps/SecondStep.vue'
-import ThirdTab from '@/components/fibre-internet-plans/steps/ThirdStep.vue'
-import FourthTab from '@/components/fibre-internet-plans/steps/FourthStep.vue'
-import LastTab from '@/components/fibre-internet-plans/steps/LastStep.vue'
 
 import FirstStep from '@/components/fibre-internet-plans/FirstStep.vue'
 import Modems from '@/components/fibre-internet-plans/Modems.vue'
 import ClientInfo from '@/components/fibre-internet-plans/ClientInfo.vue'
 import PaymentDetails from '@/components/fibre-internet-plans/PaymentDetails.vue'
+import PaymentInfo from '@/components/fibre-internet-plans/PaymentInfo.vue'
 
 export default {
   name: 'FibreInternetPlans',
 
   components: {
-    FirstTab,
-    SecondTab,
-    ThirdTab,
-    FourthTab,
-    LastTab,
     FirstStep,
     Modems,
     ClientInfo,
-    PaymentDetails
+    PaymentDetails,
+    PaymentInfo
   },
 
   data: () => ({
@@ -164,6 +124,11 @@ export default {
     fourthTabNext: {
       get () { return false },
       set (val) { this.tab = val ? 'tab-5' : this.tab }
+    }
+  },
+  watch: {
+    viewportWidth (val) {
+      console.log('Viewport width: ', val)
     }
   }
 }

@@ -113,9 +113,6 @@ export default {
       toggle: 0
     }
   },
-  watch: {
-    //
-  },
   methods: {
     getClassName (pageName) {
       const className = pageName === 'Sign In' ? ' app-bar-menu-bordered py-2 px-12' : ''
