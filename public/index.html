@@ -8,13 +8,15 @@
     <title>Pineapple.net</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+
   </head>
   <body>
     <noscript>
       <strong>We're sorry but this application doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app" style="padding-bottom: 0!important"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVql75Qc_Y5oGvrxdcNRNMhBlZEzTdk1o"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= VUE_APP_GOOGLE_MAP_API_KEY %>&libraries=geometry,places"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>
