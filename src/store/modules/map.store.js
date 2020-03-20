@@ -8,7 +8,7 @@ const state = {
   keyPartOfEndpoint: ',+CA&key=AIzaSyBVql75Qc_Y5oGvrxdcNRNMhBlZEzTdk1o',
   officeCoords: null,
   serviceAvailable: null,
-  markerImage: '/img/icons/marker-25x34.png'
+  markerImage: 'img/icons/marker-25x34.png'
 }
 
 const getters = {
