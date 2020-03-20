@@ -9,7 +9,7 @@
               lg="5"
             >
               <v-card flat class="transparent pa-8">
-                <h1>Australia's <span class="green--text">Premium<br>Optical Fibre</span> Network</h1>
+                <h1 class="text-center text-md-left">Australia's <span class="green--text">Premium<br>Optical Fibre</span> Network</h1>
                 <p :style="{ fontSize: fontSize }">With speeds up to 1000Mbps, say goodbye to buffering, enjoy crystal clear video streaming, low latency and superior gaming capability.
                   Talk to family and friends without worrying about call quality.</p>
                 <p :style="{ fontSize: fontSize }">All Pineapple Net packages include unlimited data with no interruption.

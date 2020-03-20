@@ -95,18 +95,27 @@ svg.defs-only {
 
 <script>
 
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'App',
 
   data: () => ({
 
   }),
+  computed: {
+    ...mapState('map', ['serviceAvailable'])
+  },
   methods: {
+    ...mapActions({
+      getAvailable: 'map/GET_AVAILABLE'
+    }),
     onResize () {
       this.$store.commit('CHANGE_VIEWPORT')
     }
   },
   mounted () {
+    this.getAvailable()
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },

@@ -17,58 +17,70 @@
 
 import { mapState } from 'vuex'
 
-// import SearchOnMap from '@/components/map/SearchOnMap.vue'
 import mapConfigs from '@/components/map/mapConfig'
 
 export default {
   components: {
-    // SearchOnMap
+    //
   },
   props: ['height', 'width', 'margin'],
   data () {
     return {
+      service: window.google.maps,
+      serviceAvailable: [],
       map: null,
-      marker: null,
+      mapData: null,
       center: { lat: -37.8357725, lng: 144.9738764 }
     }
   },
 
   computed: {
-    ...mapState({
-      screen: 'viewportWidth',
-      place: 'map.officeCoords',
-      address: 'map.officeAddress'
+    ...mapState({ screen: 'viewportWidth' }),
+    ...mapState('map', {
+      place: 'officeCoords',
+      address: 'officeAddress',
+      markerIcon: 'markerImage',
+      available: 'serviceAvailable'
     })
   },
 /* eslint-disable */
-  watch: {
-    place (val) {
-      console.log('PLACE: ', val)
-      // this.marker = new google.maps.Marker({
-      //   position: val,
-      //   map: this.map,
-      //   title: this.address
-      // })
+
+  methods: {
+    async init () {
+      // await this.$store.dispatch('map/GET_OFFICE_COORDS')
+      this.map = new this.$geo.Map(document.getElementById('map-container'), {
+        center: this.center,
+        zoom: 13,
+        styles: mapConfigs,
+        disableDefaultUI: true
+      })
+      this.marker = new this.$geo.Marker({
+        position: this.center,
+        map: this.map,
+        title: this.address,
+        icon: this.markerIcon
+      })
+      this.$geo.event.addListener(this.map, 'click', function (event) {
+        let result = false
+        for (const polygon of this.available) {
+          result = this.$geoLocation(event.latLng, polygon)
+          if (result) {
+            // this.map.setCenter(event.latLng)
+            // this.marker.setPosition(event.latLng)
+            new this.$geo.Marker({
+              position: event.latLng,
+              map: this.map,
+              icon: this.markerIcon
+            })
+            break
+          }
+        }
+      }.bind(this))
     }
   },
 
-  methods: {
-    //
-  },
-
   mounted () {
-    this.$store.dispatch('map/GET_OFFICE_COORDS')
-    this.map = new window.google.maps.Map(document.getElementById('map-container'), {
-      center: this.center,
-      zoom: 13,
-      styles: mapConfigs,
-      disableDefaultUI: true
-    })
-    this.marker = new google.maps.Marker({
-      position: this.center,
-      map: this.map,
-      title: this.address
-    })
+    this.init()
   }
 }
 </script>

@@ -12,18 +12,16 @@
           </p>
         </v-card-text>
         <v-row align="center" justify="center">
-          <!-- <v-col cols="12" md="8" lg="6"> -->
             <v-card-text :class="`mx-auto address-card address-card--${screen}`">
               <v-text-field
                     :class="`transparent address-input address-input--${screen}`"
-                    label="Enter your address"
-                    :v-model="address"
                     :height="buttonHeight"
                     rounded
                     v-model="address"
+                    placeholder="Enter your address"
+                    id="autocompleteAddress"
                   >
               </v-text-field>
-              <!-- <v-row align="center" justify="center"> -->
                   <v-btn
                     :class="`address-button address-button--${screen}`"
                     depressed
@@ -31,17 +29,15 @@
                     :height="buttonHeight"
                     color="#72BF44"
                     label="Check Now"
-                    @click="check"
+                    @click="checkAvailable"
                     >Check Now
                   </v-btn>
-              <!-- </v-row> -->
             </v-card-text>
-          <!-- </v-col> -->
         </v-row>
       </v-card>
     </div>
-    <SuccessPopup :success.sync="success"/>
-    <!-- <SuccessPopupSmall :success.sync="success" v-else/> -->
+    <SuccessPopup :success.sync="success" />
+    <FailurePopup :failure.sync="failure" />
   </v-container>
 </template>
 
@@ -135,31 +131,30 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import FoneAsMap from '@/components/check-availability/FoneAsMap.vue'
 import SuccessPopup from '@/components/check-availability/SuccessPopup.vue'
-// import SuccessPopupSmall from '@/components/check-availability/SuccessPopupSmall.vue'
+import FailurePopup from '@/components/check-availability/FailurePopup.vue'
 
 export default {
   name: 'CheckAvailability',
   components: {
     FoneAsMap,
-    SuccessPopup
+    SuccessPopup,
+    FailurePopup
   },
   data () {
     return {
       address: '',
-      success: false
-    }
-  },
-  watch: {
-    mode (val) {
-      this.changeViewport(val)
+      success: false,
+      failure: false,
+      location: null
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('map', ['markerImage', 'serviceAvailable']),
     screen () {
       return this.viewportWidth < 960 ? 'shrink' : 'wide'
     },
@@ -168,15 +163,28 @@ export default {
     }
   },
   methods: {
-    check () {
-      this.success = true
-    },
-    changeViewport (mode) {
-
+    ...mapActions({
+      getAvailable: 'map/GET_AVAILABLE'
+    }),
+    checkAvailable () {
+      for (const polygon of this.serviceAvailable) {
+        if (this.$geoLocation(this.location, polygon)) {
+          this.success = true
+          break
+        }
+      }
+      this.failure = !this.success
     }
   },
   mounted () {
-    this.changeViewport(this.mode)
+    const inputElement = document.getElementById('autocompleteAddress')
+    const autocomplete = new this.$Autocomplete(inputElement, { componentRestrictions: { country: 'au' } })
+    const self = this
+    autocomplete.addListener('place_changed', function () {
+      const place = autocomplete.getPlace()
+      inputElement.value = place.formatted_address
+      self.location = place.geometry.location
+    })
   }
 }
 </script>

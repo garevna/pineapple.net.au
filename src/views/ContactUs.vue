@@ -144,6 +144,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('map', ['markerImage']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'

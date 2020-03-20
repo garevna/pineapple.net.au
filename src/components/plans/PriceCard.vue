@@ -1,11 +1,10 @@
 <template>
   <v-card
-      flat
-      hover
-      :class="`white ${activeClass}`"
+      :class="`price-card-with-border green-border ${activeClass}`"
       :width="width"
       :height="height"
   >
+  <!-- <div class="transparent price-card-border"> -->
     <!-- <v-card-title>
       <h3 style="color: #353535; ">{{name}}</h3>
     </v-card-title> -->
@@ -37,10 +36,23 @@
         Sign up now
       </v-btn>
     </div>
+  <!-- </div> -->
   </v-card>
 </template>
 
 <style>
+
+.price-card-with-border {
+  /* box-sizing: border-box; */
+  border-style: solid;
+  border: 0;
+  border-radius: 16px!important;
+  transition: all 0.8s;
+}
+.price-card-with-border:hover {
+  border-top: 4px solid #20731C!important;
+  border-bottom: 4px solid #20731C90!important;
+}
 
 p {
   text-align: center;

@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
@@ -11,7 +12,12 @@ import '@/sass/variables.scss'
 
 Vue.config.productionTip = false
 
-new Vue({
+Vue.prototype.$geo = window.google.maps
+Vue.prototype.$geoCoder = new window.google.maps.Geocoder()
+Vue.prototype.$Autocomplete = window.google.maps.places.Autocomplete
+Vue.prototype.$geoLocation = window.google.maps.geometry.poly.containsLocation
+
+const vue = new Vue({
   router,
   store,
   vuetify,
