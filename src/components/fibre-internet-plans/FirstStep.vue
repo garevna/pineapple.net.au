@@ -85,15 +85,15 @@
       </v-card>
     </v-row>
 
-    <v-row>
-        <v-col xs="12" class="mx-xs-1 mx-sm-12">
-          <v-row justify="center" class="mx-xs-1 mx-sm-12 mx-md-10 mx-lg-6">
+    <v-row class="my-12">
+        <v-col xs="12" class="mx-auto">
+          <v-row justify="center" class="text-center mx-auto mx-md-10 mx-lg-6 my-2 py-10" style="max-width: 680px">
             <v-col
-              cols="12"
-              md="9"
-              lg="8"
+               cols="12"
+               md="8"
+               my-0
+               py-0
             >
-              <v-card flat class="transparent text-center pa-4">
                 <v-text-field
                     single-line
                     dense
@@ -107,26 +107,25 @@
                     class="promo-code"
                     v-model="promocode"
                 ></v-text-field>
-               </v-card>
             </v-col>
 
             <v-col
-              cols="12"
-              md="3"
-              lg="4"
+               cols="8"
+               sm="6"
+               md="4"
+               my-0
+               py-0
             >
-              <v-card flat class="transparent text-center pa-4">
                 <v-btn
                     color="buttons"
                     dark
                     rounded
-                    :width="buttonWidth"
+                    width="100%"
                     height="40"
                     @click="$emit('update:next', true)"
                 >
                   Continue
                 </v-btn>
-              </v-card>
             </v-col>
           </v-row>
         </v-col>
@@ -262,7 +261,6 @@ export default {
       return tarif.selected ? '#fff' : '#20731C'
     },
     selectTarif (index) {
-      this.$store.commit('internetPlans/CLEAR_SELECTION')
       this.$store.commit('internetPlans/SELECT_TARIF', index)
     }
   },

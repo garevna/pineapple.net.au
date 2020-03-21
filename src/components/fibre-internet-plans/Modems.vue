@@ -34,43 +34,8 @@
       </v-card>
     </v-row>
 
-    <!-- <v-card flat hover class="white-card mx-auto my-2" :width="cardWidth" :height="cardHeight">
-      <p class="large-text">
-        I need a modem
-      </p>
-      <div class="price">
-        <span class="dollar">$</span>
-        <span class="price">180</span>
-      </div>
-      <p class="normal-text">
-        Preconfigured for you for easy setup
-      </p>
-    </v-card>
-
-    <v-card flat hover class="white-card mx-auto my-2">
-      <p class="large-text">
-        BYO modem
-      </p>
-      <p class="normal-text">
-        You’ll need a Gigabit modem which can be reconfigured
-      </p>
-    </v-card>
-
-    <v-card flat hover class="white-card mx-auto my-2">
-      <p class="large-text">
-        I need a modem
-      </p>
-      <div class="price">
-        <span class="dollar">$</span>
-        <span class="price">0</span>
-      </div>
-      <p class="normal-text">
-        Yes, I need a $0 modem (on 12 month contracts)
-      </p>
-    </v-card> -->
-
     <v-row dense align="start" justify="center" class="mx-4 mt-10">
-      <v-col cols="12" md="6" class="text-center">
+      <v-col cols="12" sm="6" class="text-center">
         <v-btn
             color="deepgreen"
             rounded
@@ -83,7 +48,7 @@
           Back
         </v-btn>
       </v-col>
-      <v-col cols="12" md="6" class="text-center">
+      <v-col cols="12" sm="6" class="text-center">
         <v-btn
             color="buttons"
             dark

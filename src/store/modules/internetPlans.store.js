@@ -17,7 +17,8 @@ const state = {
     ]
   },
   userInfo: {
-    plan: 'residential',
+    selectedPlan: 'residential',
+    visiblePlan: 'residential',
     promocode: '',
     businessName: '',
     abnNumber: '',
@@ -35,23 +36,28 @@ const state = {
     }
   },
   occupancyTypes: ['first', 'second', 'third'],
-  infoSources: ['1...', '2...', '3...']
+  infoSources: ['source 1', 'source 2', 'source 3']
 }
 
 const getters = {
-  plan: (state, getters, rootState) => rootState.plan,
-  // plans: (state, getters, rootState) => rootState.plans,
-  currentPlan: (state, getters) => getters.plans[getters.plan]
+  homePagePlan: (state, getters, rootState) => rootState.plan,
+  clientTarif: (state) => state.userInfo.selectedPlan ? state.plans[state.userInfo.selectedPlan].find(item => item.selected) : null,
+  currentPlan: (state, getters) => state.plans[getters.plan]
   // imageSrc: (folderName, fileName) => (state, getters, rootState) => `${rootState.host}/${folderName}/${fileName}`
 }
 
 const mutations = {
-  SELECT_PLAN: (state, plan) => { state.userInfo.plan = plan },
-  SELECT_TARIF: (state, tarifIndex) => { state.plans[state.userInfo.plan][tarifIndex].selected = true },
-  CLEAR_SELECTION: (state) => {
+  SELECT_PLAN: (state, plan) => { state.userInfo.visiblePlan = plan },
+  SELECT_TARIF: (state, tarifIndex) => {
+    state.userInfo.selectedPlan = state.userInfo.visiblePlan
     state.plans.residential.forEach((tarif) => { tarif.selected = false })
     state.plans.business.forEach((tarif) => { tarif.selected = false })
+    state.plans[state.userInfo.selectedPlan][tarifIndex].selected = true
   },
+  // CLEAR_SELECTION: (state) => {
+  //   state.plans.residential.forEach((tarif) => { tarif.selected = false })
+  //   state.plans.business.forEach((tarif) => { tarif.selected = false })
+  // },
   SET_PROMO_CODE: (state, promo) => { state.userInfo.promocode = promo },
   USER_BUSINESS_NAME: (state, name) => { state.userInfo.businessName = name },
   USER_ABN_NUMBER: (state, num) => { state.userInfo.abnNumber = num },

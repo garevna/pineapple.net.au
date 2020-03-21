@@ -23,7 +23,7 @@
               lg="4"
             >
               <v-card flat class="transparent text-center pt-md-12 mt-md-12">
-                <v-card hover class="transparent text-center mx-auto px-4 py-8" width="352" height="540" style="position: relative">
+                <v-card hover class="speedtest-card transparent text-center px-4 py-8">
                   <VueSpeedometer
                       :needleHeightRatio="0.7"
                       :needleTransitionDuration="500"
@@ -41,9 +41,8 @@
                       color="buttons"
                       dark
                       rounded
-                      class="px-10"
+                      class="run-button px-auto mx-auto"
                       @click="runSpeedTest"
-                      style="position: absolute; top: 220px; left: 75px;"
                   >
                       Click to Begin
                   </v-btn>
@@ -66,14 +65,27 @@
 </template>
 
 <style scoped>
+
 p {
   text-align: left;
   line-height: 150%;
   color: #6D6D6D;
   margin: 20px 0px 0px 10px;
 }
-.speedtest--card {
-  margin-left: calc(50%)
+
+.speedtest-card {
+  position: relative;
+  min-width: 352px;
+  max-width: 352px;
+  height: 540px;
+  margin-left: calc(50% - 176px);
+}
+
+.run-button {
+  position: absolute;
+  top: 220px;
+  width: 220px;
+  left: calc(50% - 110px);
 }
 .provider {
   color: #20731C;
@@ -127,9 +139,6 @@ export default {
     }),
     fontSize () {
       return this.screen < 600 ? '13px' : '24px'
-    },
-    marginLeft () {
-      return this.screen < 960 ? 'calc(50% - 176px)' : 'auto'
     },
     containerMarginTop () {
       return this.screen < 600 ? '0px' : '-100px'

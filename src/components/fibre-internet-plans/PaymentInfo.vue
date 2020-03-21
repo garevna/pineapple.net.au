@@ -2,110 +2,43 @@
   <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
     <StepHeader :tab="4"/>
 
-    <v-card flat class="transparent about mx-auto my-2">
+    <v-card flat class="transparent payment-info mx-auto my-2">
       <v-row dense justify="end" class="mx-4 my-0">
         <v-col>
-          <p class="normal-text">first name*</p>
+          <p class="normal-text">Address</p>
           <v-text-field
             outlined
             dense
             height="42"
-            v-model="firstName"
-          ></v-text-field>
-        </v-col>
-        <v-col>
-          <p class="normal-text">last name*</p>
-          <v-text-field
-            outlined
-            dense
-            height="42"
-            v-model="lastName"
+            v-model="address"
           ></v-text-field>
         </v-col>
       </v-row>
-
-      <v-row dense justify="end" class="mx-4 my-0">
+      <v-row class="mt-12">
         <v-col>
-          <p class="normal-text">card number <CreditCards/></p>
-          <v-text-field
-            outlined
-            dense
-            height="42"
-            v-model="cardNumber"
-          ></v-text-field>
+          <p class="normal-text">Plan</p>
+          <span class="dollar-small">$</span>
+          <span class="price-small">{{ clientTarif ? clientTarif.price : '' }}</span>
+          <span class="mo-small">/mo</span>
         </v-col>
       </v-row>
-
-      <v-row dense justify="end" class="mx-4 my-0">
-        <v-col>
-          <p class="normal-text">card expiry</p>
-          <v-text-field
-            outlined
-            dense
-            height="42"
-            v-model="cardExpiry"
-          ></v-text-field>
-        </v-col>
-        <v-col>
-          <p class="normal-text">ccv</p>
-          <v-text-field
-            outlined
-            dense
-            height="42"
-            v-model="ccv"
-          ></v-text-field>
-        </v-col>
-      </v-row>
-
-    <v-row dense justify="end" class="mx-4 my-0">
-      <v-col></v-col>
-      <v-col>
-        <v-btn
-            color="deepgreen"
-            rounded
-            outlined
-            width="220"
-            height="40"
-            class="my-10"
-            @click="$emit('update:prev', true)"
-        >
-          Back
-        </v-btn>
-      </v-col>
-      <v-col>
-        <v-btn
-            color="buttons"
-            dark
-            rounded
-            width="220"
-            height="40"
-            class="my-10"
-            @click="$emit('update:next', true)"
-        >
-          Continue
-        </v-btn>
-      </v-col>
-    </v-row>
   </v-card>
+  <v-row class="deepgreen mt-12" width="100%">
+    <v-col cols="8" class="my-auto pl-6">
+      <p class="yellow-text" :style="{ fontSize: yellowFontSize }">what you pay today</p>
+    </v-col>
+    <v-col cols="4" class="mt-2">
+      <sup class="dollar">$</sup>
+      <span class="price">{{ clientTarif ? clientTarif.price : '' }}</span>
+      <span class="mo">/mo</span>
+    </v-col>
+  </v-row>
 </v-card>
 </template>
 
-<style>
-.radio-custom label {
-  font-style: normal!important;
-  font-weight: bold!important;
-  line-height: 250%!important;
-  letter-spacing: 0.02em!important;
-  color: #000!important;
-  text-align: left!important;
-  font-size: 14px!important;
-  left: 10px!important;
-}
-</style>
-
 <style scoped>
 
-.about {
+.payment-info {
   position: relative;
   top: 14px;
   width: 638px;
@@ -113,40 +46,68 @@
   padding: 0 30px;
 }
 
-.normal-text, .grey-comment {
+.normal-text, .yellow-text {
   font-style: normal;
   letter-spacing: 0.02em;
-  text-align: left;
-  font-size: 14px;
-}
-.normal-text {
   font-weight: bold;
+  font-size: 24px;
+  text-align: left;
   line-height: 100%;
+}
+
+.normal-text {
   color: #000;
 }
 
-.grey-comment {
+.yellow-text {
+  text-transform: uppercase;
+  color: #FAFF00;
+  margin-top: 16px;
+}
+
+.dollar-small, .price-small, .mo-small,
+.dollar, .price, .mo {
   font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.dollar-small, .price-small, .mo-small {
+  color: #20731C;
+  font-size: 16px;
+}
+
+.mo-small {
   font-weight: normal;
-  line-height: 120%;
-  color: #767676;
-  padding: 0 16px;
-  margin-top: -20px;
+}
+
+.dollar, .price, .mo {
+  color: #fff;
+}
+
+.dollar {
+  margin-top: -40px;
+  font-size: 24px;
+}
+.price {
+  font-size: 32px;
+}
+.mo {
+  font-size: 18px;
+  font-weight: normal;
 }
 </style>
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
-import CreditCards from '@/components/fibre-internet-plans/cards/Cards.vue'
 
 export default {
   name: 'PaymentInfo',
   components: {
-    StepHeader,
-    CreditCards
+    StepHeader
   },
   props: {
     business: Boolean,
@@ -155,31 +116,17 @@ export default {
   },
   data () {
     return {
-      firstName: '',
-      lastName: '',
-      cardNumber: '',
-      cardExpiry: '',
-      ccv: '',
-      datePicker: false,
-      minDate: new Date(new Date() - 18 * 365 * 24 * 60 * 60 * 1000),
-      maxDate: new Date(new Date() - 100 * 365 * 24 * 60 * 60 * 1000)
+      address: ''
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' }
+    ...mapGetters('internetPlans', ['clientTarif']),
+    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
+    yellowFontSize () { return this.viewportWidth < 600 ? '18px' : '32px' }
   },
   methods: {
-    change () {
-      this.plan = this.plan === 'business' ? 'residential' : 'business'
-    },
-    getRelativeData (data, days) {
-      if (!(data instanceof Date)) return
-      return new Date(data.setDate(data.getDate() + days))
-    },
-    testBirthday () {
-      return this.birthDate <= this.minDate && this.birthDate > this.maxDate
-    }
+    //
   }
 }
 </script>

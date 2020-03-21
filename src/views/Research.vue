@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <CardsShow :properties="properties"/>
+    <!-- <CardsShow :properties="properties"/> -->
   </div>
 </template>
 
@@ -8,13 +8,13 @@
 </style>
 
 <script>
-import CardsShow from '@/components/CardsShow.vue'
+// import CardsShow from '@/components/cards-show/CardsShow.vue'
 
 export default {
   name: 'Research',
 
   components: {
-    CardsShow
+    // CardsShow
   },
 
   data: () => ({

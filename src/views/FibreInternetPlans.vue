@@ -4,9 +4,9 @@
       <v-card flat class="plansfone mt-0 mx-auto">
       <v-tabs
         v-model="tab"
-        background-color="primary"
+        background-color="white"
+        color="primary"
         centered
-        dark
         fixed-tabs
         icons
         height="50"
@@ -15,23 +15,23 @@
         <v-tabs-slider></v-tabs-slider>
 
         <v-tab href="#tab-1">
-          <v-icon>mdi-numeric-1-box</v-icon>
+          <v-icon color="buttons">mdi-numeric-1-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-2">
-          <v-icon>mdi-numeric-2-box</v-icon>
+          <v-icon color="buttons">mdi-numeric-2-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-3">
-          <v-icon>mdi-numeric-3-box</v-icon>
+          <v-icon color="buttons">mdi-numeric-3-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-4">
-          <v-icon>mdi-numeric-4-box</v-icon>
+          <v-icon color="buttons">mdi-numeric-4-box</v-icon>
         </v-tab>
 
         <v-tab href="#tab-5">
-          <v-icon>mdi-numeric-5-box</v-icon>
+          <v-icon color="buttons">mdi-numeric-5-box</v-icon>
         </v-tab>
       </v-tabs>
 

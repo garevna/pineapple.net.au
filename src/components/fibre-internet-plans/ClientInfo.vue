@@ -147,7 +147,7 @@
     </v-card>
 
     <v-row dense align="start" justify="center" class="mx-4 mt-10">
-      <v-col cols="12" md="6" class="text-center">
+      <v-col cols="12" sm="6" class="text-center">
         <v-btn
             color="deepgreen"
             rounded
@@ -160,7 +160,7 @@
           Back
         </v-btn>
       </v-col>
-      <v-col cols="12" md="6" class="text-center">
+      <v-col cols="12" sm="6" class="text-center">
         <v-btn
             color="buttons"
             dark
