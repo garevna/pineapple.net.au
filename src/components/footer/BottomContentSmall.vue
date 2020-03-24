@@ -10,19 +10,19 @@
         <v-img src="@/assets/home/icons/system-bar-call-answer.png" contain></v-img>
       </span>
       <span width="10" height="10" class="mr-6">
-        <a href="https://www.linkedin.com/company/pineapplenet/" target="_blank">
+        <a :href="linkedIn" target="_blank">
           <v-img src="@/assets/home/icons/system-bar-linkedin.png"></v-img>
         </a>
       </span>
       <span width="10" height="10">
-        <a href="https://www.facebook.com/PineappleNetAU/" target="_blank">
+        <a :href="faceBook" target="_blank">
           <v-img src="@/assets/home/icons/system-bar-facebook.png"></v-img>
         </a>
       </span>
       <v-spacer></v-spacer>
     </v-card-actions>
     <v-card-text>
-      <p class="copyright">Copyright © 2020 TPG Internet Pty Ltd ABN 15 068 383 737<br>All Rights Reserved | Privacy</p>
+      <p class="copyright">{{ copyright }}<br>All Rights Reserved | Privacy</p>
     </v-card-text>
   </v-card>
 </v-container>
@@ -51,7 +51,14 @@
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
-  name: 'FooterBottomContent'
+  name: 'FooterBottomContent',
+  computed: {
+    ...mapState(['officePhone', 'officeAddress', 'linkedIn', 'faceBook']),
+    ...mapState('content', ['copyright'])
+  }
 }
 </script>

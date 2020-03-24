@@ -1,14 +1,14 @@
 <template>
-  <v-container fluid fill-height style="position: relative">
+  <v-container fluid fill-height style="position: relative; margin-bottom: -10px; margin-top: 50px;">
     <FooterFone/>
     <v-container fluid class="footer--top-content" :style="{ top: topContentTop }">
       <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0; width: 100%">
         <v-card-title>
-          <h2 class="white-text centered">READY TO GET STARTED?</h2>
+          <h2 class="white-text centered">{{ footer.topHead }}</h2>
         </v-card-title>
         <v-card-text max-width="100%">
           <h4 class="white-text centered">
-              Give us a call or drop by anytime, we endevaour to answer all enquiries within 24 hours on business days.
+              {{ footer.topText }}
           </h4>
         </v-card-text>
         <v-row class="mx-auto">
@@ -69,7 +69,6 @@
 .footer--top-content {
   position: absolute;
   width: 100%;
-  /* top: 197px; */
 }
 
 .footer--bottom-content-small {
@@ -131,7 +130,6 @@
 import { mapState } from 'vuex'
 
 import FooterFone from '@/components/footer/FooterFone.vue'
-// import FooterFoneSmall from '@/components/footer/FooterFoneSmall.vue'
 import FooterBottomContent from '@/components/footer/BottomContent.vue'
 import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 
@@ -155,8 +153,9 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('content', ['footer']),
     topContentTop () {
-      return this.viewportWidth < 420 ? '80px' : '198px'
+      return this.viewportWidth < 420 ? '80px' : this.viewportWidth > 1904 ? '288px' : '198px'
     }
   },
   methods: {

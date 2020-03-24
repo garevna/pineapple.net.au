@@ -9,18 +9,18 @@
 <style lang="scss">
 
 html {
-  margin-right: -20px;
-  margin-bottom: -10px;
-  background: #FBFBFB;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-main {
-  padding: 0!important;
-  margin: 0!important;
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
-
-.container {
-  padding: 0!important;
+.container--fluid {
+  padding: 0;
 }
 
 .green--text {

@@ -7,10 +7,10 @@
           <p class="left-16">ABOUT PINEAPPLE NET</p>
         </v-card-title>
         <v-card-text>
-          <p class="left-14">Pineapple Net is an Australian Internet service provider offering the fastest and most affordable fibre optic connection to business and residential customers.</p>
+          <p class="left-14">{{ about }}</p>
           <p></p>
-          <p class="left-14">Unit 127/1 Queens Rd, Melbourne VIC 3004</p>
-          <p class="left-14">1300 857 501</p>
+          <p class="left-14">{{ officeAddress }}</p>
+          <p class="left-14">{{ officePhone }}</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -46,12 +46,12 @@
           <p class="left-16">CONNECT</p>
         </v-card-title>
         <v-card-text>
-          <a href="https://www.facebook.com/PineappleNetAU/" target="_blank" class="ref">
+          <a :href="faceBook" target="_blank" class="ref">
             <p class="left-14 ref">
               <v-img src="@/assets/home/icons/system-bar-facebook.png" class="icon"></v-img>Facebook
             </p>
           </a>
-          <a href="https://www.linkedin.com/company/pineapplenet/" target="_blank" class="ref">
+          <a :href="linkedIn" target="_blank" class="ref">
             <p class="left-14 ref">
               <v-img src="@/assets/home/icons/system-bar-linkedin.png" class="icon"></v-img> Linkedin
             </p>
@@ -78,7 +78,14 @@
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
-  name: 'FooterBottomContent'
+  name: 'FooterBottomContent',
+  computed: {
+    ...mapState(['officePhone', 'officeAddress', 'linkedIn', 'faceBook']),
+    ...mapState('content', ['about', 'copyright'])
+  }
 }
 </script>

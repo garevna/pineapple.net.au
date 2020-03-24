@@ -26,8 +26,7 @@
                   </v-card-title>
                   <v-card-text>
                     <p class="who-are-we--text text-about">
-                      Pineapple Net is an authorised retail service provider.
-                      Our fibre optic broadband is a superior alternative to the NBN and our speeds start where the NBN typically maxes out.
+                      {{ whoAreWe }}
                     </P>
                   </v-card-text>
                 </v-card>
@@ -100,6 +99,7 @@ export default {
       mode: 'viewport',
       screen: 'viewportWidth'
     }),
+    ...mapState('content', ['whoAreWe']),
     picturesVisibility () {
       return this.picturesDisplayMode[this.mode]
     }

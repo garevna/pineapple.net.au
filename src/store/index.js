@@ -7,6 +7,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     host: '',
+    officeAddress: '75 Brighton Road, Elwood VIC 3184',
+    officePhone: '1300 857 501',
+    linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
+    faceBook: 'https://www.facebook.com/PineappleNetAU/',
     contactEndpoint: '',
     viewport: 'lg',
     viewportWidth: window.innerWidth,

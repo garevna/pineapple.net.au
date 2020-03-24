@@ -10,10 +10,8 @@
             >
               <v-card flat class="transparent pa-8">
                 <h1 class="text-center text-md-left">Australia's <span class="green--text">Premium<br>Optical Fibre</span> Network</h1>
-                <p :style="{ fontSize: fontSize }">With speeds up to 1000Mbps, say goodbye to buffering, enjoy crystal clear video streaming, low latency and superior gaming capability.
-                  Talk to family and friends without worrying about call quality.</p>
-                <p :style="{ fontSize: fontSize }">All Pineapple Net packages include unlimited data with no interruption.
-                  Our customers never experience evening congestion and enjoy 99.99% uptime.</p>
+                <p :style="{ fontSize: fontSize }">{{ speedTest.text[0] }}</p>
+                <p :style="{ fontSize: fontSize }">{{ speedTest.text[1] }}</p>
               </v-card>
             </v-col>
 
@@ -138,6 +136,7 @@ export default {
     ...mapState({
       screen: 'viewportWidth'
     }),
+    ...mapState('content', ['speedTest']),
     fontSize () {
       return this.screen < 600 ? '13px' : '24px'
     },

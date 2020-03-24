@@ -1,5 +1,5 @@
 <template>
-<v-container fluid>
+<v-container fluid style="overflow-x: hidden">
   <v-row width="100%" align="center" justify="center">
     <v-col sm="12" md="6">
         <v-card flat class="transparent">
@@ -12,7 +12,7 @@
             <h1 class="width-100 text-center text-md-left">Australia's <span class="green--text">Fastest<br>Residential Internet</span><br>Connection</h1>
           </v-card-title>
           <v-card-text class="width-100 text-center text-md-left mx-sm-auto mx-lg-0">
-            <h4 class="width-100 text-center text-md-left">based on a comparison with speeds listed in the ACCC Broadband Performance Data Report</h4>
+            <h4 class="width-100 text-center text-md-left">{{ top.text }}</h4>
           </v-card-text>
         </v-card>
     </v-col>
@@ -29,7 +29,13 @@
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
-  name: 'Top'
+  name: 'Top',
+  computed: {
+    ...mapState('content', ['top'])
+  }
 }
 </script>

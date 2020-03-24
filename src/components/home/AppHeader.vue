@@ -85,7 +85,6 @@
 </template>
 
 <style scoped>
-
 .v-btn-toggle > .v-btn.v-btn--active {
   color: #72BF44!important;
 }
@@ -102,7 +101,6 @@
   font-weight: 500;
   color: #000;
 }
-
 .app-bar-menu-bordered {
   border: solid 2px #51AD30!important;
   border-radius: 100px!important;
@@ -111,7 +109,6 @@
   font-size: 13px;
   color: #ffffff;
 }
-
 .burger-menu {
   height: 48px;
   min-width: 48px!important;
@@ -153,10 +150,8 @@
 </style>
 
 <script>
-
 export default {
   name: 'AppHeader',
-
   props: {
     pages: Array,
     selected: Number

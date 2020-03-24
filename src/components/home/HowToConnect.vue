@@ -7,7 +7,7 @@
           <h3>Contact Us</h3>
         </v-card-title>
         <v-card-text>
-          <p>Get in touch to find out if pineapple is available at your address</p>
+          <p>{{ home.contactUs }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
@@ -16,7 +16,7 @@
           <h3>Get connected</h3>
         </v-card-title>
         <v-card-text>
-          <p>Our team of installers get you connected to our network</p>
+          <p>{{ home.getConnected }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
@@ -25,7 +25,7 @@
           <h3>Enjoy</h3>
         </v-card-title>
         <v-card-text>
-          <p>Fast fibre internet</p>
+          <p>{{ home.enjoy }}</p>
         </v-card-text>
       </v-card>
     </v-card>
@@ -41,6 +41,9 @@ h3, p {
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
+
 import ContactUs from '@/components/svg/ContactUs.vue'
 import GetConnected from '@/components/svg/GetConnected.vue'
 import Enjoy from '@/components/svg/Enjoy.vue'
@@ -57,6 +60,9 @@ export default {
       // foneSVG: null,
       // pictureSVG: null
     }
+  },
+  computed: {
+    ...mapState('content', ['home'])
   },
   mounted () {
     // const foneURL = require('@/assets/home/how-to-connect/contact-us.svg')

@@ -10,8 +10,8 @@
             </v-card-title>
             <v-card-text>
               <h3>address</h3>
-              <p>Unit 127/1 Queens Rd, Melbourne VIC</p>
-              <p>1300 857 501</p>
+              <p>{{ officeAddress }}</p>
+              <p>{{ officePhone }}</p>
               <p><small>Let's connect</small></p>
             </v-card-text>
           </v-card>
@@ -142,7 +142,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['viewportWidth']),
+    ...mapState(['viewportWidth', 'officeAddress', 'officePhone']),
     ...mapState('map', ['markerImage']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
     plans () {
