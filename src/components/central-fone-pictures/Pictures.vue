@@ -1,7 +1,4 @@
 <template>
-  <!-- <v-container> -->
-    <!-- <v-row align="center" justify="center">
-      <v-col cols="12" md="6" style="position: relative"> -->
     <v-card flat class="transparent">
       <v-card flat class="transparent" style="position: relative; margin-top: -300px; margin-left: 120px;">
         <img src="@/assets/home/images/2.png"
@@ -18,9 +15,6 @@
         />
       </v-card>
     </v-card>
-      <!-- </v-col>
-    </v-row> -->
-  <!-- </v-container> -->
 </template>
 
 <style scoped>

@@ -21,7 +21,7 @@
               <path d="M10.6741 12.0008L0.274578 1.60119C-0.0915623 1.23505 -0.0915623 0.64143 0.274578 0.275337C0.640718 -0.0907557 1.23434 -0.0908026 1.60044 0.275337L12 10.6749L22.3995 0.275337C22.7657 -0.0908026 23.3593 -0.0908026 23.7254 0.275337C24.0915 0.641477 24.0915 1.2351 23.7254 1.60119L13.3259 12.0007L23.7254 22.4003C24.0915 22.7664 24.0915 23.3601 23.7254 23.7261C23.5423 23.9092 23.3024 24.0007 23.0624 24.0007C22.8225 24.0007 22.5826 23.9092 22.3995 23.7261L12 13.3266L1.60048 23.7261C1.41744 23.9092 1.17748 24.0007 0.937531 24.0007C0.697578 24.0007 0.457672 23.9092 0.274578 23.7261C-0.0915623 23.36 -0.0915623 22.7664 0.274578 22.4003L10.6741 12.0008Z" fill="black"/>
             </svg>
           </v-btn>
-          <ContactUs :size="likeSize" :class="`success-content-${size}--like`"/>
+          <ContactSymbol :size="likeSize" :class="`success-content-${size}--like`"/>
           <p :class="`success-content--title success-content-${size}--title`">Sorry...</p>
           <p :class="`success-content--text success-content-${size}--text`">Unfortunately Pineapple Net is not available at your address just now</p>
           <v-card-actions>
@@ -113,7 +113,7 @@
   }
   .success-content-shrink--title {
     left: 54px;
-    top: 200px;
+    top: 160px;
     width: 200px;
     text-align: center;
     font-size: 24px;
@@ -128,7 +128,7 @@
   }
   .success-content-shrink--text {
     left: 23px;
-    top: 250px;
+    top: 200px;
     width: 250px;
     text-align: center;
     font-size: 18px;
@@ -158,13 +158,13 @@
 import { mapState } from 'vuex'
 
 import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
-import ContactUs from '@/components/svg/ContactUs.vue'
+import ContactSymbol from '@/components/check-availability/ContactSymbol.vue'
 
 export default {
   name: 'FailurePopup',
   components: {
     FoneSymbol,
-    ContactUs
+    ContactSymbol
   },
   props: {
     failure: Boolean

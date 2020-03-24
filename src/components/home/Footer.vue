@@ -2,7 +2,7 @@
   <v-container fluid fill-height style="position: relative">
     <FooterFone/>
     <v-container fluid class="footer--top-content" :style="{ top: topContentTop }">
-      <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0">
+      <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0; width: 100%">
         <v-card-title>
           <h2 class="white-text centered">READY TO GET STARTED?</h2>
         </v-card-title>

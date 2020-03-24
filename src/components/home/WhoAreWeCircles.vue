@@ -1,13 +1,6 @@
 <template>
   <v-container fluid fill-height>
     <CentralGreenCircles>
-    <!-- <v-img src="@/assets/home/home-central-green-fone.png" cover> -->
-  <!-- <v-container
-          fluid
-          fill-height
-          class="full-background"
-          :style="{'background-image': `url(${require('')})`}"
-  > -->
       <v-container fluid fill-height>
           <v-row align-content="center" align="center" justify="space-around">
             <v-col
@@ -17,19 +10,16 @@
                 order-xs="first"
                 class="images"
             >
-              <!-- <v-row align="center" justify="space-between"> -->
-                <!-- <v-card flat class="transparent images" width="100%"> -->
-                  <Pictures v-if="picturesVisibility"/>
-                  <Slider v-if="!picturesVisibility"/>
-                <!-- </v-card> -->
-              </v-col>
-              <v-col
+              <Pictures v-if="picturesVisibility"/>
+              <Slider v-if="!picturesVisibility"/>
+            </v-col>
+            <v-col
                   cols="12"
                   sm="6"
                   order-xs="first"
                   order-sm="last"
                   class="text"
-              >
+            >
                 <v-card flat class="transparent text mx-0" max-width="90%">
                   <v-card-title>
                     <h2 class="who-are-we--text">Who are we?</h2>
@@ -41,9 +31,8 @@
                     </P>
                   </v-card-text>
                 </v-card>
-              <!-- </v-row> -->
-            </v-col>
-          </v-row>
+          </v-col>
+        </v-row>
       </v-container>
     </CentralGreenCircles>
   </v-container>
@@ -92,10 +81,10 @@ export default {
     return {
       backImage: null,
       foneElem: null,
-      picturesMarginLeft: { xl: '-100px', lg: '-250px', md: '-50px', sm: '10px', xs: '-200px' },
+      picturesMarginLeft: { xl: '-100px', lg: '-250px', md: '-50px', sm: '10px', xs: '-210px' },
       picturesMarginTop: { xl: '-50px', lg: '10px', md: '20px', sm: '-10px', xs: '220px' },
       picturesDisplayMode: { xl: true, lg: true, md: true, sm: false, xs: true },
-      picturesMaxWidth: { xl: '400px', lg: '400px', md: '400px', sm: '300px', xs: '400px' },
+      picturesMaxWidth: { xl: '400px', lg: '400px', md: '400px', sm: '300px', xs: '320px' },
       textMarginLeft: { xl: '-50px', lg: '50px', md: '0px', sm: '0px', xs: '0px' },
       textMarginTop: { xl: '40px', lg: '40px', md: '40px', sm: '14px', xs: '0px' },
       textMaxWidth: '400px'
@@ -108,7 +97,8 @@ export default {
   },
   computed: {
     ...mapState({
-      mode: 'viewport'
+      mode: 'viewport',
+      screen: 'viewportWidth'
     }),
     picturesVisibility () {
       return this.picturesDisplayMode[this.mode]

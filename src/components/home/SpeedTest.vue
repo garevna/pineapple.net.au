@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :style="{ marginTop: containerMarginTop }">
+  <v-container fluid fill-height :style="{ marginTop: containerMarginTop }">
       <v-row>
         <v-col xs="12" class="mx-xs-1 mx-sm-12">
           <v-row justify="center" class="mx-xs-1 mx-sm-12 mx-md-10 mx-lg-6">
@@ -21,6 +21,7 @@
               cols="12"
               md="5"
               lg="4"
+              :style="{ overflowX: speedtestOverflow }"
             >
               <v-card flat class="transparent text-center pt-md-12 mt-md-12">
                 <v-card hover class="speedtest-card transparent text-center px-4 py-8">
@@ -141,7 +142,15 @@ export default {
       return this.screen < 600 ? '13px' : '24px'
     },
     containerMarginTop () {
-      return this.screen < 600 ? '0px' : '-100px'
+      return this.screen >= 600 ? '-100px' : this.screen > 357 ? '0px' : '50px'
+    },
+    speedtestOverflow () {
+      return this.screen <= 357 ? 'hidden' : 'visible'
+    }
+  },
+  watch: {
+    screen (val) {
+      console.log(val)
     }
   },
   // computed: {

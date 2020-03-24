@@ -63,8 +63,7 @@
                     width="220"
                     height="40"
                     class="my-10"
-                    :disabled="disabledButton"
-                    @click="sendMessage"
+                    @click="disabledButton || sendMessage"
                     :value="buttonValue"
                 >
                   Send message

@@ -26,7 +26,6 @@ export default {
   props: ['height', 'width', 'margin'],
   data () {
     return {
-      service: window.google.maps,
       serviceAvailable: [],
       map: null,
       mapData: null,
@@ -65,7 +64,7 @@ export default {
         for (const polygon of this.available) {
           result = this.$geoLocation(event.latLng, polygon)
           if (result) {
-            // this.map.setCenter(event.latLng)
+            this.map.setCenter(event.latLng)
             // this.marker.setPosition(event.latLng)
             new this.$geo.Marker({
               position: event.latLng,
