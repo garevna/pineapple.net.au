@@ -20,6 +20,7 @@
   background-clip: padding-box;
   color: #72BF44;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .checkbox:before {
@@ -132,7 +133,7 @@ export default {
       return this.screen < 960 ? '48px' : '60px'
     },
     fontSize () {
-      return this.screen >= 960 ? '16px' : '13px'
+      return this.screen >= 960 ? '16px' : this.screen >= 360 ? '13px' : '11px'
     },
     paddingTop () {
       return this.screen >= 960 ? '20px' : '12px'

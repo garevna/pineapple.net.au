@@ -64,14 +64,18 @@
   </svg>
 
     <!-- <div class="footer-background" v-bind:style="{ backgroundImage: `url(require('@/assets/home/footer.svg'))` }"></div> -->
-    <figure class="footer-background" v-if="viewportWidth > 420 && viewportWidth <= 1440">
+
+    <figure
+            class="footer footer-normal"
+            v-if="viewportWidth > 420 && viewportWidth <= 1440"
+            :style="{ height: footerNormalHeight }"
+    >
       <svg width="100%" height="100%">
           <use xlink:href="#footer-background"></use>
       </svg>
     </figure>
-    <!-- <figure class="footer-gradient-background" v-if="viewportWidth > 1440"></figure> -->
 
-    <figure id="footer-container" v-if="viewportWidth > 1440">
+    <figure class="footer footer--large" v-if="viewportWidth > 1440" :style="{ height: footerLargeHeight }">
       <div id="svg-container">
         <svg viewBox="0 0 1462 948"
              preserveAspectRatio="xMidYMid slice"
@@ -83,8 +87,8 @@
       </div>
     </figure>
 
-    <figure class="footer-background-small" v-if="viewportWidth <= 420">
-      <svg :width="viewportWidth" height="657">
+    <figure class="footer footer--small" v-if="viewportWidth <= 420">
+      <svg :width="viewportWidth" height="860">
           <use xlink:href="#footer-background-small" style="transform: scale(1.05, 1.05)"></use>
       </svg>
     </figure>
@@ -98,29 +102,18 @@
   padding: 0;
 }
 
-#footer-container {
+.footer {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 948px;
   overflow: hidden;
-}
-
-.footer-background {
-  width: 100%;
-  height: 948px;
   margin-bottom: -10px;
 }
-.footer-background-small {
-  width: 100%;
+
+.footer--small {
   height: 563px;
-  overflow: hidden;
 }
-.footer-gradient-background {
-  width: 100%;
-  height: 948px;
-  background: linear-gradient(359deg, #082607 2.64%, #185E14 49.57%, #5D973B 100.42%);
-}
+
 </style>
 
 <script>
@@ -129,21 +122,16 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'FooterFone',
+  props: {
+    footerHeight: Number
+  },
   computed: {
-    ...mapState(['viewportWidth'])
-  },
-  methods: {
-    resizeSVG: () => {
-      const footer = document.getElementById('footer-container')
-      const svg = document.getElementById('svg-container')
-      const svgHeight = 948 * window.innerWidth / 1440
-      svg.style.height = `${svgHeight}px`
-      svg.style.width = `${window.innerWidth}px`
-      footer.style.height = `${Math.min(400, svgHeight)}px`
+    ...mapState(['viewportWidth']),
+    footerNormalHeight () { return `${this.footerHeight}px` || '948px' },
+    footerLargeHeight () {
+      const height = this.footerHeight || (948 * window.innerWidth / 1440)
+      return `${height}px`
     }
-  },
-  mounted () {
-
   }
 }
 </script>

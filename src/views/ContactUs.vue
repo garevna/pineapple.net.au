@@ -1,12 +1,12 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="homefone">
     <AppHeader :pages="pages" :selected.sync="page"/>
     <v-content class="contact-fone">
       <v-row class="mx-auto">
         <v-col cols="12" md="4">
           <v-card flat class="transparent mx-auto" max-width="300">
             <v-card-title>
-              <h1>Feel free to contact us anytime</h1>
+              <h1 d-none d-md-block>Feel free to contact us anytime</h1>
             </v-card-title>
             <v-card-text>
               <h3>address</h3>
@@ -54,7 +54,7 @@
                 ></v-textarea>
               </v-col>
             </v-row>
-            <v-row>
+            <v-row align-start justify-center max-height="50">
               <v-col class="input my-0">
                 <v-btn
                     color="buttons"
@@ -62,7 +62,7 @@
                     rounded
                     width="220"
                     height="40"
-                    class="my-10"
+                    class="button-send-message"
                     @click="disabledButton || sendMessage"
                     :value="buttonValue"
                 >
@@ -73,34 +73,39 @@
           </v-card>
         </v-col>
       </v-row>
-
-      <v-row style="position: relative">
-        <!-- ============================= FOOTER && MAP ============================= -->
-        <FooterFone style="position: absolute; top: 0; left:0;"/>
-        <Map :height="mapHeight" :width="mapWidth" :margin="mapMargin" style="position: absolute; top: 40px; left:0;"/>
-        <FooterBottomContent  v-if="viewportWidth >= 770" class="footer-bottom-content" style="top: 610px;" />
-        <FooterBottomContentSmall v-if="viewportWidth < 770" class="footer-bottom-content" :style="{ top: bottomContentTop }" />
-      </v-row>
+      <!-- ============================= FOOTER && MAP ============================= -->
+      <Map :height.sync="mapHeight"/>
     </v-content>
     <SuccessPopup :success.sync="success"/>
   </v-container>
 </template>
 
 <style scoped>
-.footer-bottom-content {
-  position: absolute;
-  overflow: hidden;
-  margin-bottom: -10px;
-}
+
 .contact-fone {
-  margin-top: 120px!important;
+  margin-top: 160px!important;
+  padding-top: 0px!important;
 }
+.button-send-message {
+  padding: 0;
+  margin-top: -30px!important;
+  margin-bottom: 30px!important;
+  margin-left: calc(50% - 110px);
+}
+
 h3, p, small {
   text-align: left;
 }
 .input {
   margin-bottom: 0;
   line-height: 0;
+}
+
+@media screen and (max-width: 420px) {
+  .contact-fone {
+    margin-top: 64px!important;
+  }
+
 }
 </style>
 
@@ -109,10 +114,7 @@ h3, p, small {
 import { mapState } from 'vuex'
 
 import AppHeader from '@/components/home/AppHeader.vue'
-import FooterFone from '@/components/footer/FooterFone.vue'
 import Map from '@/components/map/Map.vue'
-import FooterBottomContent from '@/components/footer/BottomContent.vue'
-import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 import SuccessPopup from '@/components/contact/SuccessPopup.vue'
 
 const emailValidator = require('email-validator')
@@ -121,9 +123,6 @@ export default {
   name: 'Home',
   components: {
     AppHeader,
-    FooterFone,
-    FooterBottomContent,
-    FooterBottomContentSmall,
     Map,
     SuccessPopup
   },
@@ -138,27 +137,15 @@ export default {
       fullNameError: true,
       fullNameHint: '',
       buttonValue: '',
-      success: false
+      success: false,
+      mapHeight: 0
     }
   },
   computed: {
     ...mapState(['viewportWidth', 'officeAddress', 'officePhone']),
-    ...mapState('map', ['markerImage']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
-    },
-    mapHeight () {
-      return this.viewportWidth <= 420 ? '300px' : '570px'
-    },
-    bottomContentTop () {
-      return this.viewportWidth <= 420 ? '360px' : '620px'
-    },
-    mapWidth () {
-      return this.viewportWidth <= 420 ? '100%' : '80%'
-    },
-    mapMargin () {
-      return this.viewportWidth <= 420 ? '0%' : '10%'
     },
     fullName: {
       get () { return this.userFullName },
@@ -209,6 +196,9 @@ export default {
       this.success = true
       // }
     }
+  },
+  mounted () {
+    //
   }
 }
 </script>

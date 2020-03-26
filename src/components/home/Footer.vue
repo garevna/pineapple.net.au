@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height style="position: relative; margin-bottom: -10px; margin-top: 50px;">
-    <FooterFone/>
+    <FooterFone :footerHeight="footerHeight" />
     <v-container fluid class="footer--top-content" :style="{ top: topContentTop }">
       <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0; width: 100%">
         <v-card-title>
@@ -59,7 +59,7 @@
       </v-row>
     </v-container>
 
-    <FooterBottomContent  v-if="viewportWidth >= 770" />
+    <FooterBottomContent v-if="viewportWidth >= 770" />
     <FooterBottomContentSmall  v-if="viewportWidth < 770" class="footer--bottom-content-small"/>
   </v-container>
 </template>
@@ -156,6 +156,12 @@ export default {
     ...mapState('content', ['footer']),
     topContentTop () {
       return this.viewportWidth < 420 ? '80px' : this.viewportWidth > 1904 ? '288px' : '198px'
+    },
+    topContentFont () {
+      return this.viewportWidth < 420 ? '80px' : this.viewportWidth > 1904 ? '288px' : '198px'
+    },
+    footerHeight () {
+      return this.viewportWidth < 420 ? 680 : this.viewportWidth > 1904 ? 980 : 860
     }
   },
   methods: {

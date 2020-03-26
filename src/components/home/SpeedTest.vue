@@ -147,11 +147,6 @@ export default {
       return this.screen <= 357 ? 'hidden' : 'visible'
     }
   },
-  watch: {
-    screen (val) {
-      console.log(val)
-    }
-  },
   // computed: {
   //   client() { return this.$store.state.client },
   //   speedtest() { return this.$store.state.speedtest.speedTestData },

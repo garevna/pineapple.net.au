@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-scroll="onScroll">
     <AppHeader :pages="pages" :selected.sync="page"/>
     <v-content tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
@@ -113,6 +113,12 @@ export default {
           easing: 'easeInOutCubic'
         })
       }
+    }
+  },
+  methods: {
+    onScroll (event) {
+      const scrollValue = window.pageYOffset || document.documentElement.scrollTop
+      if (scrollValue === 0) this.page = 0
     }
   },
   mounted () {

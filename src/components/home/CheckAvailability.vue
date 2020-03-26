@@ -22,7 +22,7 @@
                     id="autocompleteAddress"
                   >
               </v-text-field>
-                  <v-btn
+              <v-btn
                     :class="`address-button address-button--${screen}`"
                     depressed
                     dark
@@ -31,7 +31,7 @@
                     label="Check Now"
                     @click="checkAvailable"
                     >Check Now
-                  </v-btn>
+              </v-btn>
             </v-card-text>
         </v-row>
       </v-card>
@@ -49,7 +49,7 @@
   font-size: 36px;
 }
 .address-title--shrink {
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .address-text {
@@ -83,8 +83,8 @@
   border-right: solid 10px transparent;
 }
 .address-card--shrink {
-  min-width: 340px;
-  max-width: 90%;
+  width: 300px;
+  /* max-width: 90%; */
   height: 40px!important;
 }
 
@@ -104,8 +104,8 @@
 .address-input--shrink {
   font-size: 13px;
   top: -14px;
-  left: 0;
-  width: 100%;
+  left: calc(50% - 150px);
+  width: 300px;
 }
 
 .address-button {
@@ -122,10 +122,10 @@
   font-size: 16px;
 }
 .address-button--shrink {
-  width: 100%;
+  width: 220px;
   font-size: 13px;
   top: 60px;
-  left: 0px;
+  left: calc(50% - 110px);
 }
 </style>
 

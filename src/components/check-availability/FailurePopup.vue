@@ -112,7 +112,7 @@
     text-align: left;
   }
   .success-content-shrink--title {
-    left: 54px;
+    left: calc(50% - 100px);
     top: 160px;
     width: 200px;
     text-align: center;
@@ -127,7 +127,7 @@
     text-align: left;
   }
   .success-content-shrink--text {
-    left: 23px;
+    left: calc(50% - 125px);
     top: 200px;
     width: 250px;
     text-align: center;
@@ -135,22 +135,23 @@
   }
 
   .success-content-button-wide--light {
-    top: 250px;
+    top: 270px;
     left: 274px;
   }
   .success-content-button-shrink--light {
     top: 320px;
-    left: 54px;
+    left: 48px;
     font-size: 13px;
+    width: 220px;
   }
 
   .success-content-button-wide--green {
-    top: 250px;
+    top: 270px;
     left: 476px;
   }
   .success-content-button-shrink--green {
     top: 380px;
-    left: 48px;
+    left: 42px;
   }
 </style>
 

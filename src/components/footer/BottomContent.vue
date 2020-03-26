@@ -70,10 +70,10 @@
 <style scoped>
 .footer--bottom-content {
   position: absolute;
-  top: 604px;
   left: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-bottom: -4px;
+  bottom: 40px;
 }
 </style>
 

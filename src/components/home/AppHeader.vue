@@ -1,6 +1,6 @@
 <template>
 <v-container fluid>
-  <v-system-bar app absolute hide-on-scroll color="primary" height="40" width="100%">
+  <v-system-bar app absolute color="primary" height="40" width="100%">
     <v-row d-flex align="center" justify="end" class="mr-10">
       <v-spacer class="d-none d-lg-flex d-xl-flex"></v-spacer>
       <span width="10" height="10" class="mr-2">
@@ -21,7 +21,7 @@
   </v-system-bar>
 
   <!-- Viewport width less then lg -->
-  <v-expansion-panels flat v-model="panel" class="app-bar d-lg-none" width="100%">
+  <v-expansion-panels tile flat v-model="panel" class="app-bar d-lg-none" width="100%" style="margin-top: -8px">
     <v-expansion-panel style="background: #FAFAFA">
       <v-expansion-panel-header
                     expand-icon="none"
@@ -54,7 +54,6 @@
     <v-app-bar
             app
             absolute
-            hide-on-scroll
             height="80"
             flat
             class="homefone app-bar d-none d-lg-block"

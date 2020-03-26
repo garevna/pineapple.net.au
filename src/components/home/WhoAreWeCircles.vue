@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height class="px-0">
     <CentralGreenCircles>
-      <v-container fluid fill-height>
+      <v-container fluid fill-height class="px-0">
           <v-row align-content="center" align="center" justify="space-around">
             <v-col
                 cols="12"

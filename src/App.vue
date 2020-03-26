@@ -8,19 +8,16 @@
 
 <style lang="scss">
 
-html {
+html, body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
-body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-.container--fluid {
-  padding: 0;
+.container,
+.container--fluid,
+.container.fill-height {
+  padding: 0!important;
 }
 
 .green--text {
@@ -88,7 +85,23 @@ svg.defs-only {
 }
 
 @media (max-width: '400px'), (max-height: '400px') {
+  h1 { font-size: 26px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 20px; }
   h4 { font-size: 16px; }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #20731C;
+}
+::-webkit-scrollbar-thumb {
+  background: #4CAF50;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #72BF44;
 }
 
 </style>

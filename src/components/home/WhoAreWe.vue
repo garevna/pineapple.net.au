@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height class="px-0">
     <v-img src="@/assets/home/home-central-green-fone.png" cover>
   <!-- <v-container
           fluid
@@ -89,12 +89,6 @@ export default {
   },
   beforeMount () {
     this.backImage = require('@/assets/home/home-central-green-fone.png')
-    console.log(this.backImage)
-  },
-  mounted () {
-    // this.foneElem = document.getElementById('card-fone')
-    // this.foneElem.style.backgroundImage = `url(${this.backImage})`
-    // console.log(this.foneElem.style.backgroundImage)
   }
 }
 </script>

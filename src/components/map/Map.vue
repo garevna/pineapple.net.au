@@ -1,48 +1,83 @@
 <template>
-  <div
-      id="map-container"
-      :style="{ height: height, width: width, marginLeft: margin, marginRight: margin }"
-  ></div>
+  <v-container fluid align-start justify-center style="position: relative; margin-bottom: -10px; box-sizing: border-box;">
+    <FooterFone :footerHeight="footerHeight" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
+      <div
+          id="map-container"
+          :style="{ height: mapHeight + 'px', width: mapWidth, marginLeft: mapMargin, marginRight: mapMargin, marginTop: '80px', marginBottom: '20px' }"
+      ></div>
+      <FooterBottomContent
+          class="footer--bottom-content"
+          v-if="viewportWidth >= 777"
+      />
+      <FooterBottomContentSmall
+          class="footer--bottom-content"
+          v-else
+      />
+    </div>
+  </v-container>
 </template>
 
 <style scoped>
-#map-container {
-  position: absolute;
-  box-sizing: border-box;
-  box-shadow: -2px -2px 6px #0005;
-}
+
 </style>
 
 <script>
 
 import { mapState } from 'vuex'
 
+import FooterFone from '@/components/footer/FooterFone.vue'
+import FooterBottomContent from '@/components/footer/BottomContent.vue'
+import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 import mapConfigs from '@/components/map/mapConfig'
 
 export default {
   components: {
-    //
+    FooterFone,
+    FooterBottomContent,
+    FooterBottomContentSmall
   },
-  props: ['height', 'width', 'margin'],
+  props: ['height'],
   data () {
     return {
       serviceAvailable: [],
       map: null,
       mapData: null,
-      center: { lat: -37.8357725, lng: 144.9738764 }
+      center: { lat: -37.8357725, lng: 144.9738764 },
+      pageHeight: 0,
+      mapTop: 80
     }
   },
 
   computed: {
-    ...mapState({ screen: 'viewportWidth' }),
+    ...mapState(['viewportWidth']),
     ...mapState('map', {
       place: 'officeCoords',
       address: 'officeAddress',
       markerIcon: 'markerImage',
       available: 'serviceAvailable'
-    })
+    }),
+    freeHeight () {
+      return window.innerHeight - this.pageHeight
+    },
+    footerHeight () {
+      if (this.viewportWidth < 1904) return 860
+      const height = Math.min(Math.max(680, window.innerHeight - 640), 948 * window.innerWidth / 1440)
+      return height
+    },
+    mapHeight () {
+      if (this.viewportWidth < 777) return 271
+      return this.footerHeight - 348 - 110
+    },
+    mapWidth () {
+      return this.viewportWidth < 400 ? '100%' : '80%'
+    },
+    mapMargin () {
+      return this.viewportWidth < 400 ? '0' : '10%'
+    }
   },
-/* eslint-disable */
+
+  /* eslint-disable */
 
   methods: {
     async init () {
@@ -75,11 +110,25 @@ export default {
           }
         }
       }.bind(this))
+    },
+
+    resize () {
+      this.pageHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+      )
+      // if (this.getPageHeight() < window.innerHeight) {
+      //   this.mapHeight += window.innerHeight - this.getPageHeight()
+      //   this.footerHeight = this.mapHeight + this.mapTop + 40 + 348
+      // }
     }
   },
 
   mounted () {
+    this.resize()
     this.init()
+    window.addEventListener('resize', this.resize)
   }
 }
 </script>

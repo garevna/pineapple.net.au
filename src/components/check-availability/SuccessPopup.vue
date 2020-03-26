@@ -112,7 +112,7 @@
     text-align: left;
   }
   .success-content-shrink--title {
-    left: 54px;
+    left: calc(50% - 100px);
     top: 200px;
     width: 200px;
     text-align: center;
@@ -127,7 +127,7 @@
     text-align: left;
   }
   .success-content-shrink--text {
-    left: 23px;
+    left: calc(50% - 125px);
     top: 250px;
     width: 250px;
     text-align: center;

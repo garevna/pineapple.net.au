@@ -37,8 +37,8 @@
       </symbol>
     </svg>
 
-    <div style="position: relative; overflow-x: hidden;">
-      <figure class="green-figure d-none d-sm-flex">
+    <div style="position: relative; overflow-x: hidden; overflow-y: overlay;">
+      <figure class="green-figure d-none d-sm-flex" style="min-height: 640px">
         <div class="d-flex justify-start" style="width: 100%;">
           <svg viewBox="0 0 1440 663"
                preserveAspectRatio="xMidYMid slice"
@@ -50,7 +50,7 @@
         </div>
       </figure>
 
-      <figure class="green-figure d-flex d-sm-none" style="overflow-x: hidden;">
+      <figure class="green-figure d-flex d-sm-none" style="min-height: 800px;">
         <div class="d-flex justify-start" style="width: 100%;">
           <svg viewBox="0 0 360 709"
                preserveAspectRatio="xMidYMid slice"

@@ -2,19 +2,13 @@
 /* eslint-disable no-shadow */
 
 const state = {
-  key: 'AIzaSyBVql75Qc_Y5oGvrxdcNRNMhBlZEzTdk1o',
-  officeAddress: 'Unit 127/1 Queens Rd, Melbourne VIC',
-  staticPartOfEndpoint: 'https://maps.googleapis.com/maps/api/geocode/json?address=',
-  keyPartOfEndpoint: ',+CA&key=AIzaSyBVql75Qc_Y5oGvrxdcNRNMhBlZEzTdk1o',
   officeCoords: null,
   serviceAvailable: null,
   markerImage: 'img/icons/marker-25x34.png'
 }
 
 const getters = {
-  officeAddress: state => state.officeAddress.split(' ').join('+'),
-  officeEndpoint: (state, getters) => `https://maps.googleapis.com/maps/api/geocode/json?address=${getters.officeAddress},+CA&key=${state.key}`
-  // https://maps.googleapis.com/maps/api/geocode/json?address=Unit+127/1+Queens+Rd,+Melbourne+VIC,+CA&key=AIzaSyBVql75Qc_Y5oGvrxdcNRNMhBlZEzTdk1o
+  officeAddress: (state, getters, rootState) => rootState.officeAddress.split(' ').join('+')
 }
 
 const mutations = {

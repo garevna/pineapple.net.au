@@ -55,21 +55,8 @@ export default {
     GetConnected,
     Enjoy
   },
-  data () {
-    return {
-      // foneSVG: null,
-      // pictureSVG: null
-    }
-  },
   computed: {
     ...mapState('content', ['home'])
-  },
-  mounted () {
-    // const foneURL = require('@/assets/home/how-to-connect/contact-us.svg')
-    // const pictureURL = require('@/assets/home/how-to-connect/contact-us-icon.svg')
-    // this.foneSVG = require(foneURL)
-    // this.pictureSVG = require(pictureURL)
-    // console.log(this.foneSVG, this.pictureSVG)
   }
 }
 </script>
