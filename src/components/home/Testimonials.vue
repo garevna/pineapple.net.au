@@ -58,7 +58,7 @@
         >
           <v-sheet height="100%" tile class="transparent">
             <v-row align="center" justify="center">
-              <v-card flat hover :width="cardWidth" height="212" style="position: relative" pa-4>
+              <v-card hover :width="cardWidth" height="212" style="position: relative" pa-4>
                 <v-avatar size="36px" class="testimonial-photo">
                   <img :src="testimonial.photoURL" :alt="testimonial.name"/>
                 </v-avatar>
@@ -75,6 +75,10 @@
 </template>
 
 <style scoped>
+
+.v-carousel__controls {
+  z-index: 0!important;
+}
 
 .testimonial-name,
 .testimonial-text,

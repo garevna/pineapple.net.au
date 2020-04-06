@@ -21,7 +21,7 @@
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
         <Enjoy/>
-        <v-card-title>
+        <v-card-title with="100%">
           <h3>Enjoy</h3>
         </v-card-title>
         <v-card-text>

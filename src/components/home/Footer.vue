@@ -30,6 +30,18 @@
                 <v-text-field
                       height="53"
                       class="input-field rounded transparent"
+                      label="Email"
+                      rounded
+                      outlined
+                      dark
+                      color="#fff"
+                      v-model="email"
+                ></v-text-field>
+              </v-card>
+              <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
+                <v-text-field
+                      height="53"
+                      class="input-field rounded transparent"
                       label="Phone"
                       rounded
                       outlined
@@ -147,6 +159,7 @@ export default {
   data () {
     return {
       name: '',
+      email: '',
       phone: '',
       send: false
     }
@@ -169,6 +182,7 @@ export default {
       if (!this.name || !this.phone) return
       this.$emit('update:user', {
         name: this.name,
+        email: this.email,
         phone: this.phone
       })
     }

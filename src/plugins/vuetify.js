@@ -9,12 +9,7 @@ export default new Vuetify({
     iconfont: 'mdi',
     values: {
       expand: 'mdi-expand-more',
-      support: 'mdi-lifebuoy',
-      steam: 'mdi-steam-box',
-      pc: 'mdi-desktop-classic',
-      xbox: 'mdi-xbox',
-      playstation: 'mdi-playstation',
-      switch: 'mdi-nintendo-switch'
+      home: 'mdi-home-circle'
     }
   },
   theme: {

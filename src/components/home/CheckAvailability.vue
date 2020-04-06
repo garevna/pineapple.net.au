@@ -8,7 +8,7 @@
         </v-card-title>
         <v-card-text class="mx-auto">
           <p :class="`address-text address-text--${screen}`">
-            to find out if Pineapple Net is available at your home or business.
+            Enter your address to find out if Pineapple Net is available
           </p>
         </v-card-text>
         <v-row align="center" justify="center">

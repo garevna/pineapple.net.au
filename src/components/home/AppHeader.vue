@@ -1,9 +1,9 @@
 <template>
 <v-container fluid>
-  <v-system-bar app absolute color="primary" height="40" width="100%">
+  <v-system-bar app fixed color="primary" height="40" width="100%">
     <v-row d-flex align="center" justify="end" class="mr-10">
       <v-spacer class="d-none d-lg-flex d-xl-flex"></v-spacer>
-      <span width="10" height="10" class="mr-2">
+      <span width="12" height="12" class="mr-2">
         <v-img src="@/assets/home/icons/system-bar-call-answer.png" contain></v-img>
       </span>
       <span class="system-bar-phone ml-2 mr-12">1300 857 501</span>
@@ -21,15 +21,15 @@
   </v-system-bar>
 
   <!-- Viewport width less then lg -->
-  <v-expansion-panels tile flat v-model="panel" class="app-bar d-lg-none" width="100%" style="margin-top: -8px">
+  <v-expansion-panels tile flat v-model="panel" class="app-bar d-lg-none" width="100%" style="position: fixed; margin-top: -8px; z-index: 10;">
     <v-expansion-panel style="background: #FAFAFA">
       <v-expansion-panel-header
                     expand-icon="none"
                     hide-actions
                     height="70"
           >
-            <span height="35" width="110" class="ml-10">
-              <v-img src="@/assets/home/logo-top-left.png" contain width="110" height="48"></v-img>
+            <span height="35" width="110" class="ml-2 ml-sm-4 ml-md-6">
+              <v-img src="@/assets/logo.svg" contain width="110" height="35"></v-img>
             </span>
             <v-btn text class="burger-menu" height="48" width="48">
               <span :class="burgerMenuClassFirst"></span>
@@ -53,14 +53,14 @@
   <!-- Viewport width wider or equal lg -->
     <v-app-bar
             app
-            absolute
+            fixed
             height="80"
             flat
             class="homefone app-bar d-none d-lg-block"
     >
         <v-row align="center" justify="center">
-          <span height="35" width="110" class="ml-10">
-            <v-img src="@/assets/home/logo-top-left.png" contain></v-img>
+          <span height="45" width="150" class="ml-10">
+            <v-img src="@/assets/logo.svg" contain width="150" height="45"></v-img>
           </span>
           <v-spacer></v-spacer>
       <v-btn-toggle
@@ -75,6 +75,7 @@
                :key="index"
                :class="getClassName(page)"
                @click="$emit('update:selected', index)">
+          <ContactUs v-if="page === 'Contact Us'" style="width: 50px; height:50px;" />
               {{ page }}
         </v-btn>
       </v-btn-toggle>
@@ -105,7 +106,7 @@
   border-radius: 100px!important;
 }
 .system-bar-phone {
-  font-size: 13px;
+  font-size: 16px;
   color: #ffffff;
 }
 .burger-menu {
@@ -149,8 +150,14 @@
 </style>
 
 <script>
+
+import ContactUs from '@/components/svg/ContactUs'
+
 export default {
   name: 'AppHeader',
+  components: {
+    ContactUs
+  },
   props: {
     pages: Array,
     selected: Number

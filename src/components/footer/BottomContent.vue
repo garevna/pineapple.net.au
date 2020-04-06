@@ -10,7 +10,14 @@
           <p class="left-14">{{ about }}</p>
           <p></p>
           <p class="left-14">{{ officeAddress }}</p>
-          <p class="left-14">{{ officePhone }}</p>
+          <p class="left-14">
+            <span width="10" height="10" class="mr-2" style="display: inline-block;">
+              <v-img src="@/assets/home/icons/system-bar-call-answer.png" width="10" height="10" contain></v-img>
+            </span>
+            {{ officePhone }}
+          </p>
+          <p class="left-14">{{ officeEmail }}</p>
+          <p class="left-14">ABN: {{ officeABN }}</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -73,7 +80,7 @@
   left: 0;
   /* overflow: hidden; */
   margin-bottom: -4px;
-  bottom: 40px;
+  bottom: 10px;
 }
 </style>
 
@@ -84,7 +91,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'FooterBottomContent',
   computed: {
-    ...mapState(['officePhone', 'officeAddress', 'linkedIn', 'faceBook']),
+    ...mapState(['officePhone', 'officeAddress', 'officeEmail', 'officeABN', 'linkedIn', 'faceBook']),
     ...mapState('content', ['about', 'copyright'])
   }
 }

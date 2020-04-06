@@ -9,6 +9,8 @@ export default new Vuex.Store({
     host: '',
     officeAddress: '75 Brighton Road, Elwood VIC 3184',
     officePhone: '1300 857 501',
+    officeEmail: 'info@pineapple.net.au',
+    officeABN: '55 618 934 437',
     linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
     faceBook: 'https://www.facebook.com/PineappleNetAU/',
     contactEndpoint: '',

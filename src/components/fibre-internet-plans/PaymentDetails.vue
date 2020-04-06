@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
+  <v-card flat tile class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
     <StepHeader :tab="3"/>
 
     <v-card flat class="transparent about mx-auto my-2">

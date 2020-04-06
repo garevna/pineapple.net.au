@@ -1,6 +1,6 @@
 <template>
 <v-container fluid>
-  <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
+  <v-card flat tile class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
     <StepHeader :tab="0"/>
 
     <v-card flat class="transparent mx-auto my-4">
@@ -9,7 +9,6 @@
 
     <v-row v-if="viewportWidth > 680" class="mx-auto">
       <v-card
-            flat
             hover
             width="640"
             height="140"
@@ -32,7 +31,7 @@
               Unlimited Data
             </p>
           </v-col>
-          <v-col cols="5">
+          <!-- <v-col cols="5">
             <p class="bold-text"  :style="{ color: blackTextColor(tarif) }">
               Does your building contain more than 60 apartments?
             </p>
@@ -41,7 +40,7 @@
                 :color="tarif.selected ? '#fff' : '#20731C'"
                 fontSize="14px"
             />
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-card>
     </v-row>
@@ -212,14 +211,14 @@ import { mapState } from 'vuex'
 
 import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 import SwitchMode from '@/components/plans/SwitchMode.vue'
-import Menu from '@/components/plans/Menu.vue'
+// import Menu from '@/components/plans/Menu.vue'
 
 export default {
   name: 'FirstStep',
   components: {
+    // Menu,
     StepHeader,
-    SwitchMode,
-    Menu
+    SwitchMode
   },
   props: {
     next: Boolean,

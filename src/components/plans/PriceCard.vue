@@ -14,14 +14,14 @@
       <p>{{ upload }} Mbps Upload</p>
       <p>Unlimited Data</p>
     </v-card-text>
-    <v-card-text>
+    <!-- <v-card-text>
       <p class="question">Does your building contain more then 60 apartments?</p>
-    </v-card-text>
+    </v-card-text> -->
     <v-img src="@/assets/price-card-image.png" class="price-card-image"></v-img>
 
-    <div class="text-center">
+    <!-- <div class="text-center">
       <Menu :confirm.sync="selected" :fontSize="fontSize"/>
-    </div>
+    </div> -->
 
     <div class="text-center mt-8">
       <v-btn
@@ -96,13 +96,13 @@ p {
 
 import { mapState } from 'vuex'
 
-import Menu from '@/components/plans/Menu.vue'
+// import Menu from '@/components/plans/Menu.vue'
 
 export default {
   name: 'PriceCard',
 
   components: {
-    Menu
+    // Menu
   },
 
   props: {
@@ -141,13 +141,10 @@ export default {
       return this.screen < 600 ? '247' : this.mode === 'residential' ? 280 : 380
     },
     height () {
-      return this.screen < 600 ? '440' : this.mode === 'residential' ? 566 : 581
+      return this.screen < 600 ? '320' : this.mode === 'residential' ? 400 : 420
     },
     fontSize () {
       return this.screen > 960 ? '16px' : '13px'
-    },
-    questionLineHeight () {
-      return this.screen > 960 ? '150%' : '100%'
     },
     textLineHeight () {
       return this.screen > 960 ? '180%' : '130%'
@@ -163,7 +160,6 @@ export default {
     changeViewport (mode) {
       [
         { name: '--price-card-font-size', value: this.fontSize[screen] },
-        { name: '--price-card-question-line-height', value: this.questionLineHeight[screen] },
         { name: '--price-card-text-line-height', value: this.textLineHeight[mode] }
       ].forEach(item => document.documentElement.style.setProperty(item.name, item.value))
     }

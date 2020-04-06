@@ -45,7 +45,7 @@
         <div class="base-title">
           <a href="#footer" class="core-goto"></a>
             <v-row width="100%">
-              <Footer :page.sync="page"/>
+              <Footer :page.sync="page" :user.sync="user"/>
             </v-row>
         </div>
       </section>
@@ -68,7 +68,7 @@ import InternetPlans from '@/components/home/InternetPlans.vue'
 import Footer from '@/components/home/Footer.vue'
 import HowToConnect from '@/components/home/HowToConnect.vue'
 import SpeedTest from '@/components/home/SpeedTest.vue'
-import Testimonials from '@/views/Testimonials.vue'
+import Testimonials from '@/components/home/Testimonials.vue'
 
 export default {
   name: 'Home',
@@ -87,7 +87,12 @@ export default {
     return {
       page: 0,
       pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-      selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', null]
+      selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', null],
+      user: {
+        name: '',
+        email: '',
+        phone: ''
+      }
     }
   },
   computed: {
@@ -113,6 +118,9 @@ export default {
           easing: 'easeInOutCubic'
         })
       }
+    },
+    user (val) {
+      console.log(val)
     }
   },
   methods: {

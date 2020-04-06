@@ -1,21 +1,20 @@
 <template>
-  <v-card flat class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
+  <v-card flat tile class="transparent mx-auto mt-0 mb-12 pa-0" :width="containerWidth">
     <StepHeader :tab="1"/>
 
-    <v-row class="mx-auto">
+    <v-row class="mx-auto mt-4">
       <v-card
-            flat
             hover
-            width="640"
+            width="100%"
             height="140"
             v-for="(modem, index) in modems"
             :key="index"
-            class="ma-2 px-4"
+            class="mx-1 my-2 px-1 mx-sm-4 my-md-4 px-sm-4"
             @click="selectModem(index)"
             :color="modem.selected ? selectedColor : 'white'"
       >
         <v-row align="center" align-content="center" justify="center" style="width: 100%; min-height: 110px;">
-          <v-col cols="5">
+          <v-col cols="6">
             <p class="modem-caption"  :style="{ fontSize: titleFont, color: blackTextColor(modem) }">
               {{ modem.title }}
             </p>
@@ -25,7 +24,7 @@
               <span class="mo" :style="{ color: greenTextColor(modem) }">/mo</span>
             </div>
           </v-col>
-          <v-col cols="7">
+          <v-col cols="6">
             <p class="normal-text" :style="{ fontSize: textFont, color: grayTextColor(modem) }">
               {{ modem.text }}
             </p>
@@ -134,7 +133,7 @@ export default {
       modems: [
         {
           title: 'I need a modem',
-          text: 'Preconfigured for you for easy setup',
+          text: 'Yes, I need to purchase a modem (0 month contracts)',
           price: 180,
           selected: false
         },
