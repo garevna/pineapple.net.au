@@ -151,7 +151,7 @@
 
 <script>
 
-import ContactUs from '@/components/svg/ContactUs'
+import ContactUs from '@/components/svg/ContactUsIcon'
 
 export default {
   name: 'AppHeader',
