@@ -14,7 +14,7 @@
         </v-radio-group>
       </div>
 
-      <v-row v-if="plan==='business'">
+      <v-row v-if="business">
         <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">business name</p>
           <v-text-field
