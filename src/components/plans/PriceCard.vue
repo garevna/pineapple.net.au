@@ -28,9 +28,9 @@
           color="buttons"
           dark
           rounded
-          width="220"
+          width="100%"
           height="40"
-          :class="`${mode === 'residential' && screen >= 960 ? 'price-card-button' : ''} px-auto`"
+          class="px-auto mx-auto"
           @click="signUp('Sign Up button event\n', $event)"
       >
         Sign up now
@@ -80,10 +80,6 @@ p {
   bottom: 0;
   right: 0;
   z-index: 0;
-}
-
-.price-card-button {
-  left: -8px;
 }
 
 .green-border {
@@ -138,7 +134,7 @@ export default {
       return this.screen < 960 ? 'pa-2 my-6 mx-1' : 'pa-10 my-10 mx-4'
     },
     width () {
-      return this.screen < 600 ? '247' : this.mode === 'residential' ? 280 : 380
+      return this.screen < 600 ? '247' : 280
     },
     height () {
       return this.screen < 600 ? '320' : this.mode === 'residential' ? 400 : 420

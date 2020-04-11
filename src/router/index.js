@@ -12,8 +12,8 @@ const routes = [
     props: true
   },
   {
-    path: '/plans',
-    name: 'plans',
+    path: '/connect',
+    name: 'connect',
     component: () => import(/* webpackChunkName: "plans" */ '@/views/FibreInternetPlans.vue')
   },
   {

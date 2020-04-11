@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card flat class="d-flex flex-wrap justify-center transparent">
       <v-card flat class="transparent text-centered mx-10" width="240">
-        <ContactUs/>
+        <ContactUs :contact.sync="contactClicked" />
         <v-card-title>
           <h3>Contact Us</h3>
         </v-card-title>
@@ -11,7 +11,7 @@
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
-        <GetConnected/>
+        <GetConnected @click="$emit('update:connect', true)" />
         <v-card-title>
           <h3>Get connected</h3>
         </v-card-title>
@@ -50,13 +50,24 @@ import Enjoy from '@/components/svg/Enjoy.vue'
 
 export default {
   name: 'HowToConnect',
+  props: ['contact', 'connect'],
   components: {
     ContactUs,
     GetConnected,
     Enjoy
   },
+  data () {
+    return {
+      contactClicked: false
+    }
+  },
   computed: {
     ...mapState('content', ['home'])
+  },
+  watch: {
+    contactClicked (val) {
+      this.$emit('update:contact', val)
+    }
   }
 }
 </script>

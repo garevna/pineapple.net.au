@@ -137,7 +137,7 @@
 import { mapState } from 'vuex'
 
 import PriceCard from '@/components/plans/PriceCard.vue'
-import SwitchMode from '@/components/plans/SwitchMode.vue'
+import SwitchMode from '@/components/plans/SwitchToggle.vue'
 
 export default {
   name: 'InternetPlans',

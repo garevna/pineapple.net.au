@@ -14,14 +14,14 @@ module.exports = {
     }
   },
   pwa: {
-    themeColor: '#4CAF50',
+    themeColor: '#20731C',
     msTileColor: '#FAFAFA',
     iconPaths: {
-      favicon32: 'img/icons/favicon-32x32.png',
-      favicon16: 'img/icons/favicon-16x16.png',
-      appleTouchIcon: 'img/icons/apple-touch-icon.png',
-      maskIcon: 'img/icons/favicon.png',
-      msTileImage: 'img/icons/mstile-150x150.png'
+      favicon32: '/img/icons/favicon-32x32.png',
+      favicon16: '/img/icons/favicon-16x16.png',
+      appleTouchIcon: '/img/icons/apple-touch-icon.png',
+      maskIcon: '/img/icons/favicon.png',
+      msTileImage: '/img/icons/mstile-150x150.png'
     }
   },
   runtimeCompiler: true,

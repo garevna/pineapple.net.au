@@ -210,7 +210,7 @@
 import { mapState } from 'vuex'
 
 import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
-import SwitchMode from '@/components/plans/SwitchMode.vue'
+import SwitchMode from '@/components/plans/SwitchToggle.vue'
 // import Menu from '@/components/plans/Menu.vue'
 
 export default {

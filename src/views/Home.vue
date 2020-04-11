@@ -35,7 +35,7 @@
 
       <!-- ============================= FOOTER ============================= -->
       <v-row width="100%">
-        <HowToConnect/>
+        <HowToConnect :contact.sync="contactUs" :connect.sync="connect" />
       </v-row>
       <v-row width="100%">
         <Testimonials/>
@@ -59,6 +59,8 @@
 </style>
 
 <script>
+
+import { mapState } from 'vuex'
 
 import AppHeader from '@/components/home/AppHeader.vue'
 import Top from '@/components/home/Top.vue'
@@ -92,19 +94,37 @@ export default {
         name: '',
         email: '',
         phone: ''
-      }
+      },
+      contactUs: false,
+      connect: false
     }
   },
   computed: {
+    ...mapState(['plan']),
     plans () {
-      return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
+      if (this.selectors[this.page] === '#plans') {
+        this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
+      }
+      return this.plan
     }
   },
   watch: {
+    contactUs (val) {
+      console.log('Contact us: ', val)
+      if (!val) return
+      this.$router.push({ name: 'contact' })
+      this.contactUs = false
+    },
+    connect (val) {
+      console.log('Connect: ', val)
+      if (!val) return
+      this.$router.push({ name: 'connect' })
+      this.connect = false
+    },
     page (val) {
       // if (val === 0) return
       if (this.selectors[val] === '#connect') {
-        this.$router.push({ name: 'plans' })
+        this.$router.push({ name: 'connect' })
         return
       }
       if (this.selectors[val] === '#contact') {
