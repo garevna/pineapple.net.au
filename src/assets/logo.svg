@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="logo" x="0px" y="0px" viewBox="0 0 494.3 124.7" style="enable-background:new 0 0 494.3 124.7;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:none;}
-	.st1{fill:url(#SVGID_1_);}
+	.st1{fill:url(#logo_gradient);}
 	.st2{fill:#324C3B;}
 </style>
 <g>
 	<rect x="-35.3" y="-31.1" class="st0" width="566.9" height="191.3"/>
-	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="2.7365" y1="64.5895" x2="111.1852" y2="64.5895">
+	<linearGradient id="logo_gradient" gradientUnits="userSpaceOnUse" x1="2.7365" y1="64.5895" x2="111.1852" y2="64.5895">
 		<stop offset="0" style="stop-color:#D7DF23"/>
 		<stop offset="0.9995" style="stop-color:#00AEEF"/>
 	</linearGradient>

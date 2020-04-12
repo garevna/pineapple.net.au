@@ -11,7 +11,7 @@
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
-        <GetConnected @click="$emit('update:connect', true)" />
+        <GetConnected :connect.sync="connectClicked" />
         <v-card-title>
           <h3>Get connected</h3>
         </v-card-title>
@@ -58,7 +58,8 @@ export default {
   },
   data () {
     return {
-      contactClicked: false
+      contactClicked: false,
+      connectClicked: false
     }
   },
   computed: {
@@ -67,6 +68,9 @@ export default {
   watch: {
     contactClicked (val) {
       this.$emit('update:contact', val)
+    },
+    connectClicked (val) {
+      this.$emit('update:connect', val)
     }
   }
 }
