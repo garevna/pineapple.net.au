@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/connect',
     name: 'connect',
-    component: () => import(/* webpackChunkName: "plans" */ '@/views/FibreInternetPlans.vue')
+    component: () => import(/* webpackChunkName: "plans" */ '@/views/Connect.vue')
   },
   {
     path: '/contact',

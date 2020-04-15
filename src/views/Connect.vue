@@ -3,9 +3,7 @@
     <v-row>
       <v-card tile dark color="primary" height="40" width="100%" style="position: fixed; top: 0; left: 0; z-index: 1">
         <v-btn text @click="$router.push({ name: 'home' })">
-          <!-- <v-img src="@/assets/logo.svg" width="110" height="35" contain></v-img>  -->
           <v-icon>$home</v-icon>
-          <!-- Home -->
         </v-btn>
       </v-card>
     </v-row>
@@ -24,23 +22,28 @@
           <v-tabs-slider></v-tabs-slider>
 
           <v-tab href="#tab-1">
-            <v-icon color="buttons">mdi-numeric-1-box</v-icon>
+            Step 1
+            <!-- <v-icon color="buttons">mdi-numeric-1-box</v-icon> -->
           </v-tab>
 
           <v-tab href="#tab-2">
-            <v-icon color="buttons">mdi-numeric-2-box</v-icon>
+            Step 2
+            <!-- <v-icon color="buttons">mdi-numeric-2-box</v-icon> -->
           </v-tab>
 
           <v-tab href="#tab-3">
-            <v-icon color="buttons">mdi-numeric-3-box</v-icon>
+            Step 3
+            <!-- <v-icon color="buttons">mdi-numeric-3-box</v-icon> -->
           </v-tab>
 
           <v-tab href="#tab-4">
-            <v-icon color="buttons">mdi-numeric-4-box</v-icon>
+            Step 4
+            <!-- <v-icon color="buttons">mdi-numeric-4-box</v-icon> -->
           </v-tab>
 
           <v-tab href="#tab-5">
-            <v-icon color="buttons">mdi-numeric-5-box</v-icon>
+            Step 5
+            <!-- <v-icon color="buttons">mdi-numeric-5-box</v-icon> -->
           </v-tab>
         </v-tabs>
 
@@ -77,9 +80,6 @@
   padding: 0;
   height: 3158px;
 }
-/* .additional-column {
-  margin: 0;
-} */
 
 </style>
 
@@ -135,10 +135,8 @@ export default {
       set (val) { this.tab = val ? 'tab-5' : this.tab }
     }
   },
-  watch: {
-    viewportWidth (val) {
-      console.log('Viewport width: ', val)
-    }
+  mounted () {
+    this.$vuetify.goTo(0)
   }
 }
 

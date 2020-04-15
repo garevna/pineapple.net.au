@@ -4,7 +4,7 @@
     <StepHeader :tab="0"/>
 
     <v-card flat class="transparent mx-auto my-4">
-      <SwitchMode :mode.sync="currentPlan"/>
+      <SwitchMode />
     </v-card>
 
     <v-row v-if="viewportWidth > 680" class="mx-auto">
@@ -12,7 +12,7 @@
             hover
             width="640"
             height="140"
-            v-for="(tarif, index) in tarifs"
+            v-for="(tarif, index) in plans[plan]"
             :key="index"
             class="card--wide mx-auto my-2"
             @click="selectTarif(index)"
@@ -31,16 +31,6 @@
               Unlimited Data
             </p>
           </v-col>
-          <!-- <v-col cols="5">
-            <p class="bold-text"  :style="{ color: blackTextColor(tarif) }">
-              Does your building contain more than 60 apartments?
-            </p>
-            <Menu
-                :confirm.sync="apartments"
-                :color="tarif.selected ? '#fff' : '#20731C'"
-                fontSize="14px"
-            />
-          </v-col> -->
         </v-row>
       </v-card>
     </v-row>
@@ -68,17 +58,6 @@
               {{ tarif.download }} Mbps Upload<br>
               Unlimited Data
             </p>
-          </v-col>
-          <v-col cols="6">
-            <p class="bold-text"  :style="{ color: blackTextColor(tarif) }">
-              Does your building contain more than 60 apartments?
-            </p>
-            <Menu
-                :confirm.sync="apartments"
-                :color="tarif.selected ? '#fff' : '#20731C'"
-                fontSize="13px"
-                width="150"
-            />
           </v-col>
         </v-row>
       </v-card>
@@ -226,27 +205,23 @@ export default {
   },
   data () {
     return {
-      currentPlan: 'residential',
-      apartments: false,
+      // apartments: false,
       selectedColor: '#72BF44',
       promocode: ''
     }
   },
   computed: {
-    ...mapState(['viewportWidth']),
+    ...mapState(['viewportWidth', 'plan']),
     ...mapState('internetPlans', ['plans']),
     tarifs () {
-      return this.plans[this.currentPlan]
+      return this.plans[this.plan]
     },
     buttonWidth () { return this.viewportWidth < 600 ? '100%' : '220px' },
     containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' }
   },
   watch: {
-    currentPlan (val) {
-      this.$store.commit('internetPlans/SELECT_PLAN', val)
-    },
     promocode (val) {
-      this.$store.commit('internetPlans/SET_PROMO_CODE', val)
+      this.$store.commit('clientInfo/SET_PROMO_CODE', val)
     }
   },
   methods: {
@@ -260,7 +235,7 @@ export default {
       return tarif.selected ? '#fff' : '#20731C'
     },
     selectTarif (index) {
-      this.$store.commit('internetPlans/SELECT_TARIF', index)
+      this.$store.dispatch('internetPlans/SELECT_TARIF', index)
     }
   },
   mounted () {

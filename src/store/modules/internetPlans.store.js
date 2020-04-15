@@ -16,85 +16,72 @@ const state = {
       { upload: 1000, download: 1000, price: 500, selected: false }
     ]
   },
-  userInfo: {
-    selectedPlan: 'residential',
-    visiblePlan: 'residential',
-    promocode: '',
-    businessName: '',
-    abnNumber: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    birthDate: null,
-    phone: '',
-    occupancyType: '',
-    infoSource: '',
-    card: {
-      number: '',
-      expiry: null,
-      ccv: '000'
-    }
-  },
   occupancyTypes: ['first', 'second', 'third'],
-  infoSources: ['source 1', 'source 2', 'source 3']
+  infoSources: ['source 1', 'source 2', 'source 3'],
+  cardsInfo: {
+    'American Express': {
+      begin: ['34', 37],
+      length: 15
+    },
+    'Diners Club - Carte Blanche': {
+      begin: ['300', '301', '302', '303', '304', '305'],
+      length: 14
+    },
+    'Diners Club - International': {
+      begin: ['36'],
+      length: 14
+    },
+    'Diners Club - USA & Canada': {
+      begin: ['54'],
+      length: 16
+    },
+    Discover: {
+      begin: ['6011', '622', '644', '645', '646', '647', '648', '649', '65'],
+      length: [16, 17, 18, 19]
+    },
+    InstaPayment: {
+      begin: ['637', '638', '639'],
+      length: 16
+    },
+    JCB: {
+      begin: ['35'],
+      length: [16, 17, 18, 19]
+    },
+    Maestro: {
+      begin: ['5018', '5020', '5038', '5893', '6304', '6759', '6761', '6762', '6763'],
+      length: [16, 17, 18, 19]
+    },
+    MasterCard: {
+      begin: ['51', '52', '53', '54', '55', '222100-272099'],
+      length: 16
+    },
+    Visa: {
+      begin: ['4'],
+      length: [13, 16, 19]
+    },
+    'Visa Electron': {
+      begin: ['4026', '417500', '4508', '4844', '4913', '4917'],
+      length: 16
+    }
+  }
 }
 
 const getters = {
-  homePagePlan: (state, getters, rootState) => rootState.plan,
-  clientTarif: (state) => state.userInfo.selectedPlan ? state.plans[state.userInfo.selectedPlan].find(item => item.selected) : null,
-  currentPlan: (state, getters) => state.plans[getters.plan]
-  // imageSrc: (folderName, fileName) => (state, getters, rootState) => `${rootState.host}/${folderName}/${fileName}`
-}
-
-const mutations = {
-  SELECT_PLAN: (state, plan) => { state.userInfo.visiblePlan = plan },
-  SELECT_TARIF: (state, tarifIndex) => {
-    state.userInfo.selectedPlan = state.userInfo.visiblePlan
-    state.plans.residential.forEach((tarif) => { tarif.selected = false })
-    state.plans.business.forEach((tarif) => { tarif.selected = false })
-    state.plans[state.userInfo.selectedPlan][tarifIndex].selected = true
-  },
-  // CLEAR_SELECTION: (state) => {
-  //   state.plans.residential.forEach((tarif) => { tarif.selected = false })
-  //   state.plans.business.forEach((tarif) => { tarif.selected = false })
-  // },
-  SET_PROMO_CODE: (state, promo) => { state.userInfo.promocode = promo },
-  USER_BUSINESS_NAME: (state, name) => { state.userInfo.businessName = name },
-  USER_ABN_NUMBER: (state, num) => { state.userInfo.abnNumber = num },
-  USER_FIRST_NAME: (state, name) => { state.userInfo.firstName = name },
-  USER_LAST_NAME: (state, name) => { state.userInfo.lastName = name },
-  USER_EMAIL: (state, email) => { state.userInfo.email = email },
-  USER_BIRTHDATE: (state, date) => { state.userInfo.birthDate = date },
-  USER_PHONE: (state, phone) => { state.userInfo.phone = phone },
-  USER_OCCUPANCY: (state, occupancy) => { state.userInfo.occupancyType = occupancy },
-  USER_INFO_SOURCE: (state, source) => { state.userInfo.infoSource = source },
-  USER_CARD_NUMBER: (state, num) => { state.userInfo.card.num = num },
-  USER_CARD_EXPIRY: (state, exp) => { state.userInfo.card.expiry = exp },
-  USER_CARD_CCV: (state, ccv) => { state.userInfo.card.ccv = ccv }
+  plan: (state, getters, rootState) => rootState.plan,
+  tarif: (state, getters) => state.plans[getters.plan].find(item => item.selected)
 }
 
 const actions = {
 
-  // async GET_BLOG_CONTENT ({ getters, dispatch }) {
-  //   let blogContent = null
-  //   try {
-  //     const response = await (await fetch(getters.contentEndpoint)).json()
-  //     blogContent = response.data
-  //   } catch (error) { dispatch('LOG_ERROR', response) }
+  SELECT_PLAN ({ commit }, payload) {
+    commit('CHANGE_PLAN', payload, { root: true })
+  },
 
-  //   return blogContent
-  // },
-
-  // async SAVE_ARTICLE_BY_ID ({ getters, commit, dispatch }, { id, article }) {
-  //   const requestBody = Object.assign({}, ...state.articleFields.map(key => ({ [key]: article[key] })))
-  //   try {
-  //     const response = await fetch(`${getters.articleEndpoint}/${id}`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(requestBody)
-  //     })
-  //   } catch (error) { dispatch('LOG_ERROR', error) }
-  // },
+  SELECT_TARIF ({ state, getters }, tarifIndex) {
+    state.plans.residential.forEach((tarif) => { tarif.selected = false })
+    state.plans.business.forEach((tarif) => { tarif.selected = false })
+    state.plans[getters.plan][tarifIndex].selected = true
+  },
 
   LOG_ERROR ({ commit }, error) {
     commit('ERROR_HANDLER', { moduleName: 'plans', error }, { root: true })
@@ -106,6 +93,5 @@ export default {
   namespaced: true,
   state,
   getters,
-  mutations,
   actions
 }

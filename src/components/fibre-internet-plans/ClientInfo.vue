@@ -4,12 +4,12 @@
 
     <v-card flat class="transparent about mx-auto my-2">
       <div class="about--radio">
-        <v-radio-group v-model="business">
+        <v-radio-group v-model="trigger">
           <v-radio class="radio-custom"
                    color="deepgreen"
-                   label="i'm a business"
-                   :value=true
-                   @click="togglePlan"
+                   label="I'm a business"
+                   value="business"
+                   @click="toggle"
           ></v-radio>
         </v-radio-group>
       </div>
@@ -31,6 +31,7 @@
             dense
             height="42"
             v-model="abnNumber"
+            :rules="abnRules"
           ></v-text-field>
         </v-col>
         <p class="grey-comment">
@@ -61,10 +62,7 @@
 
       <v-row>
         <v-col cols="12" md="6" class="py-0">
-          <p
-              class="normal-text"
-              :style="{ color: emailColor }"
-          >
+          <p class="normal-text">
               email*
           </p>
           <v-text-field
@@ -72,18 +70,15 @@
             dense
             height="42"
             v-model="email"
-            :error="emailError"
-            :error-message="emailErrorMessage"
+            :rules="emailRules"
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="6" class="py-0">
-          <p
-              class="normal-text"
-              :style="{ color: dateColor }"
-          >
+          <p class="normal-text">
             date of birth*
           </p>
             <v-menu
+              ref="datePickerMenu"
               v-model="datePicker"
               :close-on-content-click="false"
               :nudge-right="40"
@@ -100,11 +95,14 @@
                 ></v-text-field>
               </template>
               <v-date-picker
+                     ref="picker"
                      v-model="birthDate"
-                     @input="datePicker = false"
+                     @change="saveDate"
                      year-icon="mdi-calendar-blank"
                      prev-icon="mdi-skip-previous"
                      next-icon="mdi-skip-next"
+                     :max="new Date(new Date() - 18 * 365 * 24 * 60 * 60 * 1000).toISOString().substr(0, 10)"
+                     :min="new Date(new Date() - 100 * 365 * 24 * 60 * 60 * 1000).toISOString().substr(0, 10)"
               ></v-date-picker>
             </v-menu>
         </v-col>
@@ -118,6 +116,7 @@
             dense
             height="42"
             v-model="phone"
+            :rules="phoneRules"
           ></v-text-field>
         </v-col>
         <v-col cols="12" md="6" class="py-0">
@@ -224,11 +223,11 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 
-const emailValidator = require('email-validator')
+// const emailValidator = require('email-validator')
 
 export default {
   name: 'ClientInfo',
@@ -241,87 +240,120 @@ export default {
   },
   data () {
     return {
-      business: this.plan === 'business',
+      trigger: false,
       emailError: false,
-      emailErrorMessage: '',
-      emailColor: '#000',
-      dateError: false,
+      abnError: false,
+      phoneError: false,
       datePicker: false,
-      dateColor: '#000',
-      minDate: new Date(new Date() - 18 * 365 * 24 * 60 * 60 * 1000),
-      maxDate: new Date(new Date() - 100 * 365 * 24 * 60 * 60 * 1000)
+      abnRules: [
+        value => !!value || 'Required',
+        value => {
+          if (!value) {
+            this.abnError = true
+            return 'Required'
+          }
+          const pattern = /^[0-9]{11}$/gm
+          return pattern.test(value.split(' ').join('')) || 'Invalid ABN number'
+        },
+        value => {
+          if (!value) {
+            this.abnError = true
+            return 'Required'
+          }
+          const weight = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+          const array = value.split(' ').join('').split('')
+          array.unshift(array.shift() - 1)
+          const result = array.reduce((accum, item, index) => { return accum + item * weight[index] }, 0)
+          this.abnError = result % 89 !== 0
+          return !this.abnError || 'Invalid ABN number'
+        }
+      ],
+      phoneRules: [
+        value => !!value || 'Required',
+        value => {
+          if (!value) {
+            this.phoneError = true
+            return 'Required'
+          }
+          const pattern = /^[0-9]{10,12}$/gm
+          this.phoneError = !pattern.test(value.split(' ').join(''))
+          return !this.phoneError || 'Invalid phone number'
+        }
+      ],
+      emailRules: [
+        value => !!value || 'Required',
+        value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          this.emailError = !pattern.test(value)
+          return !this.emailError || 'Invalid e-mail'
+        }
+      ]
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState({
-      userInfo: state => state.internetPlans.userInfo,
-      occupancyTypes: state => state.internetPlans.occupancyTypes,
-      infoSources: state => state.internetPlans.infoSources
-    }),
-    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
-    plan: {
-      get () { return this.userInfo.plan },
-      set (val) { this.$store.commit('internetPlans/SELECT_PLAN', val) }
-    },
+    ...mapState('clientInfo', ['personalInfo']),
+    ...mapGetters('clientInfo', ['business']),
+    ...mapState('internetPlans', ['occupancyTypes', 'infoSources']),
+    ...mapGetters('internetPlans', ['plan']),
+    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : 680 },
     businessName: {
-      get () { return this.userInfo.businessName },
-      set (val) { this.$store.commit('internetPlans/USER_BUSINESS_NAME', val) }
+      get () { return this.personalInfo.businessName },
+      set (val) { this.$store.commit('clientInfo/USER_BUSINESS_NAME', val) }
     },
     abnNumber: {
-      get () { return this.userInfo.abnNumber },
-      set (val) { this.$store.commit('internetPlans/USER_ABN_NUMBER', val) }
+      get () { return this.personalInfo.abnNumber },
+      set (val) {
+        this.abnError || this.$store.commit('clientInfo/USER_ABN_NUMBER', val)
+      }
     },
     firstName: {
-      get () { return this.userInfo.firstName },
-      set (val) { this.$store.commit('internetPlans/USER_FIRST_NAME', val) }
+      get () { return this.personalInfo.firstName },
+      set (val) { this.$store.commit('clientInfo/USER_FIRST_NAME', val) }
     },
     lastName: {
-      get () { return this.userInfo.lastName },
-      set (val) { this.$store.commit('internetPlans/USER_LAST_NAME', val) }
+      get () { return this.personalInfo.lastName },
+      set (val) { this.$store.commit('clientInfo/USER_LAST_NAME', val) }
     },
     email: {
-      get () { return this.userInfo.email },
+      get () { return this.personalInfo.email },
       set (val) {
-        this.emailError = !emailValidator.validate(val)
-        this.emailColor = this.emailError ? '#f00' : '#000'
-        this.emailError || this.$store.commit('internetPlans/USER_EMAIL', val)
+        this.emailError || this.$store.commit('clientInfo/USER_EMAIL', val)
       }
     },
     birthDate: {
-      get () {
-        return this.userInfo.birthDate
-      },
+      get () { return this.personalInfo.birthDate },
       set (val) {
-        this.$store.commit('internetPlans/USER_BIRTHDATE', val)
-        this.dateError = new Date(this.birthDate) > this.minDate || new Date(this.birthDate) < this.maxDate
-        this.dateColor = this.dateError ? '#f00' : '#000'
+        this.$store.commit('clientInfo/USER_BIRTHDATE', val)
+        console.log(this.birthDate)
       }
     },
     phone: {
-      get () { return this.userInfo.phone },
-      set (val) { this.$store.commit('internetPlans/USER_PHONE', val) }
+      get () { return this.personalInfo.phone },
+      set (val) { this.phoneError || this.$store.commit('clientInfo/USER_PHONE', val) }
     },
     occupancyType: {
-      get () { return this.userInfo.occupancyType },
-      set (val) { this.$store.commit('internetPlans/USER_OCCUPANCY', val) }
+      get () { return this.personalInfo.occupancyType },
+      set (val) { this.$store.commit('clientInfo/USER_OCCUPANCY', val) }
     },
     infoSource: {
-      get () { return this.userInfo.infoSource },
-      set (val) { this.$store.commit('internetPlans/USER_INFO_SOURCE', val) }
+      get () { return this.personalInfo.infoSource },
+      set (val) { this.$store.commit('clientInfo/USER_INFO_SOURCE', val) }
     }
   },
 
   methods: {
-    togglePlan () {
-      this.business = !this.business
-      this.plan = this.business ? 'business' : 'residential'
-      this.$store.commit('internetPlans/SELECT_PLAN', this.plan)
+    toggle () {
+      this.trigger = this.trigger ? null : 'business'
+      this.$store.commit('CHANGE_PLAN', this.trigger || 'residential')
     },
-    getRelativeData (data, days) {
-      if (!(data instanceof Date)) return
-      return new Date(data.setDate(data.getDate() + days))
+    saveDate (date) {
+      this.$refs.datePickerMenu.save(date)
+      this.datePicker = false
     }
+  },
+  mounted () {
+    this.trigger = this.business ? 'business' : null
   }
 }
 </script>

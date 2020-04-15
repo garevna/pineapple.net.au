@@ -31,7 +31,8 @@
             outlined
             dense
             height="42"
-            v-model="cardNumber"
+            v-model="number"
+            :rules="cardNumberRules"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -39,12 +40,34 @@
       <v-row dense justify="end" class="mx-4 my-0">
         <v-col cols="12" md="6">
           <p class="normal-text">card expiry</p>
-          <v-text-field
-            outlined
-            dense
-            height="42"
-            v-model="cardExpiry"
-          ></v-text-field>
+          <v-menu
+            ref="datePickerMenu"
+            v-model="datePicker"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="expiry"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+                   ref="picker"
+                   v-model="expiry"
+                   @change="saveDate"
+                   year-icon="mdi-calendar-blank"
+                   prev-icon="mdi-skip-previous"
+                   next-icon="mdi-skip-next"
+                   :min="new Date().toISOString().substr(0, 10)"
+            ></v-date-picker>
+          </v-menu>
+
         </v-col>
         <v-col cols="12" md="6">
           <p class="normal-text">ccv</p>
@@ -53,6 +76,7 @@
             dense
             height="42"
             v-model="ccv"
+            :rules="ccvRules"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -155,30 +179,77 @@ export default {
   },
   data () {
     return {
-      firstName: '',
-      lastName: '',
-      cardNumber: '',
-      cardExpiry: '',
-      ccv: '',
-      datePicker: false,
-      minDate: new Date(new Date() - 18 * 365 * 24 * 60 * 60 * 1000),
-      maxDate: new Date(new Date() - 100 * 365 * 24 * 60 * 60 * 1000)
+      cardNumberRules: [
+        value => !!value || 'Required',
+        value => {
+          if (!value) {
+            this.cardNumberError = true
+            return 'Required'
+          }
+          const pattern = /^[0-9]{14,19}$/gm
+          return pattern.test(value.split(' ').join('')) || 'Invalid card number'
+        },
+        value => {
+          if (!value) {
+            this.cardNumberError = true
+            return 'Required'
+          }
+          let digits = value.split(' ').join('').split('')
+          const lastNumber = Number(digits.pop())
+          digits = digits.reverse().map((digit, index) => digit * (index % 2 === 0 ? 2 : 1))
+          const result = digits.reduce((accum, digit, index) => {
+            return accum + (digit > 9 ? digit - 9 : digit)
+          }, 0) * 9
+          this.cardNumberError = lastNumber !== result % 10
+          return !this.cardNumberError || 'Invalid card number'
+        }
+      ],
+      ccvRules: [
+        value => !!value || 'Required',
+        value => {
+          if (!value) {
+            this.ccvError = true
+            return 'Required'
+          }
+          const pattern = /^[0-9]{3}$/gm
+          return pattern.test(value.split(' ').join('')) || 'Invalid ccv'
+        }
+      ],
+      datePicker: false
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' }
+    ...mapState('clientInfo', ['card']),
+    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
+    firstName: {
+      get () { return this.card.firstName },
+      set (val) { this.$store.commit('clientInfo/USER_CARD_FIRSTNAME', val) }
+    },
+    lastName: {
+      get () { return this.card.lastName },
+      set (val) { this.$store.commit('clientInfo/USER_CARD_LASTNAME', val) }
+    },
+    number: {
+      get () { return this.card.number },
+      set (val) { this.$store.commit('clientInfo/USER_CARD_NUMBER', val) }
+    },
+    expiry: {
+      get () { return this.card.expiry },
+      set (val) { this.$store.commit('clientInfo/USER_CARD_EXPIRY', val) }
+    },
+    ccv: {
+      get () { return this.card.ccv },
+      set (val) { this.$store.commit('clientInfo/USER_CARD_CCV', val) }
+    }
   },
   methods: {
     change () {
       this.plan = this.plan === 'business' ? 'residential' : 'business'
     },
-    getRelativeData (data, days) {
-      if (!(data instanceof Date)) return
-      return new Date(data.setDate(data.getDate() + days))
-    },
-    testBirthday () {
-      return this.birthDate <= this.minDate && this.birthDate > this.maxDate
+    saveDate (date) {
+      this.$refs.datePickerMenu.save(date)
+      this.datePicker = false
     }
   }
 }

@@ -36,6 +36,7 @@
                     height="42"
                     width="200"
                     color="#20731C"
+                    @click="contactUs"
                 >
                   Register your interest
                 </v-btn>
@@ -49,6 +50,7 @@
                     height="42"
                     width="200"
                     color="#72BF44"
+                    @click="businessPricing"
                 >
                   Business Pricing
                 </v-btn>
@@ -62,6 +64,7 @@
                     height="42"
                     width="200"
                     color="#72BF44"
+                    @click="residentialPricing"
                 >
                   Residential Pricing
                 </v-btn>
@@ -177,7 +180,10 @@ export default {
     ContactSymbol
   },
   props: {
-    failure: Boolean
+    failure: Boolean,
+    residential: Boolean,
+    business: Boolean,
+    contact: Boolean
   },
   data () {
     return {
@@ -199,6 +205,20 @@ export default {
     },
     likeSize () {
       return this.screen > 750 ? 290 : 150
+    }
+  },
+  methods: {
+    residentialPricing () {
+      this.$emit('update:residential', true)
+      this.$emit('update:failure', false)
+    },
+    businessPricing () {
+      this.$emit('update:business', true)
+      this.$emit('update:failure', false)
+    },
+    contactUs () {
+      this.$emit('update:contact', true)
+      this.$emit('update:failure', false)
     }
   }
 }

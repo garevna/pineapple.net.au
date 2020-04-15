@@ -8,7 +8,9 @@ const state = {
 }
 
 const getters = {
-  endpoint: (state, getters, rootState) => rootState.contactEndpoint
+  endpoint: (state, getters, rootState) => rootState.contactEndpoint,
+  pages: (state, getters, rootState) => rootState.pages.filter(item => item !== 'Contact Us'),
+  selectors: (state, getters, rootState) => rootState.selectors.filter(item => item !== '#contact')
 }
 
 const mutations = {

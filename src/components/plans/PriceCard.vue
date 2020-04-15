@@ -1,69 +1,75 @@
 <template>
   <v-card
-      :class="`price-card-with-border green-border ${activeClass}`"
-      :width="width"
-      :height="height"
+      :class="{ 'price-card-with-border': item.selected, 'price-card': true }"
+      @click="$emit('update:selected', index)"
   >
-  <!-- <div class="transparent price-card-border"> -->
-    <!-- <v-card-title>
-      <h3 style="color: #353535; ">{{name}}</h3>
-    </v-card-title> -->
-    <v-card-text align="center">
-      <h1 class="price"><sup>$</sup>{{ price }}<span class="mo">/mo</span></h1>
-      <p>{{ download }} Mbps Download</p>
-      <p>{{ upload }} Mbps Upload</p>
-      <p>Unlimited Data</p>
-    </v-card-text>
-    <!-- <v-card-text>
-      <p class="question">Does your building contain more then 60 apartments?</p>
-    </v-card-text> -->
     <v-img src="@/assets/price-card-image.png" class="price-card-image"></v-img>
 
-    <!-- <div class="text-center">
-      <Menu :confirm.sync="selected" :fontSize="fontSize"/>
-    </div> -->
+    <v-card-text class="mt-2 mt-sm-0" align="center" style="position: relative; z-index: 1">
+      <h1 class="price"><sup>$</sup>{{ item.price }}<span class="mo">/mo</span></h1>
+      <p>{{ item.download }} Mbps Download</p>
+      <p>{{ item.upload }} Mbps Upload</p>
+      <p>Unlimited Data</p>
+    </v-card-text>
 
-    <div class="text-center mt-8">
+    <v-card-actions class="text-center my-4 mb-md-8">
       <v-btn
+          v-if="available"
           color="buttons"
           dark
           rounded
           width="100%"
           height="40"
-          class="px-auto mx-auto"
-          @click="signUp('Sign Up button event\n', $event)"
+          class="px-auto mx-auto mb-8 mb-md-12"
+          @click="gotoConnect"
       >
         Sign up now
       </v-btn>
-    </div>
-  <!-- </div> -->
+      <v-btn
+          v-else
+          color="buttons"
+          dark
+          rounded
+          width="100%"
+          height="40"
+          class="px-auto mx-auto mb-8 mb-md-12"
+          @click="$emit('update:contact', true)"
+      >
+        Contact Us
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
 <style>
 
+.price-card {
+  padding: 30px 20px;
+  margin: 40px 20px;
+  width: 280px;
+  height: 380px;
+}
+
 .price-card-with-border {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   border-style: solid;
-  border: 0;
   border-radius: 16px!important;
   transition: all 0.8s;
-}
-.price-card-with-border:hover {
   border-top: 4px solid #20731C!important;
   border-bottom: 4px solid #20731C90!important;
+}
+
+p, .question {
+  font-size: 16px;
+  line-height: 180%;
 }
 
 p {
   text-align: center;
   color: #000;
-  font-size: var(--font-size);
-  line-height: var(--price-card-text-line-height);
 }
 .question {
   font-weight: bold;
-  font-size: var(--price-card-font-size);
-  line-height: var(--price-card-question-line-height);
 }
 
 .price {
@@ -82,8 +88,16 @@ p {
   z-index: 0;
 }
 
-.green-border {
-  border-color: #20731C!important;
+@media screen and (max-width: 959px) {
+  .price-card {
+    padding: 16px;
+    width: 250px;
+    height: 320px;
+  }
+  p, .question {
+    font-size: 13px;
+    line-height: 130%;
+  }
 }
 
 </style>
@@ -92,76 +106,20 @@ p {
 
 import { mapState } from 'vuex'
 
-// import Menu from '@/components/plans/Menu.vue'
-
 export default {
   name: 'PriceCard',
-
-  components: {
-    // Menu
-  },
-
-  props: {
-    name: String,
-    price: {
-      type: [Number, String],
-      required: true
-    },
-    upload: {
-      type: [Number, String],
-      required: true
-    },
-    download: {
-      type: [Number, String],
-      required: true
-    },
-    mode: {
-      type: String,
-      default: 'residential'
-    }
-  },
-  data () {
-    return {
-      selected: true,
-      menu_visible: false
-    }
-  },
+  props: ['item', 'index', 'selected', 'connect', 'contact'],
   computed: {
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
-    activeClass () {
-      return this.screen < 960 ? 'pa-2 my-6 mx-1' : 'pa-10 my-10 mx-4'
-    },
-    width () {
-      return this.screen < 600 ? '247' : 280
-    },
-    height () {
-      return this.screen < 600 ? '320' : this.mode === 'residential' ? 400 : 420
-    },
-    fontSize () {
-      return this.screen > 960 ? '16px' : '13px'
-    },
-    textLineHeight () {
-      return this.screen > 960 ? '180%' : '130%'
+    ...mapState('clientInfo', ['personalInfo']),
+    available () {
+      return this.personalInfo.addressAvalable
     }
   },
   methods: {
-    signUp (message, event) {
-      //
-    },
-    changeHandler (message, event) {
-      //
-    },
-    changeViewport (mode) {
-      [
-        { name: '--price-card-font-size', value: this.fontSize[screen] },
-        { name: '--price-card-text-line-height', value: this.textLineHeight[mode] }
-      ].forEach(item => document.documentElement.style.setProperty(item.name, item.value))
+    gotoConnect () {
+      this.$emit('update:selected', this.index)
+      this.$emit('update:connect', true)
     }
-  },
-  mounted () {
-    this.changeViewport(this.mode)
   }
 }
 </script>

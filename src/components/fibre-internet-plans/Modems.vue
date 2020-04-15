@@ -111,6 +111,10 @@
   color: #fff;
 }
 
+@media screen and (max-width: 600px) {
+
+}
+
 </style>
 
 <script>
@@ -156,8 +160,8 @@ export default {
   computed: {
     ...mapState(['viewportWidth']),
     buttonWidth () { return this.viewportWidth < 600 ? '100%' : '220px' },
-    containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
-    cardWidth () { return this.viewportWidth < 600 ? '340px' : '638px' },
+    containerWidth () { return this.viewportWidth < 680 ? this.viewportWidth : '680' },
+    cardWidth () { return this.viewportWidth < 640 ? '300px' : '640px' },
     cardHeight () { return this.viewportWidth < 600 ? '120px' : '140px' },
     titleFont () { return this.viewportWidth < 600 ? '18px' : '28px' },
     textFont () { return this.viewportWidth < 600 ? '13px' : '14px' }
@@ -175,6 +179,7 @@ export default {
     selectModem (index) {
       this.modems.forEach((modem) => { modem.selected = false })
       this.modems[index].selected = true
+      this.$store.commit('clientInfo/MODEM_PRICE', this.modems[index].price ? this.modems[index].price : 0)
     }
   }
 }

@@ -8,45 +8,40 @@
       <h2>FIBRE <span class="green--text">INTERNET PLANS</span></h2>
     </v-card-title>
     <v-card-text>
-      <p>
-          Zero connection fee with 12 month plans<br>
-          Commitment issues? month-to-month plans also available
-      </p>
+      <p v-html="internetPlans.text"></p>
     </v-card-text>
 
-    <v-card-text>
-      <SwitchMode :mode.sync="regime"/>
+    <v-card-text width="100%" class="mx-0 px-0 text-center">
+      <SwitchMode />
     </v-card-text>
 
     <v-slide-x-transition leave-absolute>
       <v-card
-              v-if="regime === 'residential'"
               flat
               class="d-flex flex-wrap justify-center transparent"
       >
         <PriceCard class="d-none d-md-block"
-                  v-for="(item, index) in residential"
+                  v-for="(item, index) in plans[plan]"
                   :key="index"
-                  mode="residential"
-                  :name="item.name"
-                  :upload="item.upload"
-                  :download="item.download"
-                  :price="item.price"
+                  :item="item"
+                  :index="index"
+                  :selected.sync="selected"
+                  :connect.sync="getConnect"
+                  :contact.sync="getContact"
         />
 
       <v-carousel
-          v-model="cardNum"
           :height="carouselHeight"
           hide-delimiter-background
           show-arrows-on-hover
           class="d-block d-md-none"
         >
           <v-carousel-item
-            v-for="(item, index) in residential"
+            v-for="(item, index) in plans[plan]"
             :key="index"
           >
             <v-sheet
-              height="420"
+              height="320"
               light
               class="transparent"
             >
@@ -56,11 +51,12 @@
                 justify="center"
               >
               <PriceCard
-                        mode="residential"
-                        :name="item.name"
-                        :upload="item.upload"
-                        :download="item.download"
-                        :price="item.price"
+                        :mode="plan"
+                        :item="item"
+                        :index="index"
+                        :selected.sync="selected"
+                        :connect.sync="getConnect"
+                        :contact.sync="getContact"
               />
               </v-row>
             </v-sheet>
@@ -68,58 +64,6 @@
         </v-carousel>
       </v-card>
     </v-slide-x-transition>
-
-    <v-slide-x-reverse-transition leave-absolute>
-      <v-card
-              v-if="regime === 'business'"
-              flat
-              class="d-flex flex-wrap justify-center transparent"
-              transition="slide-x-transition"
-      >
-        <PriceCard class="d-none d-md-block"
-                    v-for="(item, index) in business"
-                    :key="index"
-                    mode="business"
-                    :name="item.name"
-                    :upload="item.upload"
-                    :download="item.download"
-                    :price="item.price"
-        />
-
-        <v-carousel
-            v-model="cardNum"
-            :height="carouselHeight"
-            hide-delimiter-background
-            show-arrows-on-hover
-            class="d-block d-md-none"
-          >
-            <v-carousel-item
-              v-for="(item, index) in business"
-              :key="index"
-            >
-              <v-sheet
-                height="420"
-                light
-                class="transparent"
-              >
-                <v-row
-                  class="fill-height transparent"
-                  align="center"
-                  justify="center"
-                >
-                <PriceCard
-                          mode="business"
-                          :name="item.name"
-                          :upload="item.upload"
-                          :download="item.download"
-                          :price="item.price"
-                />
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>
-      </v-card>
-    </v-slide-x-reverse-transition>
   </v-card>
 </template>
 
@@ -145,33 +89,37 @@ export default {
     PriceCard,
     SwitchMode
   },
-  props: {
-    mode: String
-  },
+  props: ['connect', 'contact'],
   data () {
     return {
-      regime: 'residential',
-      cardNum: 0
+      getConnect: false,
+      getContact: false,
+      selected: null
     }
   },
   computed: {
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
+    ...mapState({ screen: 'viewportWidth', plan: 'plan' }),
     ...mapState('internetPlans', ['plans']),
-    residential () {
-      return this.plans.residential
-    },
-    business () {
-      return this.plans.business
-    },
+    ...mapState('content', ['internetPlans']),
     carouselHeight () {
-      return this.screen < 960 ? this.screen < 600 ? 530 : 580 : 530
+      return this.screen < 960 ? this.screen < 600 ? 420 : 480 : 420
     }
   },
   watch: {
-    mode (val) {
-      this.regime = val
+    selected (val) {
+      if (val === null) return
+      this.$store.dispatch('internetPlans/SELECT_TARIF', val)
+    },
+    getConnect (val) {
+      this.$emit('update:connect', val)
+    },
+    getContact (val) {
+      this.$emit('update:contact', val)
+    }
+  },
+  methods: {
+    goToConnect () {
+
     }
   },
   mounted () {

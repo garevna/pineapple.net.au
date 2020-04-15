@@ -111,7 +111,7 @@ h3, p, small {
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import AppHeader from '@/components/home/AppHeader.vue'
 import Map from '@/components/map/Map.vue'
@@ -129,7 +129,7 @@ export default {
   data () {
     return {
       page: null,
-      pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Sign In'],
+      // pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Sign In'],
       emailError: false,
       emailHint: '',
       emailColor: '#000',
@@ -144,6 +144,7 @@ export default {
   computed: {
     ...mapState(['viewportWidth', 'officeAddress', 'officePhone']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
+    ...mapGetters('contact', ['pages', 'selectors']),
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
     },
@@ -180,7 +181,7 @@ export default {
     page (val) {
       if (this.pages[val] === 'Contact Us') return
       if (this.pages[val] === 'Connect') {
-        this.$router.push({ name: 'plans' })
+        this.$router.push({ name: 'connect' })
         return
       }
       this.$router.push({ name: 'home', params: { page: val } })
@@ -198,7 +199,7 @@ export default {
     }
   },
   mounted () {
-    //
+    this.$vuetify.goTo(0)
   }
 }
 </script>

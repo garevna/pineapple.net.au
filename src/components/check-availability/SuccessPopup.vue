@@ -34,6 +34,7 @@
                 height="42"
                 width="191"
                 color="#20731C"
+                @click="businessPricing"
             >
               Business Pricing
             </v-btn>
@@ -45,6 +46,7 @@
                 height="42"
                 width="191"
                 color="#72BF44"
+                @click="residentialPricing"
             >
               Residential Pricing
             </v-btn>
@@ -167,7 +169,9 @@ export default {
     LikeSymbol
   },
   props: {
-    success: Boolean
+    success: Boolean,
+    business: Boolean,
+    residential: Boolean
   },
   data () {
     return {
@@ -189,6 +193,16 @@ export default {
     },
     likeSize () {
       return this.screen > 750 ? 290 : 150
+    }
+  },
+  methods: {
+    residentialPricing () {
+      this.$emit('update:residential', true)
+      this.$emit('update:success', false)
+    },
+    businessPricing () {
+      this.$emit('update:business', true)
+      this.$emit('update:success', false)
     }
   }
 }

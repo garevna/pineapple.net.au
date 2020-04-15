@@ -18,7 +18,7 @@
         <v-col>
           <p class="normal-text">Plan</p>
           <span class="dollar-small">$</span>
-          <span class="price-small">{{ clientTarif ? clientTarif.price : '' }}</span>
+          <span class="price-small">{{ tarif ? tarif.price : '' }}</span>
           <span class="mo-small">/mo</span>
         </v-col>
       </v-row>
@@ -29,7 +29,7 @@
     </v-col>
     <v-col cols="4" class="mt-2">
       <sup class="dollar">$</sup>
-      <span class="price">{{ clientTarif ? clientTarif.price : '' }}</span>
+      <span class="price">{{ tarif ? tarif.price + modemPrice : '' }}</span>
       <span class="mo">/mo</span>
     </v-col>
   </v-row>
@@ -116,17 +116,29 @@ export default {
   },
   data () {
     return {
-      address: ''
+      //
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapGetters('internetPlans', ['clientTarif']),
+    ...mapState('clientInfo', ['personalInfo', 'modemPrice']),
+    ...mapGetters('internetPlans', ['tarif']),
+    address: {
+      get () {
+        return this.personalInfo.address
+      },
+      set (newAddress) {
+        this.store.commit('clientInfo/USER_ADDRESS', newAddress)
+      }
+    },
     containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
     yellowFontSize () { return this.viewportWidth < 600 ? '18px' : '32px' }
   },
   methods: {
     //
+  },
+  mounted () {
+    console.log(this.address)
   }
 }
 </script>

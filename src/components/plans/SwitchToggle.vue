@@ -160,7 +160,7 @@ input:checked + .slider {
     height: 48px;
   }
   .switch > span.text {
-    top: 16px;
+    top: 12px;
     font-size: 14px;
   }
   .slider {
@@ -169,7 +169,7 @@ input:checked + .slider {
     font-size: 14px;
   }
   .slider:before {
-    padding: 13px 0;
+    padding: 12px 0;
     border-radius: 32px;
     height: 42px;
     width: 150px;
@@ -189,11 +189,10 @@ input:checked + .slider {
 
 <script>
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'SwitchMode',
-  props: {
-    mode: String
-  },
   data () {
     return {
       classes: ['residential', 'business'],
@@ -204,20 +203,20 @@ export default {
     }
   },
   computed: {
+    ...mapState(['plan']),
     checked () {
+      this.$store.commit('CHANGE_PLAN', this.value)
       return this.value === 'business'
     }
   },
   watch: {
-    mode (val) {
-      console.log(val)
+    plan (val) {
       this.value = val
-      this.$store.commit('CHANGE_PLAN', val)
-      this.changeMode()
+      this.changePlan()
     }
   },
   methods: {
-    changeMode () {
+    changePlan () {
       this.switcher.checked = this.checked
       const i = Number(!this.checked)
       const j = Number(this.checked)
@@ -228,7 +227,7 @@ export default {
     }
   },
   mounted () {
-    this.value = this.mode
+    this.value = this.plan
 
     this.switchWrapper = document.getElementById('switch')
     this.slider = document.getElementById('slider')
@@ -236,11 +235,10 @@ export default {
 
     this.switcher.onclick = function (event) {
       this.value = this.classes[Number(event.target.checked)]
-      this.$emit('update:mode', this.value)
-      this.changeMode()
+      this.changePlan()
     }.bind(this)
 
-    this.changeMode()
+    this.changePlan()
   }
 }
 </script>

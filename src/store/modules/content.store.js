@@ -22,6 +22,15 @@ const state = {
     contactUs: 'Get in touch to find out if Pineapple is available at your address',
     getConnected: 'Our team of installers get you connected to our network',
     enjoy: 'Fast fibre internet'
+  },
+  checkAddress: {
+    text: 'Enter your address to find out if Pineapple Net is available',
+    placeholder: 'Enter your address',
+    buttonText: 'Check Now'
+  },
+  internetPlans: {
+    text: `Zero connection fee with 12 month plans<br>
+          Commitment issues? month-to-month plans also available`
   }
 }
 

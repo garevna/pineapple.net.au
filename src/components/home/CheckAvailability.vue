@@ -8,7 +8,7 @@
         </v-card-title>
         <v-card-text class="mx-auto">
           <p :class="`address-text address-text--${screen}`">
-            Enter your address to find out if Pineapple Net is available
+            {{ checkAddress.text }}
           </p>
         </v-card-text>
         <v-row align="center" justify="center">
@@ -18,7 +18,7 @@
                     :height="buttonHeight"
                     rounded
                     v-model="address"
-                    placeholder="Enter your address"
+                    :placeholder="checkAddress.placeholder"
                     id="autocompleteAddress"
                   >
               </v-text-field>
@@ -30,14 +30,23 @@
                     color="#72BF44"
                     label="Check Now"
                     @click="checkAvailable"
-                    >Check Now
+                    >{{ checkAddress.buttonText }}
               </v-btn>
             </v-card-text>
         </v-row>
       </v-card>
     </div>
-    <SuccessPopup :success.sync="success" />
-    <FailurePopup :failure.sync="failure" />
+    <SuccessPopup
+        :success.sync="success"
+        :business.sync="businessClicked"
+        :residential.sync="residentialClicked"
+    />
+    <FailurePopup
+        :failure.sync="failure"
+        :business.sync="businessClicked"
+        :residential.sync="residentialClicked"
+        :contact.sync="contactClicked"
+    />
   </v-container>
 </template>
 
@@ -84,7 +93,6 @@
 }
 .address-card--shrink {
   width: 300px;
-  /* max-width: 90%; */
   height: 40px!important;
 }
 
@@ -144,22 +152,44 @@ export default {
     SuccessPopup,
     FailurePopup
   },
+  props: ['business', 'residential', 'contact'],
   data () {
     return {
-      address: '',
       success: false,
       failure: false,
-      location: null
+      location: null,
+      businessClicked: false,
+      residentialClicked: false,
+      contactClicked: false
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('map', ['markerImage', 'serviceAvailable']),
+    ...mapState('clientInfo', ['personalInfo']),
+    ...mapState('content', ['checkAddress']),
     screen () {
       return this.viewportWidth < 960 ? 'shrink' : 'wide'
     },
     buttonHeight () {
       return this.viewportWidth < 960 ? 40 : 70
+    },
+    address: {
+      get () { return this.personalInfo.address },
+      set (address) {
+        this.$store.commit('clientInfo/USER_ADDRESS', address)
+      }
+    }
+  },
+  watch: {
+    businessClicked (val) {
+      this.$emit('update:business', val)
+    },
+    residentialClicked (val) {
+      this.$emit('update:residential', val)
+    },
+    contactClicked (val) {
+      this.$emit('update:contact', val)
     }
   },
   methods: {
@@ -167,12 +197,10 @@ export default {
       getAvailable: 'map/GET_AVAILABLE'
     }),
     checkAvailable () {
-      for (const polygon of this.serviceAvailable) {
-        if (this.$geoLocation(this.location, polygon)) {
-          this.success = true
-          break
-        }
-      }
+      if (!this.address) return
+      this.$store.commit('clientInfo/USER_ADDRESS', this.address)
+      this.success = !!this.serviceAvailable.find(polygon => this.$geoLocation(this.location, polygon))
+      this.$store.commit('clientInfo/ADDRESS_AVAILABLE', this.success)
       this.failure = !this.success
     }
   },
@@ -183,8 +211,11 @@ export default {
     autocomplete.addListener('place_changed', function () {
       const place = autocomplete.getPlace()
       inputElement.value = place.formatted_address
+      this.address = place.formatted_address
+      this.$store.commit('clientInfo/USER_ADDRESS', place.formatted_address)
       self.location = place.geometry.location
-    })
+      this.checkAvailable()
+    }.bind(this))
   }
 }
 </script>

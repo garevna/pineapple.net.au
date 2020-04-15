@@ -12,7 +12,11 @@
       <!-- ============================= CHECK AVAILABILITY ============================= -->
       <section class="my-12">
         <div class="text-center base-title mx-auto">
-          <CheckAvailability/>
+          <CheckAvailability
+              :residential.sync="residential"
+              :business.sync="business"
+              :contact.sync="contactUs"
+          />
         </div>
         <SpeedTest/>
       </section>
@@ -29,18 +33,19 @@
       <section id="plans">
         <div class="base-title">
           <a href="#plans" class="core-goto"></a>
-          <InternetPlans :mode="plans"/>
+          <InternetPlans :connect.sync="getConnected" :contact.sync="contactUs"/>
         </div>
       </section>
 
-      <!-- ============================= FOOTER ============================= -->
+      <!-- ============================= HOW TO CONNECT ============================= -->
       <v-row width="100%">
-        <HowToConnect :contact.sync="contactUs" :connect.sync="connect" />
+        <HowToConnect :contact.sync="contactUs" :connect.sync="getConnected" />
       </v-row>
       <v-row width="100%">
         <Testimonials/>
       </v-row>
 
+      <!-- ============================= FOOTER ============================= -->
       <section id="footer">
         <div class="base-title">
           <a href="#footer" class="core-goto"></a>
@@ -88,41 +93,36 @@ export default {
   data () {
     return {
       page: 0,
-      pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-      selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', null],
       user: {
         name: '',
         email: '',
         phone: ''
       },
       contactUs: false,
-      connect: false
+      getConnected: false,
+      business: false,
+      residential: false
     }
   },
   computed: {
-    ...mapState(['plan']),
-    plans () {
-      if (this.selectors[this.page] === '#plans') {
-        this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
-      }
-      return this.plan
-    }
+    ...mapState(['plan', 'pages', 'selectors'])
   },
   watch: {
     contactUs (val) {
-      console.log('Contact us: ', val)
-      if (!val) return
-      this.$router.push({ name: 'contact' })
-      this.contactUs = false
+      if (val) this.$router.push({ name: 'contact' })
     },
-    connect (val) {
-      console.log('Connect: ', val)
-      if (!val) return
-      this.$router.push({ name: 'connect' })
-      this.connect = false
+    getConnected (val) {
+      if (val) this.$router.push({ name: 'connect' })
+    },
+    business (val) {
+      if (val) {
+        this.page = this.pages.indexOf('Business')
+      }
+    },
+    residential (val) {
+      this.page = this.pages.indexOf('Residential')
     },
     page (val) {
-      // if (val === 0) return
       if (this.selectors[val] === '#connect') {
         this.$router.push({ name: 'connect' })
         return
@@ -131,6 +131,9 @@ export default {
         this.$router.push({ name: 'contact' })
         return
       }
+      if (this.selectors[val] === '#plans') {
+        this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
+      }
       if (this.selectors[val]) {
         this.$vuetify.goTo(this.selectors[val], {
           duration: 500,
@@ -138,9 +141,6 @@ export default {
           easing: 'easeInOutCubic'
         })
       }
-    },
-    user (val) {
-      console.log(val)
     }
   },
   methods: {
