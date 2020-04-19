@@ -10,8 +10,11 @@
         </div>
       </section>
       <!-- ============================= CHECK AVAILABILITY ============================= -->
-      <section class="my-12">
-        <div class="text-center base-title mx-auto">
+      <section id="check" class="my-12">
+        <div class="base-title">
+          <a href="#check" class="mr-2 d-inline-flex core-goto text--primary"></a>
+        <!-- </div>
+        <div class="text-center base-title mx-auto"> -->
           <CheckAvailability
               :residential.sync="residential"
               :business.sync="business"
@@ -41,6 +44,8 @@
       <v-row width="100%">
         <HowToConnect :contact.sync="contactUs" :connect.sync="getConnected" />
       </v-row>
+
+      <!-- ============================= TESTIMONIALS ============================= -->
       <v-row width="100%">
         <Testimonials/>
       </v-row>
@@ -65,7 +70,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import AppHeader from '@/components/home/AppHeader.vue'
 import Top from '@/components/home/Top.vue'
@@ -105,7 +110,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['plan', 'pages', 'selectors'])
+    ...mapState(['plan', 'pages', 'selectors']),
+    ...mapGetters('clientInfo', ['address', 'addressAvalable'])
   },
   watch: {
     contactUs (val) {
@@ -124,7 +130,16 @@ export default {
     },
     page (val) {
       if (this.selectors[val] === '#connect') {
-        this.$router.push({ name: 'connect' })
+        if (this.addressAvalable) {
+          this.$router.push({ name: 'connect' })
+        } else {
+          this.$vuetify.goTo('#check', {
+            duration: 500,
+            offset: 200,
+            easing: 'easeInOutCubic'
+          })
+        }
+        this.page = undefined
         return
       }
       if (this.selectors[val] === '#contact') {

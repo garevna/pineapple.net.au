@@ -179,7 +179,7 @@ export default {
     selectModem (index) {
       this.modems.forEach((modem) => { modem.selected = false })
       this.modems[index].selected = true
-      this.$store.commit('clientInfo/MODEM_PRICE', this.modems[index].price ? this.modems[index].price : 0)
+      this.$store.commit('clientInfo/UPDATE_MODEM_PRICE', this.modems[index].price ? this.modems[index].price : 0)
     }
   }
 }

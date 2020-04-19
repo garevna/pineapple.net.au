@@ -19,7 +19,7 @@
         >
           <v-card
             class="ma-4"
-            height="212"
+            height="340"
             width="376"
             @click="toggle"
           >
@@ -29,13 +29,11 @@
               justify="center"
             >
               <v-scale-transition>
-                <v-card flat hover :width="cardWidth" height="212" style="position: relative" pa-4>
-                  <v-avatar size="36px" class="testimonial-photo">
-                    <img :src="testimonial.photoURL" :alt="testimonial.name"/>
-                  </v-avatar>
+                <v-card flat hover :width="cardWidth" height="340" style="position: relative" pa-4>
+                  <img :src="testimonial.photo" class="testimonial-photo" width="40" height="40" style="border-radius: 50%" :alt="testimonial.name" />
                   <p class="testimonial-name">{{ testimonial.name }}</p>
                   <p class="testimonial-text" :style="{ fontSize: textSize }">{{ testimonial.text }}</p>
-                  <p class="testimonial-date">{{ testimonial.date.toLocaleDateString() }}</p>
+                  <p class="testimonial-date">{{ testimonial.date }}</p>
                 </v-card>
               </v-scale-transition>
             </v-row>
@@ -45,12 +43,13 @@
 
       <v-carousel
             v-else
-            :continuous="false"
-            :show-arrows="false"
-            hide-delimiter-background
-            height="300"
+            :continuous="true"
+            :show-arrows="true"
+            hide-delimiters
+            height="340"
+            width="100%"
             light
-            class="transparent"
+            class="testimonials transparent"
       >
         <v-carousel-item
           v-for="(testimonial, index) in testimonials"
@@ -58,13 +57,11 @@
         >
           <v-sheet height="100%" tile class="transparent">
             <v-row align="center" justify="center">
-              <v-card hover :width="cardWidth" height="212" style="position: relative" pa-4>
-                <v-avatar size="36px" class="testimonial-photo">
-                  <img :src="testimonial.photoURL" :alt="testimonial.name"/>
-                </v-avatar>
+              <v-card hover width="70%" height="320" style="position: relative" pa-4>
+                <img :src="testimonial.photo" class="testimonial-photo" width="40" height="40" style="border-radius: 50%" :alt="testimonial.name" />
                 <p class="testimonial-name">{{ testimonial.name }}</p>
-                <p class="testimonial-text" :style="{ fontSize: textSize }">{{ testimonial.text }}</p>
-                <p class="testimonial-date">{{ testimonial.date.toLocaleDateString() }}</p>
+                <p class="testimonial-text" :style="{ fontSize: textSize }" v-html="testimonial.text"></p>
+                <p class="testimonial-date">{{ testimonial.date }}</p>
               </v-card>
             </v-row>
           </v-sheet>
@@ -73,6 +70,20 @@
     </v-card>
   </v-container>
 </template>
+
+<style>
+.testimonials .v-btn__content,
+.testimonials .mdi::before,
+.testimonials .mdi-chevron-right::before,
+.testimonials .v-icon::after {
+  color: #fff!important;
+}
+
+.testimonials .theme--light.v-btn.v-btn--icon {
+  background: #7b79!important;
+  color: #fff!important;
+}
+</style>
 
 <style scoped>
 
@@ -87,11 +98,7 @@
   position: absolute;
 }
 
-.testimonial-name,
-.testimonial-text,
-.testimonial-date {
-  text-align: left;
-}
+.testimonial-name, .testimonial-date { text-align: left; }
 
 .testimonial-photo {
   top: 30px;
@@ -109,6 +116,7 @@
   top: 80px;
   left: 20px;
   width: calc(100% - 40px);
+  text-align: justify;
   /* font-size: 14px; */
   font-weight: normal;
 }
@@ -140,11 +148,14 @@ export default {
       screen: 'viewportWidth'
     }),
     cardWidth () {
-      return this.screen < 600 ? this.screen - 40 : 376
+      return this.screen < 600 ? this.screen - 100 : 376
     },
     textSize () {
       return this.screen < 600 ? '12px' : '14px'
     }
+  },
+  mounted () {
+    this.$store.dispatch('testimonials/GET_CONTENT')
   }
 }
 

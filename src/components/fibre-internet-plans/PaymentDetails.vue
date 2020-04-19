@@ -224,23 +224,23 @@ export default {
     containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' },
     firstName: {
       get () { return this.card.firstName },
-      set (val) { this.$store.commit('clientInfo/USER_CARD_FIRSTNAME', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PAYMENT_DETAILS', { prop: 'firstName', value: val }) }
     },
     lastName: {
       get () { return this.card.lastName },
-      set (val) { this.$store.commit('clientInfo/USER_CARD_LASTNAME', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PAYMENT_DETAILS', { prop: 'lastName', value: val }) }
     },
     number: {
       get () { return this.card.number },
-      set (val) { this.$store.commit('clientInfo/USER_CARD_NUMBER', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PAYMENT_DETAILS', { prop: 'number', value: val }) }
     },
     expiry: {
       get () { return this.card.expiry },
-      set (val) { this.$store.commit('clientInfo/USER_CARD_EXPIRY', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PAYMENT_DETAILS', { prop: 'expiry', value: val }) }
     },
     ccv: {
       get () { return this.card.ccv },
-      set (val) { this.$store.commit('clientInfo/USER_CARD_CCV', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PAYMENT_DETAILS', { prop: 'ccv', value: val }) }
     }
   },
   methods: {

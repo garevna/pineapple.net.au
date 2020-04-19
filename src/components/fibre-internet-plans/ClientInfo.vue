@@ -8,13 +8,14 @@
           <v-radio class="radio-custom"
                    color="deepgreen"
                    label="I'm a business"
-                   value="business"
+                   :value="plan === 'residential' ? null : plan"
+                   :hint="businessHint"
                    @click="toggle"
           ></v-radio>
         </v-radio-group>
       </div>
 
-      <v-row v-if="business">
+      <v-row v-if="trigger">
         <v-col cols="12" md="6" class="py-0">
           <p class="normal-text">business name</p>
           <v-text-field
@@ -227,8 +228,6 @@ import { mapState, mapGetters } from 'vuex'
 
 import StepHeader from '@/components/fibre-internet-plans/StepHeader.vue'
 
-// const emailValidator = require('email-validator')
-
 export default {
   name: 'ClientInfo',
   components: {
@@ -240,7 +239,7 @@ export default {
   },
   data () {
     return {
-      trigger: false,
+      businessHint: '',
       emailError: false,
       abnError: false,
       phoneError: false,
@@ -293,52 +292,60 @@ export default {
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('clientInfo', ['personalInfo']),
-    ...mapGetters('clientInfo', ['business']),
+    ...mapGetters('clientInfo', ['plan', 'tarif']),
     ...mapState('internetPlans', ['occupancyTypes', 'infoSources']),
     ...mapGetters('internetPlans', ['plan']),
+    trigger: {
+      get () {
+        return this.plan === 'business' ? this.plan : null
+      },
+      set (newVal) {
+        this.businessHint = 'It will break selected tarif'
+        // this.business = !this.business
+      }
+    },
     containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : 680 },
     businessName: {
       get () { return this.personalInfo.businessName },
-      set (val) { this.$store.commit('clientInfo/USER_BUSINESS_NAME', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_BUSINESS_INFO', { prop: 'businessName', value: val }) }
     },
     abnNumber: {
       get () { return this.personalInfo.abnNumber },
       set (val) {
-        this.abnError || this.$store.commit('clientInfo/USER_ABN_NUMBER', val)
+        this.abnError || this.$store.commit('clientInfo/UPDATE_BUSINESS_INFO', { prop: 'abnNumber', value: val })
       }
     },
     firstName: {
       get () { return this.personalInfo.firstName },
-      set (val) { this.$store.commit('clientInfo/USER_FIRST_NAME', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'firstName', value: val }) }
     },
     lastName: {
       get () { return this.personalInfo.lastName },
-      set (val) { this.$store.commit('clientInfo/USER_LAST_NAME', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'lastName', value: val }) }
     },
     email: {
       get () { return this.personalInfo.email },
       set (val) {
-        this.emailError || this.$store.commit('clientInfo/USER_EMAIL', val)
+        this.emailError || this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'email', value: val })
       }
     },
     birthDate: {
       get () { return this.personalInfo.birthDate },
       set (val) {
-        this.$store.commit('clientInfo/USER_BIRTHDATE', val)
-        console.log(this.birthDate)
+        this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'birthDate', value: val })
       }
     },
     phone: {
       get () { return this.personalInfo.phone },
-      set (val) { this.phoneError || this.$store.commit('clientInfo/USER_PHONE', val) }
+      set (val) { this.phoneError || this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'phone', value: val }) }
     },
     occupancyType: {
       get () { return this.personalInfo.occupancyType },
-      set (val) { this.$store.commit('clientInfo/USER_OCCUPANCY', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'occupancyType', value: val }) }
     },
     infoSource: {
       get () { return this.personalInfo.infoSource },
-      set (val) { this.$store.commit('clientInfo/USER_INFO_SOURCE', val) }
+      set (val) { this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'infoSource', value: val }) }
     }
   },
 
@@ -353,7 +360,7 @@ export default {
     }
   },
   mounted () {
-    this.trigger = this.business ? 'business' : null
+    // this.trigger = this.plan === 'business' ? 'business' : null
   }
 }
 </script>

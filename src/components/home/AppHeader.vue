@@ -21,7 +21,14 @@
   </v-system-bar>
 
   <!-- Viewport width less then lg -->
-  <v-expansion-panels tile flat v-model="panel" class="app-bar d-lg-none" width="100%" style="position: fixed; margin-top: -8px; z-index: 10;">
+  <v-expansion-panels
+          tile
+          flat
+          v-model="panel"
+          class="app-bar d-lg-none"
+          width="100%"
+          style="position: fixed; margin-top: -8px; z-index: 10;"
+  >
     <v-expansion-panel style="background: #FAFAFA">
       <v-expansion-panel-header
                     expand-icon="none"
@@ -41,7 +48,7 @@
               <v-list-item
                   v-for="(page, index) in pages"
                   :key="index"
-                  @click="$emit('update:selected', index)"
+                  @click="$emit('update:selected', index); panel = []"
               >
                 <v-list-item-title class="main-menu-items">{{ page }}</v-list-item-title>
               </v-list-item>

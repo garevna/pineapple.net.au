@@ -157,7 +157,6 @@ export default {
     return {
       success: false,
       failure: false,
-      location: null,
       businessClicked: false,
       residentialClicked: false,
       contactClicked: false
@@ -177,7 +176,19 @@ export default {
     address: {
       get () { return this.personalInfo.address },
       set (address) {
-        this.$store.commit('clientInfo/USER_ADDRESS', address)
+        this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'address', value: address })
+      }
+    },
+    location: {
+      get () { return this.personalInfo.location },
+      set (location) {
+        this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'location', value: location })
+      }
+    },
+    addressAvalable: {
+      get () { return this.personalInfo.addressAvalable },
+      set (addressAvalable) {
+        this.$store.commit('clientInfo/UPDATE_PERSONAL_DATA', { prop: 'addressAvalable', value: addressAvalable })
       }
     }
   },
@@ -198,22 +209,19 @@ export default {
     }),
     checkAvailable () {
       if (!this.address) return
-      this.$store.commit('clientInfo/USER_ADDRESS', this.address)
       this.success = !!this.serviceAvailable.find(polygon => this.$geoLocation(this.location, polygon))
-      this.$store.commit('clientInfo/ADDRESS_AVAILABLE', this.success)
+      this.addressAvalable = this.success
       this.failure = !this.success
     }
   },
   mounted () {
     const inputElement = document.getElementById('autocompleteAddress')
     const autocomplete = new this.$Autocomplete(inputElement, { componentRestrictions: { country: 'au' } })
-    const self = this
     autocomplete.addListener('place_changed', function () {
       const place = autocomplete.getPlace()
       inputElement.value = place.formatted_address
       this.address = place.formatted_address
-      this.$store.commit('clientInfo/USER_ADDRESS', place.formatted_address)
-      self.location = place.geometry.location
+      this.location = place.geometry.location
       this.checkAvailable()
     }.bind(this))
   }

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    host: '',
+    // host: 'https://garevna.github.io/pineapple.net',
+    host: 'http://192.168.0.102:8080',
     officeAddress: '75 Brighton Road, Elwood VIC 3184',
     officePhone: '1300 857 501',
     officeEmail: 'info@pineapple.net.au',

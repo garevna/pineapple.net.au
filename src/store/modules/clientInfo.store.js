@@ -12,9 +12,9 @@ const state = {
     address: '',
     occupancyType: '',
     infoSource: '',
-    addressAvalable: false
+    addressAvalable: false,
+    location: null
   },
-  modemPrice: 0,
   card: {
     firstName: '',
     lastName: '',
@@ -26,34 +26,40 @@ const state = {
     businessName: '',
     abnNumber: ''
   },
-  promocode: ''
+  promocode: '',
+  modemPrice: 0
 }
 
 const getters = {
   plan: (state, getters, rootState) => rootState.plan,
   tarif: (state, getters) => state.plans[getters.plan].find(item => item.selected),
-  business: (state, getters) => getters.plan === 'business'
+  business: (state, getters) => getters.plan === 'business',
+  address: state => state.personalInfo.address,
+  addressAvalable: state => state.personalInfo.addressAvalable
 }
 
 const mutations = {
-  SET_PROMO_CODE: (state, payload) => { state.promocode = payload },
-  USER_BUSINESS_NAME: (state, payload) => { state.businessName = payload },
-  USER_ABN_NUMBER: (state, payload) => { state.abnNumber = payload },
-  USER_FIRST_NAME: (state, payload) => { state.personalInfo.firstName = payload },
-  USER_LAST_NAME: (state, payload) => { state.personalInfo.lastName = payload },
-  USER_EMAIL: (state, payload) => { state.personalInfo.email = payload },
-  USER_BIRTHDATE: (state, payload) => { state.personalInfo.birthDate = payload },
-  USER_PHONE: (state, payload) => { state.personalInfo.phone = payload },
-  USER_OCCUPANCY: (state, payload) => { state.personalInfo.occupancyType = payload },
-  USER_INFO_SOURCE: (state, payload) => { state.personalInfo.infoSource = payload },
-  USER_CARD_FIRSTNAME: (state, payload) => { state.card.firstName = payload },
-  USER_CARD_LASTNAME: (state, payload) => { state.card.lastName = payload },
-  USER_CARD_NUMBER: (state, payload) => { state.card.number = payload },
-  USER_CARD_EXPIRY: (state, payload) => { state.card.expiry = payload },
-  USER_CARD_CCV: (state, payload) => { state.card.ccv = payload },
-  USER_ADDRESS: (state, payload) => { state.personalInfo.address = payload },
-  ADDRESS_AVAILABLE: (state, payload) => { state.personalInfo.addressAvalable = payload },
-  MODEM_PRICE: (state, payload) => { state.modemPrice = payload }
+  UPDATE_PERSONAL_DATA: (state, payload) => { state.personalInfo[payload.prop] = payload.value },
+  UPDATE_PAYMENT_DETAILS: (state, payload) => { state.card[payload.prop] = payload.value },
+  UPDATE_BUSINESS_INFO: (state, payload) => { state.businessInfo[payload.prop] = payload.value },
+  UPDATE_PROMO_CODE: (state, payload) => { state.promocode = payload },
+  // USER_BUSINESS_NAME: (state, payload) => { state.businessName = payload },
+  // USER_ABN_NUMBER: (state, payload) => { state.abnNumber = payload },
+  // USER_FIRST_NAME: (state, payload) => { state.personalInfo.firstName = payload },
+  // USER_LAST_NAME: (state, payload) => { state.personalInfo.lastName = payload },
+  // USER_EMAIL: (state, payload) => { state.personalInfo.email = payload },
+  // USER_BIRTHDATE: (state, payload) => { state.personalInfo.birthDate = payload },
+  // USER_PHONE: (state, payload) => { state.personalInfo.phone = payload },
+  // USER_OCCUPANCY: (state, payload) => { state.personalInfo.occupancyType = payload },
+  // USER_INFO_SOURCE: (state, payload) => { state.personalInfo.infoSource = payload },
+  // USER_CARD_FIRSTNAME: (state, payload) => { state.card.firstName = payload },
+  // USER_CARD_LASTNAME: (state, payload) => { state.card.lastName = payload },
+  // USER_CARD_NUMBER: (state, payload) => { state.card.number = payload },
+  // USER_CARD_EXPIRY: (state, payload) => { state.card.expiry = payload },
+  // USER_CARD_CCV: (state, payload) => { state.card.ccv = payload },
+  // USER_ADDRESS: (state, payload) => { state.personalInfo.address = payload },
+  // ADDRESS_AVAILABLE: (state, payload) => { state.personalInfo.addressAvalable = payload },
+  UPDATE_MODEM_PRICE: (state, payload) => { state.modemPrice = payload }
 }
 
 const actions = {
@@ -62,10 +68,20 @@ const actions = {
     commit('CHANGE_PLAN', plan, { root: true })
   },
 
-  async SAVE_USER_DATA ({ getters, commit, dispatch }, { id, article }) {
-    const requestBody = Object.assign({}, ...state.articleFields.map(key => ({ [key]: article[key] })))
+  async SAVE_USER_DATA ({ state, getters }) {
+    const requestBody = Object.assign({},
+      state.personalInfo,
+      state.card,
+      state.businessInfo,
+      {
+        plan: getters.plan,
+        tarif: getters.tarif,
+        modemPrice: state.modemPrice,
+        promocode: state.promocode
+      }
+    )
     try {
-      const response = await fetch(`${getters.articleEndpoint}/${id}`, {
+      const response = await fetch(getters.customerEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)

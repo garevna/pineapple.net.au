@@ -68,10 +68,11 @@
 </template>
 
 <style>
-.theme--dark.v-btn.v-btn--icon {
+.v-btn.v-btn--icon {
   background: #94C578!important;
 }
-.v-window__prev .v-btn:hover, .v-window__next .v-btn:hover {
+.v-window__prev .v-btn:hover,
+.v-window__next .v-btn:hover {
   background: #20731C!important;
 }
 </style>

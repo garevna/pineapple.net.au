@@ -11,6 +11,7 @@
             dense
             height="42"
             v-model="address"
+            readonly
           ></v-text-field>
         </v-col>
       </v-row>
@@ -138,7 +139,7 @@ export default {
     //
   },
   mounted () {
-    console.log(this.address)
+    //
   }
 }
 </script>
