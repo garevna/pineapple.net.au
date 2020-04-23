@@ -16,8 +16,20 @@ const state = {
       { upload: 1000, download: 1000, price: 500, selected: false }
     ]
   },
-  occupancyTypes: ['first', 'second', 'third'],
-  infoSources: ['source 1', 'source 2', 'source 3'],
+  occupancyTypes: [
+    'Single Dwelling House',
+    'Multi Dwelling Unit',
+    'Apartment complex',
+    'Business Park',
+    'Office Building'
+  ],
+  infoSources: [
+    'Google',
+    'Friend',
+    'Facebook',
+    'Instagram',
+    'LinkedIn'
+  ],
   cardsInfo: {
     'American Express': {
       begin: ['34', 37],

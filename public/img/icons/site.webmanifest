@@ -15,6 +15,6 @@
     ],
     "theme_color": "#20731c",
     "background_color": "#20731c",
-    "start_url": "/pineapple.net",
+    "start_url": "/",
     "display": "standalone"
 }

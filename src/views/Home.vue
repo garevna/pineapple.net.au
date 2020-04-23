@@ -130,7 +130,7 @@ export default {
     },
     page (val) {
       if (this.selectors[val] === '#connect') {
-        if (this.addressAvalable) {
+        if (this.address) {
           this.$router.push({ name: 'connect' })
         } else {
           this.$vuetify.goTo('#check', {
