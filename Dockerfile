@@ -1,5 +1,5 @@
 # Build VueJS Project. We need only dist (build stage)
-FROM node:12-alpine as build-stage
+FROM node:13-alpine as build-stage
 
 WORKDIR /usr/app
 
