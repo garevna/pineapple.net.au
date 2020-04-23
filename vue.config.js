@@ -24,8 +24,5 @@ module.exports = {
       msTileImage: '/img/icons/mstile-150x150.png'
     }
   },
-  runtimeCompiler: true,
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/pineapple.net/'
-    : '/'
+  runtimeCompiler: true
 }
