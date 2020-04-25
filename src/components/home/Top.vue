@@ -3,7 +3,7 @@
   <v-row width="100%" align="center" justify="center">
     <v-col sm="12" md="6">
         <v-card flat class="transparent">
-          <v-img src="@/assets/home/home-top-picture.png" max-width="750" class="mx-auto"></v-img>
+          <v-img :src="familyPicture" max-width="800" class="mx-auto"></v-img>
         </v-card>
       </v-col>
       <v-col sm="12" md="6">
@@ -30,12 +30,13 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Top',
   computed: {
-    ...mapState('content', ['top'])
+    ...mapState('content', ['top']),
+    ...mapGetters(['familyPicture'])
   }
 }
 </script>

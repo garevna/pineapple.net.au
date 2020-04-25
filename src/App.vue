@@ -11,7 +11,10 @@
 html, body {
   width: 100%;
   max-width: 100%;
-  // overflow-x: hidden;
+}
+
+.container.fill-height>.row {
+  max-width: 100%!important;
 }
 
 .container,

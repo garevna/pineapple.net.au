@@ -23,6 +23,7 @@
                 <p><b>Full name</b></p>
                 <v-text-field
                         dence
+                        hide-details
                         outlined
                         v-model="fullName"
                         :hint="fullNameHint"
@@ -34,6 +35,7 @@
                 ><b>Email</b></p>
                 <v-text-field
                         dence
+                        hide-details
                         outlined
                         v-model="email"
                         :error="emailError"

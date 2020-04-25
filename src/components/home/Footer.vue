@@ -19,6 +19,7 @@
                       height="53"
                       class="input-field rounded transparent"
                       label="Name"
+                      hide-details
                       rounded
                       outlined
                       dark
@@ -31,6 +32,7 @@
                       height="53"
                       class="input-field rounded transparent"
                       label="Email"
+                      hide-details
                       rounded
                       outlined
                       dark
@@ -43,6 +45,7 @@
                       height="53"
                       class="input-field rounded transparent"
                       label="Phone"
+                      hide-details
                       rounded
                       outlined
                       dark
@@ -62,7 +65,7 @@
                     rounded
                     light
                     @click="submit"
-                    style="color: #20731C; margin-bottom: 28px;"
+                    style="color: #20731C"
                 >Get started</v-btn>
               </v-card>
             </v-row>

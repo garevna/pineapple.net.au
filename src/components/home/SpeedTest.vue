@@ -65,6 +65,10 @@
 
 <style scoped>
 
+.container.fill-height > .row {
+  max-width: 100%!important;
+}
+
 p {
   text-align: left;
   line-height: 150%;
