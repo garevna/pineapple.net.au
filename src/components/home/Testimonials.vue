@@ -18,8 +18,9 @@
           v-slot:default="{ active, toggle }"
         >
           <v-card
+            flat
             class="ma-4"
-            height="340"
+            height="250"
             width="376"
             @click="toggle"
           >
@@ -29,12 +30,12 @@
               justify="center"
             >
               <v-scale-transition>
-                <v-card flat hover :width="cardWidth" height="340" style="position: relative" pa-4>
-                  <img :src="testimonial.photo" class="testimonial-photo" width="40" height="40" style="border-radius: 50%" :alt="testimonial.name" />
-                  <p class="testimonial-name">{{ testimonial.name }}</p>
-                  <p class="testimonial-text" :style="{ fontSize: textSize }">{{ testimonial.text }}</p>
-                  <p class="testimonial-date">{{ testimonial.date }}</p>
-                </v-card>
+                <TestimonialsCard
+                    :date="testimonial.date"
+                    :name="testimonial.name"
+                    :photo="testimonial.photo"
+                    :text="testimonial.text"
+              />
               </v-scale-transition>
             </v-row>
           </v-card>
@@ -46,7 +47,7 @@
             :continuous="true"
             :show-arrows="true"
             hide-delimiters
-            height="340"
+            height="280"
             width="100%"
             light
             class="testimonials transparent"
@@ -55,14 +56,14 @@
           v-for="(testimonial, index) in testimonials"
           :key="index"
         >
-          <v-sheet height="100%" tile class="transparent">
+          <v-sheet height="100%" flat tile class="transparent">
             <v-row align="center" justify="center">
-              <v-card hover width="70%" height="320" style="position: relative" pa-4>
-                <img :src="testimonial.photo" class="testimonial-photo" width="40" height="40" style="border-radius: 50%" :alt="testimonial.name" />
-                <p class="testimonial-name">{{ testimonial.name }}</p>
-                <p class="testimonial-text" :style="{ fontSize: textSize }" v-html="testimonial.text"></p>
-                <p class="testimonial-date">{{ testimonial.date }}</p>
-              </v-card>
+              <TestimonialsCard
+                    :date="testimonial.date"
+                    :name="testimonial.name"
+                    :photo="testimonial.photo"
+                    :text="testimonial.text"
+              />
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -91,68 +92,26 @@
   z-index: 0!important;
 }
 
-.testimonial-name,
-.testimonial-text,
-.testimonial-date,
-.testimonial-photo {
-  position: absolute;
-}
-
-.testimonial-name, .testimonial-date { text-align: left; }
-
-.testimonial-photo {
-  top: 30px;
-  left: 20px;
-  border-radius: 50%!important;
-}
-.testimonial-name {
-  top: 36px;
-  left: 70px;
-  font-size: 15px;
-  font-weight: bold;
-}
-.testimonial-text {
-  position: absolute;
-  top: 80px;
-  left: 20px;
-  width: calc(100% - 40px);
-  text-align: justify;
-  /* font-size: 14px; */
-  font-weight: normal;
-}
-.testimonial-date {
-  position: absolute;
-  bottom: 4px;
-  left: 12px;
-  font-size: 12px;
-  font-weight: normal;
-}
 </style>
 
 <script>
 
 import { mapState } from 'vuex'
 
-// import CardsShow from '@/components/CardsShow.vue'
+import TestimonialsCard from '@/components/home/TestimonialsCard.vue'
 
 export default {
   name: 'Testimonials',
-
+  components: {
+    TestimonialsCard
+  },
   data: () => ({
     model: 0
   }),
 
   computed: {
     ...mapState('testimonials', ['testimonials']),
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
-    cardWidth () {
-      return this.screen < 600 ? this.screen - 100 : 376
-    },
-    textSize () {
-      return this.screen < 600 ? '12px' : '14px'
-    }
+    ...mapState({ screen: 'viewportWidth' })
   },
   mounted () {
     this.$store.dispatch('testimonials/GET_CONTENT')

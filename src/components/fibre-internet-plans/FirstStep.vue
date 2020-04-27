@@ -5,8 +5,10 @@
 
     <v-card flat class="transparent mx-auto my-4">
       <SwitchMode />
+      <v-card-text class="text-center">
+        <h3>{{ plan.toUpperCase() }}</h3>
+      </v-card-text>
     </v-card>
-
     <v-row v-if="viewportWidth > 680" class="mx-auto">
       <v-card
             hover
@@ -215,6 +217,9 @@ export default {
     ...mapState('internetPlans', ['plans']),
     tarifs () {
       return this.plans[this.plan]
+    },
+    header () {
+      return this.plan.toUpperCase()
     },
     buttonWidth () { return this.viewportWidth < 600 ? '100%' : '220px' },
     containerWidth () { return this.viewportWidth < 600 ? this.viewportWidth : '680' }
