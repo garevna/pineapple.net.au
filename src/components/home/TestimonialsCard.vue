@@ -93,7 +93,6 @@ export default {
       textElement.style.fontSize = this.textSize + 'px'
       textElement.textContent = this.text
       this.actualTextHeight = textElement.offsetHeight
-      console.log(this.actualTextHeight)
       textElement.remove()
     }
   },
