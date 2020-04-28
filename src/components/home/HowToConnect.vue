@@ -6,8 +6,8 @@
         <v-card-title>
           <h3>Contact Us</h3>
         </v-card-title>
-        <v-card-text>
-          <p>{{ home.contactUs }}</p>
+        <v-card-text v-html="howToConnect.contactUs">
+          <!-- <p>{{ howToConnect.contactUs }}</p> -->
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
@@ -16,7 +16,7 @@
           <h3>Get connected</h3>
         </v-card-title>
         <v-card-text>
-          <p>{{ home.getConnected }}</p>
+          <p>{{ howToConnect.getConnected }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">
@@ -25,7 +25,7 @@
           <h3>Enjoy</h3>
         </v-card-title>
         <v-card-text>
-          <p>{{ home.enjoy }}</p>
+          <p>{{ howToConnect.enjoy }}</p>
         </v-card-text>
       </v-card>
     </v-card>
@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('content', ['home'])
+    ...mapState('content', ['howToConnect'])
   },
   watch: {
     contactClicked (val) {

@@ -181,9 +181,14 @@ export default {
   },
   watch: {
     page (val) {
+      if (this.pages[val] === 'Sign In') {
+        window.open(this.selectors[val], '_blank')
+        return
+      }
       if (this.pages[val] === 'Contact Us') return
       if (this.pages[val] === 'Connect') {
-        this.$router.push({ name: 'connect' })
+        // this.$router.push({ name: 'connect' })
+        window.open('https://user.pineapple.net.au/signup', '_blank')
         return
       }
       this.$router.push({ name: 'home', params: { page: val } })

@@ -129,16 +129,22 @@ export default {
       this.page = this.pages.indexOf('Residential')
     },
     page (val) {
+      if (this.pages[val] === 'Sign In') {
+        window.open(this.selectors[val], '_blank')
+        this.page = undefined
+        return
+      }
       if (this.selectors[val] === '#connect') {
-        if (this.address) {
-          this.$router.push({ name: 'connect' })
-        } else {
-          this.$vuetify.goTo('#check', {
-            duration: 500,
-            offset: 200,
-            easing: 'easeInOutCubic'
-          })
-        }
+        // if (this.address) {
+        //   this.$router.push({ name: 'connect' })
+        // } else {
+        //   this.$vuetify.goTo('#check', {
+        //     duration: 500,
+        //     offset: 200,
+        //     easing: 'easeInOutCubic'
+        //   })
+        // }
+        window.open('https://user.pineapple.net.au/signup', '_blank')
         this.page = undefined
         return
       }

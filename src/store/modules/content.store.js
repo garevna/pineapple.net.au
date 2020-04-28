@@ -18,7 +18,7 @@ const state = {
       'All Pineapple Net packages include unlimited data with no interruption. Our customers never experience evening congestion and enjoy 99.6% uptime.'
     ]
   },
-  home: {
+  howToConnect: {
     contactUs: 'Get in touch to find out if Pineapple is available at your address',
     getConnected: 'Our team of installers get you connected to our network',
     enjoy: 'Fast fibre internet'

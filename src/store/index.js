@@ -19,7 +19,7 @@ export default new Vuex.Store({
     viewportHeight: window.innerHeight,
     plan: 'residential',
     pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-    selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', null]
+    selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', 'https://a.pineapple.net.au/']
   },
   modules,
 
