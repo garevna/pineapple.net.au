@@ -17,6 +17,10 @@ Vue.prototype.$geoCoder = new window.google.maps.Geocoder()
 Vue.prototype.$Autocomplete = window.google.maps.places.Autocomplete
 Vue.prototype.$geoLocation = window.google.maps.geometry.poly.containsLocation
 
+Vue.prototype.$openExternalLink = function (url) {
+  window.open(url, 'blank')
+}
+
 const vue = new Vue({
   router,
   store,

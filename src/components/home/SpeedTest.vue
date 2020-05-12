@@ -21,7 +21,7 @@
               lg="4"
               :style="{ overflowX: speedtestOverflow }"
             >
-              <v-card flat class="transparent text-center pt-md-12 mt-md-12">
+              <!-- <v-card flat class="transparent text-center pt-md-12 mt-md-12">
                 <v-card hover class="speedtest-card transparent text-center px-4 py-8">
                   <VueSpeedometer
                       :needleHeightRatio="0.7"
@@ -55,7 +55,7 @@
                     <p class="upload">{{upload}}</p>
                   </v-card-text>
                 </v-card>
-              </v-card>
+              </v-card> -->
             </v-col>
           </v-row>
         </v-col>
@@ -118,11 +118,11 @@ p {
 
 import { mapState } from 'vuex'
 
-import VueSpeedometer from 'vue-speedometer'
+// import VueSpeedometer from 'vue-speedometer'
 
 export default {
   components: {
-    VueSpeedometer
+    // VueSpeedometer
   },
   data () {
     return {

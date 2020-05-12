@@ -110,7 +110,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['plan', 'pages', 'selectors']),
+    ...mapState(['plan', 'pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
     ...mapGetters('clientInfo', ['address', 'addressAvalable'])
   },
   watch: {
@@ -130,7 +130,7 @@ export default {
     },
     page (val) {
       if (this.pages[val] === 'Sign In') {
-        window.open(this.selectors[val], '_blank')
+        window.open(this.signInEndpoint, '_blank')
         this.page = undefined
         return
       }
@@ -144,7 +144,7 @@ export default {
         //     easing: 'easeInOutCubic'
         //   })
         // }
-        window.open('https://user.pineapple.net.au/signup', '_blank')
+        window.open(this.connectEndpoint, '_blank')
         this.page = undefined
         return
       }

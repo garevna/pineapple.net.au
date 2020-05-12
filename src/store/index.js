@@ -7,19 +7,21 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     host: `${location.origin}${location.pathname}`,
+    connectEndpoint: 'https://user.pineapple.net.au/signup',
+    signInEndpoint: 'https://user.pineapple.net.au/',
+    contactEndpoint: '',
     officeAddress: '75 Brighton Road, Elwood VIC 3184',
     officePhone: '1300 857 501',
     officeEmail: 'info@pineapple.net.au',
     officeABN: '55 618 934 437',
     linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
     faceBook: 'https://www.facebook.com/PineappleNetAU/',
-    contactEndpoint: '',
     viewport: 'lg',
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
     plan: 'residential',
     pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-    selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', 'https://a.pineapple.net.au/']
+    selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', 'https://user.pineapple.net.au/']
   },
   modules,
 

@@ -144,7 +144,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['viewportWidth', 'officeAddress', 'officePhone']),
+    ...mapState(['viewportWidth', 'officeAddress', 'officePhone', 'connectEndpoint', 'signInEndpoint']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userMessage']),
     ...mapGetters('contact', ['pages', 'selectors']),
     plans () {
@@ -182,13 +182,13 @@ export default {
   watch: {
     page (val) {
       if (this.pages[val] === 'Sign In') {
-        window.open(this.selectors[val], '_blank')
+        window.open(this.signInEndpoint, '_blank')
         return
       }
       if (this.pages[val] === 'Contact Us') return
       if (this.pages[val] === 'Connect') {
         // this.$router.push({ name: 'connect' })
-        window.open('https://user.pineapple.net.au/signup', '_blank')
+        window.open(this.connectEndpoint, '_blank')
         return
       }
       this.$router.push({ name: 'home', params: { page: val } })

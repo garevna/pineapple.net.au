@@ -27,11 +27,11 @@
           <p class="left-16">COMPANY</p>
         </v-card-title>
         <v-card-text>
-          <p class="left-14 ref" @click="$emit('update:page', 0)">Home</p>
-          <p class="left-14 ref" @click="$emit('update:page', 1)">About</p>
-          <p class="left-14 ref" @click="$emit('update:page', 2)">Residential</p>
-          <p class="left-14 ref" @click="$emit('update:page', 3)">Business</p>
-          <p class="left-14 ref" @click="$emit('update:page', 4)">Connect</p>
+          <p class="left-14 ref" @click="goto(0)">Home</p>
+          <p class="left-14 ref" @click="goto(1)">About</p>
+          <p class="left-14 ref" @click="goto(2)">Residential</p>
+          <p class="left-14 ref" @click="goto(3)">Business</p>
+          <p class="left-14 ref" @click="$openExternalLink(connectEndpoint, '_blank')">Connect</p>
           <p class="left-14 ref" @click="$router.push({ name: 'contact' })">Contact Us</p>
         </v-card-text>
       </v-card>
@@ -91,8 +91,20 @@ import { mapState } from 'vuex'
 export default {
   name: 'FooterBottomContent',
   computed: {
-    ...mapState(['officePhone', 'officeAddress', 'officeEmail', 'officeABN', 'linkedIn', 'faceBook']),
+    ...mapState(['officePhone', 'officeAddress', 'officeEmail', 'officeABN', 'linkedIn', 'faceBook', 'connectEndpoint', 'signInEndpoint', 'selectors']),
     ...mapState('content', ['about', 'copyright'])
+  },
+  methods: {
+    goto (val) {
+      if (val === 2 || val === 3) {
+        this.$store.commit('CHANGE_PLAN', ['residential', 'business'][val - 2])
+      }
+      this.$vuetify.goTo(this.selectors[val], {
+        duration: 500,
+        offset: 0,
+        easing: 'easeInOutCubic'
+      })
+    }
   }
 }
 </script>
