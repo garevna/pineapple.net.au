@@ -1,12 +1,10 @@
 <template>
   <v-app class="transparent">
-    <!-- <v-content class="mx-0"> -->
-      <router-view class="mt-12 mx-0 px-0"></router-view>
-    <!-- </v-content> -->
+    <router-view class="mt-12 mx-0 px-0"></router-view>
   </v-app>
 </template>
 
-<style lang="scss">
+<style>
 
 html, body {
   width: 100%;
@@ -26,41 +24,35 @@ html, body {
 .green--text {
   color: #363636;
 }
-h1 {
-  font-size: 46px;
+
+h1, h2, h3, h4, h5, p {
   font-style: normal;
   line-height: 150%;
-  font-weight: 900;
   letter-spacing: 0.02em;
+}
+h1 {
+  font-size: 46px;
+  font-weight: 900;
 }
 h2 {
   font-size: 32px;
-  font-style: normal;
-  line-height: 150%;
   font-weight: 900;
   text-align: center;
-  letter-spacing: 0.02em;
   color: #363636;
   width: 100%;
 }
 h3 {
   font-size: 28px;
-  line-height: 150%;
 }
 h4 {
   font-size: 24px;
   color: #6D6D6D;
-  font-style: normal;
   font-weight: normal;
-  line-height: 150%;
-  letter-spacing: 0.02em;
 }
 
 p {
   font-size: 16px;
   font-weight: normal;
-  line-height: 150%;
-  letter-spacing: 0.02em;
 }
 
 .row {
@@ -79,7 +71,7 @@ svg.defs-only {
   overflow: hidden;
 }
 
-@media (max-width: "600px"), (max-height: "600px") {
+@media (max-width: 600px), (max-height: 600px) {
   h1 { font-size: 28px; }
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
@@ -87,7 +79,7 @@ svg.defs-only {
   p { font-size: 16px; }
 }
 
-@media (max-width: '400px'), (max-height: '400px') {
+@media (max-width: 400px), (max-height: 400px) {
   h1 { font-size: 26px; }
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }

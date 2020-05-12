@@ -29,7 +29,7 @@ export default new Vuex.Store({
   getters: {
     familyPicture: (state) => {
       const size = state.viewportWidth < 600 ? 'small' : state.viewportWidth < 1440 ? 'medium' : 'large'
-      return `${state.host}img/family-${size}.png`
+      return `${state.host}/img/family-${size}.png`
     }
   },
 
