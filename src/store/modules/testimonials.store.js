@@ -7,13 +7,13 @@ const state = {
 
 const getters = {
   host: (state, getters, rootState) => rootState.host,
-  db: (state, getters) => `${getters.host}/testimonials/testimonials.json`,
-  photos: (state, getters) => `${getters.host}/img/testimonials`
+  db: (state, getters, rootState) => `${rootState.testimonialsEndpoint}/testimonials/testimonials.json`,
+  photos: (state, getters, rootState) => `${rootState.testimonialsEndpoint}/img/testimonials`
 }
 
 const mutations = {
   UPDATE_CONTENT (state, payload) {
-    state.testimonials = payload
+    state.testimonials = JSON.parse(JSON.stringify(payload))
   }
 }
 

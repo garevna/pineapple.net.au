@@ -124,7 +124,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAvailable: 'map/GET_AVAILABLE'
+      getAvailable: 'map/GET_AVAILABLE',
+      getReviews: 'testimonials/GET_CONTENT'
     }),
     onResize () {
       this.$store.commit('CHANGE_VIEWPORT')
@@ -132,6 +133,7 @@ export default {
   },
   mounted () {
     this.getAvailable()
+    this.getReviews()
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },

@@ -6,8 +6,8 @@
         <v-card-title>
           <h3>Contact Us</h3>
         </v-card-title>
-        <v-card-text v-html="howToConnect.contactUs">
-          <!-- <p>{{ howToConnect.contactUs }}</p> -->
+        <v-card-text>
+          <p>{{ howToConnect.contactUs }}</p>
         </v-card-text>
       </v-card>
       <v-card flat class="transparent text-centered mx-10" width="240">

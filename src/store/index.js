@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    host: `${location.origin}${location.pathname}`,
+    host: location.origin,
+    testimonialsEndpoint: location.origin,
     connectEndpoint: 'https://user.pineapple.net.au/signup',
     signInEndpoint: 'https://user.pineapple.net.au/',
     contactEndpoint: '',
