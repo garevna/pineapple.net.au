@@ -32,7 +32,7 @@
           <p class="left-14 ref" @click="goto(2)">Residential</p>
           <p class="left-14 ref" @click="goto(3)">Business</p>
           <p class="left-14 ref" @click="$openExternalLink(connectEndpoint, '_blank')">Connect</p>
-          <p class="left-14 ref" @click="$router.push({ name: 'contact' })">Contact Us</p>
+          <p class="left-14 ref" @click="goto(5)">Contact Us</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -42,8 +42,8 @@
           <p class="left-16">PRODUCTS</p>
         </v-card-title>
         <v-card-text>
-          <p class="left-14 ref">Residential Internet</p>
-          <p class="left-14 ref">Business Internet</p>
+          <p class="left-14 ref" @click="goto(2)">Residential Internet</p>
+          <p class="left-14 ref" @click="goto(3)">Business Internet</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -96,14 +96,25 @@ export default {
   },
   methods: {
     goto (val) {
+      if (this.$route.name === 'contact' && this.selectors[val] === '#contact') return
+
       if (val === 2 || val === 3) {
         this.$store.commit('CHANGE_PLAN', ['residential', 'business'][val - 2])
       }
-      this.$vuetify.goTo(this.selectors[val], {
-        duration: 500,
-        offset: 0,
-        easing: 'easeInOutCubic'
-      })
+
+      if (this.$route.name === 'contact') {
+        this.$router.push({ name: 'home', params: { page: val } })
+      } else {
+        if (this.selectors[val] === '#contact') {
+          this.$router.push({ name: 'contact' })
+          return
+        }
+        this.$vuetify.goTo(this.selectors[val], {
+          duration: 500,
+          offset: 0,
+          easing: 'easeInOutCubic'
+        })
+      }
     }
   }
 }
