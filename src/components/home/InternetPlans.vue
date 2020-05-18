@@ -113,6 +113,7 @@ export default {
     },
     getConnect (val) {
       this.$emit('update:connect', val)
+      this.getConnect = false
     },
     getContact (val) {
       this.$emit('update:contact', val)

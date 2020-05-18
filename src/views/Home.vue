@@ -118,7 +118,12 @@ export default {
       if (val) this.$router.push({ name: 'contact' })
     },
     getConnected (val) {
-      if (val) this.$router.push({ name: 'connect' })
+      // if (val) this.$router.push({ name: 'connect' })
+      if (val) {
+        window.open(this.connectEndpoint, '_blank')
+        // this.$emit('update:connect', false)
+        // this.getConnected = false
+      }
     },
     business (val) {
       if (val) {
