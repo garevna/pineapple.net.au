@@ -65,7 +65,7 @@
                     width="220"
                     height="40"
                     class="button-send-message"
-                    @click="disabledButton || sendMessage"
+                    @click="sendMessage"
                     :value="buttonValue"
                 >
                   Send message
@@ -195,14 +195,16 @@ export default {
     }
   },
   methods: {
-    sendMessage () {
-      // if (this.buttonValue === this.fullName + this.email + this.message) return
+    async sendMessage () {
+      console.log('Sending...')
       this.buttonValue = this.fullName + this.email + this.message
-      this.fullName = this.email = this.message = ''
-      // const res = await this.$store.dispatch('contact/SEND_MESSAGE')
-      // if (res) {
+      // this.fullName = this.email = this.message = ''
+      const res = await this.$store.dispatch('contact/SEND_EMAIL')
+      console.log(res)
       this.success = true
-      // }
+      this.$store.commit('contact/USER_FULL_NAME', '')
+      this.$store.commit('contact/USER_EMAIL', '')
+      this.$store.commit('contact/USER_MESSAGE', '')
     }
   },
   mounted () {

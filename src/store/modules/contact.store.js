@@ -21,9 +21,28 @@ const mutations = {
 
 const actions = {
 
-  async SEND_MESSAGE ({ getters, commit }, file) {
-    // const result = await (await fetch(getters.endpoint)).text()
-    return true
+  async SEND_EMAIL ({ state, getters }) {
+    console.log(getters.endpoint)
+    const response = await (await fetch(getters.endpoint, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        subject: 'Pineapple.net',
+        email: state.userEmail,
+        message: `
+          <p>Thank you for your interest in Pineapple NET! A member of our team will be in touch shortly.</p>
+          <p>Details:</p>
+          <h3>${state.userFullName}</h3>
+          <h4>${state.userEmail}</h4>
+          <p>${state.userMessage.split('\n').join('<br>')}</p>
+        `
+      })
+    })).json()
+    console.log(response)
+    return response.message
   }
 }
 

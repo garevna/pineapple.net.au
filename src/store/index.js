@@ -10,7 +10,7 @@ export default new Vuex.Store({
     testimonialsEndpoint: location.origin,
     connectEndpoint: 'https://user.pineapple.net.au/signup',
     signInEndpoint: 'https://user.pineapple.net.au/',
-    contactEndpoint: '',
+    contactEndpoint: 'https://api.pineapple.net.au/email/forms',
     officeAddress: '75 Brighton Road, Elwood VIC 3184',
     officePhone: '1300 857 501',
     officeEmail: 'info@pineapple.net.au',

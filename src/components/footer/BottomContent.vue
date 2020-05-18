@@ -12,7 +12,7 @@
           <p class="left-14">{{ officeAddress }}</p>
           <p class="left-14">
             <span width="10" height="10" class="mr-2" style="display: inline-block;">
-              <v-img src="@/assets/home/icons/system-bar-call-answer.png" width="10" height="10" contain></v-img>
+              <v-img src="@/assets/icons/phone.svg" width="10" height="10" contain></v-img>
             </span>
             {{ officePhone }}
           </p>
@@ -55,12 +55,12 @@
         <v-card-text>
           <a :href="faceBook" target="_blank" class="ref">
             <p class="left-14 ref">
-              <v-img src="@/assets/home/icons/system-bar-facebook.png" class="icon"></v-img>Facebook
+              <v-img src="@/assets/icons/facebook.svg" class="icon"></v-img>Facebook
             </p>
           </a>
           <a :href="linkedIn" target="_blank" class="ref">
             <p class="left-14 ref">
-              <v-img src="@/assets/home/icons/system-bar-linkedin.png" class="icon"></v-img> Linkedin
+              <v-img src="@/assets/icons/linkedin.svg" class="icon"></v-img> Linkedin
             </p>
           </a>
           <br>
