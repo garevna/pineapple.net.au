@@ -2,13 +2,12 @@
 /* eslint-disable no-shadow */
 
 const state = {
-  testimonials: null
+  testimonials: null,
+  db: 'https://api.pineapple.net.au/testimonials'
 }
 
 const getters = {
-  host: (state, getters, rootState) => rootState.host,
-  db: (state, getters, rootState) => `${rootState.testimonialsEndpoint}/testimonials/testimonials.json`,
-  photos: (state, getters, rootState) => `${rootState.testimonialsEndpoint}/img/testimonials`
+  host: (state, getters, rootState) => rootState.host
 }
 
 const mutations = {
@@ -18,9 +17,8 @@ const mutations = {
 }
 
 const actions = {
-  async GET_CONTENT ({ getters, commit }) {
-    let content = await (await fetch(getters.db)).json()
-    content = content.map((item) => Object.assign({}, item, { photo: `${getters.photos}/${item.photo}` }))
+  async GET_CONTENT ({ state, commit }) {
+    const content = await (await fetch(state.db)).json()
     commit('UPDATE_CONTENT', content)
   }
 }

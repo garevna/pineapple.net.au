@@ -103,6 +103,8 @@ svg.defs-only {
 
 <script>
 
+// import 'pineapple-styles'
+
 import { mapState, mapActions } from 'vuex'
 
 export default {

@@ -3,9 +3,9 @@
     <div style="position: relative">
       <FoneAsMap/>
       <v-card flat class="transparent check-availability mx-auto my-0 my-lg-12 pt-0 pt-lg-12" width="100%">
-        <v-card-title class="mx-auto">
+        <v-card-text class="mx-auto text-center">
           <h2 :class="`address-title--${screen}`">CHECK AVAILABILITY</h2>
-        </v-card-title>
+        </v-card-text>
         <v-card-text class="mx-auto">
           <p :class="`address-text address-text--${screen}`">
             {{ checkAddress.text }}

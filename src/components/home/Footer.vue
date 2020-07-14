@@ -17,10 +17,9 @@
               <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
                 <v-text-field
                       height="53"
-                      class="input-field rounded transparent"
+                      class="input-field input--rounded transparent"
                       label="Name"
                       hide-details
-                      rounded
                       outlined
                       dark
                       color="#fff"
@@ -30,10 +29,9 @@
               <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
                 <v-text-field
                       height="53"
-                      class="input-field rounded transparent"
+                      class="input-field input--rounded transparent"
                       label="Email"
                       hide-details
-                      rounded
                       outlined
                       dark
                       color="#fff"
@@ -43,10 +41,9 @@
               <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
                 <v-text-field
                       height="53"
-                      class="input-field rounded transparent"
+                      class="input-field input--rounded transparent"
                       label="Phone"
                       hide-details
-                      rounded
                       outlined
                       dark
                       color="#fff"
@@ -96,8 +93,8 @@
   margin-top: 198px;
 }
 
-.rounded {
-  border-radius: 40px!important;
+.input--rounded {
+  border-radius: 48px!important;
 }
 
 .white-text {

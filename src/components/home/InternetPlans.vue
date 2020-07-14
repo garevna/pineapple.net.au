@@ -4,9 +4,9 @@
           width="100%"
           class="transparent my-10"
   >
-    <v-card-title>
+    <v-card-text class="mx-auto text-center">
       <h2>FIBRE <span class="green--text">INTERNET PLANS</span></h2>
-    </v-card-title>
+    </v-card-text>
     <v-card-text>
       <p v-html="internetPlans.text"></p>
     </v-card-text>

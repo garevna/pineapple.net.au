@@ -7,7 +7,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     host: location.origin,
-    testimonialsEndpoint: location.origin,
     connectEndpoint: 'https://user.pineapple.net.au/signup',
     signInEndpoint: 'https://user.pineapple.net.au/',
     contactEndpoint: 'https://api.pineapple.net.au/email/forms',

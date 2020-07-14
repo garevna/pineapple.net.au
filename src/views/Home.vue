@@ -91,9 +91,9 @@ export default {
     WhoAreWe,
     Footer,
     HowToConnect,
-    AppHeader,
+    Testimonials,
     SpeedTest,
-    Testimonials
+    AppHeader
   },
   data () {
     return {
