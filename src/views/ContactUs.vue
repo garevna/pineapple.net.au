@@ -53,6 +53,7 @@
                         v-model="address"
                 ></v-text-field> -->
                 <v-text-field
+                      outlined
                       v-model="address"
                       ref="autocompleteAddressField"
                     >
@@ -225,7 +226,7 @@ export default {
       const res = await this.$store.dispatch('contact/SEND_EMAIL')
       this.popupType = res ? 'success' : 'error'
       this.popupOpened = true
-      this.$store.commit('contact/CLEAR_FIELDS', '')
+      this.$store.dispatch('contact/CLEAR_FIELDS')
     }
   },
   mounted () {
