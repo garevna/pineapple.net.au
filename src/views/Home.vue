@@ -1,7 +1,7 @@
 <template>
   <v-container fluid v-scroll="onScroll">
     <AppHeader :pages="pages" :selected.sync="page"/>
-    <v-content tag="main" class="homefone">
+    <v-main tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
       <section id="top" class="mb-12">
         <div class="base-title">
@@ -49,18 +49,18 @@
       <v-row width="100%">
         <Testimonials/>
       </v-row>
+    </v-main>
 
-      <!-- ============================= FOOTER ============================= -->
-      <section id="footer">
-        <div class="base-title">
-          <a href="#footer" class="core-goto"></a>
-            <v-row width="100%">
-              <Footer :page.sync="page" :user.sync="user"/>
-            </v-row>
-        </div>
-      </section>
+    <!-- ============================= FOOTER ============================= -->
+    <section id="footer">
+      <div class="base-title">
+        <a href="#footer" class="core-goto"></a>
+          <v-row width="100%">
+            <Footer :page.sync="page" />
+          </v-row>
+      </div>
+    </section>
 
-    </v-content>
   </v-container>
 </template>
 
@@ -98,11 +98,6 @@ export default {
   data () {
     return {
       page: 0,
-      user: {
-        name: '',
-        email: '',
-        phone: ''
-      },
       contactUs: false,
       getConnected: false,
       business: false,
@@ -110,7 +105,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['plan', 'pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
+    ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
     ...mapGetters('clientInfo', ['address', 'addressAvalable'])
   },
   watch: {
@@ -118,11 +113,8 @@ export default {
       if (val) this.$router.push({ name: 'contact' })
     },
     getConnected (val) {
-      // if (val) this.$router.push({ name: 'connect' })
       if (val) {
         window.open(this.connectEndpoint, '_blank')
-        // this.$emit('update:connect', false)
-        // this.getConnected = false
       }
     },
     business (val) {
@@ -140,15 +132,6 @@ export default {
         return
       }
       if (this.selectors[val] === '#connect') {
-        // if (this.address) {
-        //   this.$router.push({ name: 'connect' })
-        // } else {
-        //   this.$vuetify.goTo('#check', {
-        //     duration: 500,
-        //     offset: 200,
-        //     easing: 'easeInOutCubic'
-        //   })
-        // }
         window.open(this.connectEndpoint, '_blank')
         this.page = undefined
         return

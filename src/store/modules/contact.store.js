@@ -4,6 +4,7 @@
 const state = {
   userFullName: '',
   userEmail: '',
+  userAddress: '',
   userMessage: ''
 }
 
@@ -16,14 +17,14 @@ const getters = {
 const mutations = {
   USER_FULL_NAME: (state, name) => { state.userFullName = name },
   USER_EMAIL: (state, email) => { state.userEmail = email },
+  USER_ADDRESS: (state, address) => { state.userAddress = address },
   USER_MESSAGE: (state, message) => { state.userMessage = message }
 }
 
 const actions = {
 
   async SEND_EMAIL ({ state, getters }) {
-    console.log(getters.endpoint)
-    const response = await (await fetch(getters.endpoint, {
+    const response = await fetch(getters.endpoint, {
       method: 'POST',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -35,14 +36,21 @@ const actions = {
         message: `
           <p>Thank you for your interest in Pineapple NET! A member of our team will be in touch shortly.</p>
           <p>Details:</p>
-          <h3>${state.userFullName}</h3>
-          <h4>${state.userEmail}</h4>
+          <h3>Full name: ${state.userFullName}</h3>
+          <h4>Email: ${state.userEmail}</h4>
+          <h4>Address: ${state.userAddress}</h4>
+          <h4>Your enquiry:</h4>
           <p>${state.userMessage.split('\n').join('<br>')}</p>
         `
       })
-    })).json()
-    console.log(response)
-    return response.message
+    })
+    return response.ok
+  },
+  CLEAR_FIELDS: ({ commit }) => {
+    commit('USER_FULL_NAME', '')
+    commit('USER_EMAIL', '')
+    commit('USER_ADDRESS', '')
+    commit('USER_MESSAGE', '')
   }
 }
 

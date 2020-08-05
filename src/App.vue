@@ -107,17 +107,24 @@ svg.defs-only {
 
 import { mapState, mapActions } from 'vuex'
 
+import 'pineapple-popup'
+import 'pineapple-popup/dist/pineapple-popup.css'
+
 export default {
   name: 'App',
 
   data: () => ({
 
   }),
+
   computed: {
     ...mapState('map', ['serviceAvailable'])
   },
+
   methods: {
     ...mapActions({
+      getGeneralInfo: 'GET_GENERAL_INFO',
+      getPlans: 'internetPlans/GET_PRICES',
       getAvailable: 'map/GET_AVAILABLE',
       getReviews: 'testimonials/GET_CONTENT'
     }),
@@ -125,12 +132,19 @@ export default {
       this.$store.commit('CHANGE_VIEWPORT')
     }
   },
+
+  beforeMount () {
+    this.getGeneralInfo()
+    this.getPlans()
+    this.getReviews()
+  },
+
   mounted () {
     this.getAvailable()
-    this.getReviews()
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },
+
   beforeDestroy () {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize, { passive: true })

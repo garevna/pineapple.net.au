@@ -10,12 +10,15 @@ export default new Vuex.Store({
     connectEndpoint: 'https://user.pineapple.net.au/signup',
     signInEndpoint: 'https://user.pineapple.net.au/',
     contactEndpoint: 'https://api.pineapple.net.au/email/forms',
-    officeAddress: '75 Brighton Road, Elwood VIC 3184',
-    officePhone: '1300 857 501',
-    officeEmail: 'info@pineapple.net.au',
-    officeABN: '55 618 934 437',
-    linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
-    faceBook: 'https://www.facebook.com/PineappleNetAU/',
+    generalInfoEndpoint: 'https://api.pineapple.net.au/content/general',
+    emailSubject: 'Pineapple NET',
+    emailText: 'Thank you for your interest in Pineapple NET! A member of our team will be in touch shortly.',
+    // officeAddress: '75 Brighton Road, Elwood VIC 3184',
+    // officePhone: '1300 857 501',
+    // officeEmail: 'info@pineapple.net.au',
+    // officeABN: '55 618 934 437',
+    // linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
+    // faceBook: 'https://www.facebook.com/PineappleNetAU/',
     viewport: 'lg',
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
@@ -63,6 +66,18 @@ export default new Vuex.Store({
       Vue.delete(payload.object, payload.propertyName)
     }
   },
+
   actions: {
+
+    async GET_GENERAL_INFO ({ state, commit }) {
+      const generalInfo = await (await fetch(state.generalInfoEndpoint)).json()
+      for (const field in generalInfo) {
+        commit('SET_PROPERTY', {
+          object: state,
+          propertyName: field,
+          value: generalInfo[field]
+        })
+      }
+    }
   }
 })

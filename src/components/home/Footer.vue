@@ -1,17 +1,24 @@
 <template>
   <v-container fluid fill-height style="position: relative; margin-bottom: -10px; margin-top: 50px;">
     <FooterFone :footerHeight="footerHeight" />
-    <v-container fluid class="footer--top-content" :style="{ top: topContentTop }">
-      <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0; width: 100%">
-        <v-card-title>
+    <!-- <v-container fluid class="footer--top-content" :style="{ top: topContentTop }">
+      <v-row align="start" justify="center" style="position: absolute; top: 0; left: 0; width: 100%"> -->
+        <!-- <v-card-title>
           <h2 class="white-text centered">{{ footer.topHead }}</h2>
         </v-card-title>
         <v-card-text max-width="100%">
           <h4 class="white-text centered">
               {{ footer.topText }}
           </h4>
-        </v-card-text>
-        <v-row class="mx-auto">
+        </v-card-text> -->
+        <v-row align="start" justify="center" :style="{ position: 'absolute', top: top, left: '0', width: '100%' }">
+          <FooterForm
+                :contactEndpoint="contactEndpoint"
+                :emailSubject="emailSubject"
+                :emailText="emailText"
+          />
+        </v-row>
+        <!-- <v-row class="mx-auto">
           <v-col cols="12" class="mx-auto">
             <v-row align="center" justify="center">
               <v-card flat class="transparent mx-1 my-1" v-if="viewportWidth > 420">
@@ -65,11 +72,11 @@
                     style="color: #20731C"
                 >Get started</v-btn>
               </v-card>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-row>
-    </v-container>
+            </v-row> -->
+          <!-- </v-col> -->
+        <!-- </v-row> -->
+      <!-- </v-row> -->
+    <!-- </v-container> -->
 
     <FooterBottomContent v-if="viewportWidth >= 770" />
     <FooterBottomContentSmall  v-if="viewportWidth < 770" class="footer--bottom-content-small"/>
@@ -142,6 +149,7 @@
 import { mapState } from 'vuex'
 
 import FooterFone from '@/components/footer/FooterFone.vue'
+import FooterForm from '@/components/footer/FooterForm.vue'
 import FooterBottomContent from '@/components/footer/BottomContent.vue'
 import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 
@@ -149,6 +157,7 @@ export default {
   name: 'Footer',
   components: {
     FooterFone,
+    FooterForm,
     FooterBottomContentSmall,
     FooterBottomContent
   },
@@ -165,8 +174,16 @@ export default {
     }
   },
   computed: {
-    ...mapState(['viewportWidth']),
+    ...mapState(['viewportWidth', 'contactEndpoint', 'emailSubject', 'emailText']),
     ...mapState('content', ['footer']),
+    top () {
+      const top = this.viewportWidth < 360 ? 64
+        : this.viewportWidth < 608 ? 140
+          : this.viewportWidth < 900 ? 128
+            : this.viewportWidth < 1440 ? 160
+              : this.viewportWidth < 1904 ? 180 : 420
+      return top + 'px'
+    },
     topContentTop () {
       return this.viewportWidth < 420 ? '80px' : this.viewportWidth > 1904 ? '288px' : '198px'
     },

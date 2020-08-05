@@ -14,17 +14,6 @@
 <script>
 
 export default {
-  name: 'home-1',
-  components: {
-
-  },
-  data () {
-    return {
-
-    }
-  },
-  mounted () {
-
-  }
+  name: 'home-1'
 }
 </script>
