@@ -21,6 +21,10 @@ html, body {
   padding: 0!important;
 }
 
+.v-main {
+  padding-top: 50px !important;
+}
+
 .green--text {
   color: #363636;
 }
