@@ -181,7 +181,7 @@ export default {
         : this.viewportWidth < 608 ? 140
           : this.viewportWidth < 900 ? 128
             : this.viewportWidth < 1440 ? 160
-              : this.viewportWidth < 1904 ? 180 : 420
+              : this.viewportWidth <= 1904 ? 180 : 310
       return top + 'px'
     },
     topContentTop () {

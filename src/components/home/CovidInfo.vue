@@ -18,6 +18,7 @@ a {
   min-width: 100%!important;
   text-align: center;
   background-color: #4CAF50;
+  margin-bottom: 80px;
 }
 .land-covid-title {
   font-weight: 550;
