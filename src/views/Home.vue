@@ -6,6 +6,7 @@
       <section id="top" class="mb-12">
         <div class="base-title">
           <a href="#top" class="mr-2 d-inline-flex core-goto text--primary"></a>
+          <CovidInfo />
           <Top/>
         </div>
       </section>
@@ -73,6 +74,7 @@
 import { mapState, mapGetters } from 'vuex'
 
 import AppHeader from '@/components/home/AppHeader.vue'
+import CovidInfo from '@/components/home/CovidInfo.vue'
 import Top from '@/components/home/Top.vue'
 import CheckAvailability from '@/components/home/CheckAvailability.vue'
 import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
@@ -86,6 +88,7 @@ export default {
   name: 'Home',
   components: {
     InternetPlans,
+    CovidInfo,
     Top,
     CheckAvailability,
     WhoAreWe,

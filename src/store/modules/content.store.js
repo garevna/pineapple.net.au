@@ -31,6 +31,24 @@ const state = {
   internetPlans: {
     text: `Zero connection fee with 12 month plans<br>
           Commitment issues? month-to-month plans also available`
+  },
+  covidLand: {
+    text: 'As a Telecommunications company, installers have permission to work during Stage 4 restrictions and are taking heed of advice from the Chief Health Officer of Victoria. Your health and the health of our installation team is crucial to us. To prevent the spread of COVID-19, our onsite installers at all times will be required to:',
+    covidList: [
+      'Wear PPE such as masks and gloves',
+      'Have a maximum of three installers per team',
+      'Keep physical distance where possible of 1.5m',
+      'Keep the COVIDSafe App running',
+      'Not attend site if they experience any cold and/or flu like symptoms or if they have been in contact with anyone who has tested positive for COVID-19 in the past 14 days. '
+    ],
+    responsibilitiesText: 'We ask you to please be mindful and follow the precautions below when expecting an install team in your home or office. ',
+    responsibilitiesList: [
+      'Please wear your own mask when our installation team is present in your home.',
+      'Please keep 1.5m physical distance where possible.',
+      'If someone in your household returns a positive COVID-19 test, is awaiting test results, or begins suffering from cold/flu symptoms ,please inform us promptly so we can rescheule your installation.',
+      'Inform us if someone in your household has been overseas in the last 14 days so we can reschedule your installation.'
+
+    ]
   }
 }
 
