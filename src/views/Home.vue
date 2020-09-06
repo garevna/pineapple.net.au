@@ -52,7 +52,7 @@
     </v-main>
 
     <!-- ============================= FOOTER ============================= -->
-    <section id="footer">
+    <section id="footer" class="homefone">
       <div class="base-title">
         <a href="#footer" class="core-goto"></a>
           <v-row width="100%">
