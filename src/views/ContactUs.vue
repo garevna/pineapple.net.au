@@ -1,6 +1,5 @@
 <template>
   <v-container fluid class="homefone">
-    <AppHeader :pages="pages" :selected.sync="page"/>
     <v-main class="contact-fone">
       <v-row class="mx-auto">
         <v-col cols="12" md="4">
@@ -46,12 +45,6 @@
             <v-row>
               <v-col cols="12" class="input my-0">
                 <p><b>Your address</b></p>
-                <!-- <v-text-field
-                        dence
-                        hide-details
-                        outlined
-                        v-model="address"
-                ></v-text-field> -->
                 <v-text-field
                       outlined
                       v-model="address"
@@ -132,13 +125,11 @@ h3, p, small {
 
 import { mapState, mapGetters } from 'vuex'
 
-import AppHeader from '@/components/home/AppHeader.vue'
 import Map from '@/components/map/Map.vue'
 
 export default {
   name: 'Home',
   components: {
-    AppHeader,
     Map
   },
   data () {
@@ -200,16 +191,23 @@ export default {
   },
   watch: {
     page (val) {
-      if (this.pages[val] === 'Sign In') {
-        window.open(this.signInEndpoint, '_blank')
-        return
-      }
-      if (this.pages[val] === 'Contact Us') return
-      if (this.pages[val] === 'Connect') {
-        window.open(this.connectEndpoint, '_blank')
-        return
-      }
-      this.$router.push({ name: 'home', params: { page: val } })
+      // if (this.pages[val] === 'Sign In') {
+      //   this.$openExternalLink(this.signInEndpoint)
+      //   this.page = undefined
+      //   return
+      // }
+      // if (this.pages[val] === 'Contact Us') return
+      // if (this.pages[val] === 'Connect') {
+      //   this.$openExternalLink(this.connectEndpoint)
+      //   this.page = undefined
+      //   return
+      // }
+      // if (this.selectors[val] === '#plans') {
+      //   this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
+      //   console.log('PATH: ', this.$route.path)
+      //   if (this.$route.path === '/plans') return
+      // }
+      // this.$router.push({ name: 'home', params: { section: this.selectors[val].slice(1) } })
     }
   },
   methods: {

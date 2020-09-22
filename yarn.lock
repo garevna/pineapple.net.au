@@ -7845,12 +7845,53 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
+pineapple-how-to-connect@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/pineapple-how-to-connect/-/pineapple-how-to-connect-1.0.7.tgz#0757477cdd2eb13ba94297ef71ade08cf4aa08ba"
+  integrity sha512-NTUIV6cVD89FA7wZh/CmfRlnNLRPjjaphdBtr0vnaChygt9hd6xn7zt9PRFABJS9AvcQMSc9Oih8wXdVB/MOqQ==
+  dependencies:
+    core-js "^3.6.5"
+    vue "^2.6.11"
+    vuetify "^2.2.11"
+    vuex "^3.4.0"
+
+pineapple-internet-plans@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/pineapple-internet-plans/-/pineapple-internet-plans-1.1.5.tgz#eb0d9a91ecac18aeaf750871528270d29e40decd"
+  integrity sha512-btpDcUEQ8DN1Hg7xy2S0+hrUVGucwAaNzXBaO2L7uv5xzgUfxFZII/mePwivc6aeF/2gClDaMIqC8bAEwaKgCw==
+  dependencies:
+    core-js "^3.6.5"
+    pineapple-styles "^1.1.0"
+    vue "^2.6.11"
+    vuetify "^2.2.11"
+    vuex "^3.4.0"
+
 pineapple-popup@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/pineapple-popup/-/pineapple-popup-1.0.7.tgz#394a7e84fa844e1c9b81aeccaa4a9aabde080de2"
   integrity sha512-QcUrFyWtZ0+5OkPeYNzNo23DRKOyjBFQrX0AuM8ygjrG2mzXVevapMnlfibbr4C6ggSXpabRUnVxabjwWD0hnQ==
   dependencies:
     core-js "^3.6.5"
+    vue "^2.6.11"
+    vuetify "^2.2.11"
+    vuex "^3.4.0"
+
+pineapple-styles@^1.1.0, pineapple-styles@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/pineapple-styles/-/pineapple-styles-1.1.9.tgz#b063c6866a201c98795bb0ee1fb46341c4b0e02a"
+  integrity sha512-HxAUGdl/+QYDN3f8YK+TcvdczSZCyJ4wUmeskRXyomhzSLZfNJO6vcvwcsKnyQmbImKUgv4BXwZW/cgda+yRdA==
+  dependencies:
+    core-js "^3.6.5"
+    vue "^2.6.11"
+    vuetify "^2.2.11"
+
+pineapple-testimonials@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/pineapple-testimonials/-/pineapple-testimonials-1.1.0.tgz#ab55728cee776cedc31163914d718a58e3e9ebb8"
+  integrity sha512-9rYDE8Xm31inspTcgIdFIp8VzH/u6Ml/POCaASN2Upmse+YXusL8kNSzVyDsVU+ABWJIo5TsacBDmpPxMp5RLA==
+  dependencies:
+    core-js "^3.6.5"
+    pineapple-styles "^1.1.0"
     vue "^2.6.11"
     vuetify "^2.2.11"
     vuex "^3.4.0"

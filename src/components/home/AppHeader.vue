@@ -46,11 +46,13 @@
       <v-expansion-panel-content color="#FAFAFA">
             <v-list flat class="main-menu-content text-center">
               <v-list-item
-                  v-for="(page, index) in pages"
+                  v-for="(page, index) in pages.filter((page, num) => !disable(num))"
                   :key="index"
-                  @click="$emit('update:selected', index); panel = []"
+                  @click="panel = []; goto(index)"
               >
-                <v-list-item-title class="main-menu-items">{{ page }}</v-list-item-title>
+                <v-list-item-title class="main-menu-items">
+                  {{ page }}
+                </v-list-item-title>
               </v-list-item>
             </v-list>
       </v-expansion-panel-content>
@@ -81,9 +83,11 @@
                v-for="(page, index) in pages"
                :key="index"
                :class="getClassName(page)"
-               @click="$emit('update:selected', index)">
-          <ContactUs v-if="page === 'Contact Us'" style="width: 50px; height:50px;" />
-              {{ page }}
+               @click="goto(index)"
+               :disabled="disable(index)"
+        >
+          <ContactUsIcon v-if="pages[page] === 'Contact Us'" style="width: 50px; height:50px;" />
+              <span>{{ page }}</span>
         </v-btn>
       </v-btn-toggle>
     </v-row>
@@ -158,24 +162,25 @@
 
 <script>
 
-import ContactUs from '@/components/svg/ContactUsIcon'
+import { mapState } from 'vuex'
+
+import ContactUsIcon from '@/components/svg/ContactUsIcon'
 
 export default {
   name: 'AppHeader',
   components: {
-    ContactUs
+    ContactUsIcon
   },
-  props: {
-    pages: Array,
-    selected: Number
-  },
+  props: ['section'],
   data () {
     return {
       toggle: 0,
-      panel: undefined
+      panel: undefined,
+      selectedIndex: undefined
     }
   },
   computed: {
+    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
     burgerMenuClassFirst () {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
     },
@@ -184,9 +189,35 @@ export default {
     }
   },
   methods: {
+    goto (index) {
+      if (index === undefined) return
+      if (this.selectors[index] === 'sign-in') {
+        this.$openExternalLink(this.signInEndpoint)
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'connect') {
+        this.$openExternalLink(this.connectEndpoint)
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'contact') {
+        this.$router.push({ name: 'contact', params: { section: null } })
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'plans') {
+        this.$store.commit('CHANGE_PLAN', this.pages[index].toLowerCase())
+        if (this.$route.path === '/plans') return
+      }
+      this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
+    },
     getClassName (pageName) {
       const className = pageName === 'Sign In' ? ' app-bar-menu-bordered py-2 px-12' : ''
       return `app-bar-menu${className}`
+    },
+    disable (index) {
+      return this.$route.name === 'contact' && this.selectors[index] === 'contact'
     }
   }
 }

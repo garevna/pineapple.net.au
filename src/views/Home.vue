@@ -1,6 +1,6 @@
 <template>
   <v-container fluid v-scroll="onScroll">
-    <AppHeader :pages="pages" :selected.sync="page"/>
+    <!-- <AppHeader :pages="pages" :selected.sync="page"/> -->
     <v-main tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
       <section id="top" class="mb-12">
@@ -14,8 +14,6 @@
       <section id="check" class="my-12">
         <div class="base-title">
           <a href="#check" class="mr-2 d-inline-flex core-goto text--primary"></a>
-        <!-- </div>
-        <div class="text-center base-title mx-auto"> -->
           <CheckAvailability
               :residential.sync="residential"
               :business.sync="business"
@@ -41,66 +39,68 @@
         </div>
       </section>
 
-      <!-- ============================= HOW TO CONNECT ============================= -->
+      <!-- ============================= POWERED BY ============================= -->
       <v-row width="100%">
-        <HowToConnect :contact.sync="contactUs" :connect.sync="getConnected" />
+        <PoweredByDGtek />
+      </v-row>
+
+      <!-- ============================= HOW TO CONNECT ============================= -->
+      <v-row>
+        <section id="how-to-connect">
+          <div class="base-title">
+            <a href="#how-to-connect" class="core-goto"></a>
+            <HowToConnect
+                :clicked.sync="howToConnectClicked"
+                :contact.sync="contactUs"
+                :connect.sync="getConnected"
+            />
+          </div>
+        </section>
       </v-row>
 
       <!-- ============================= TESTIMONIALS ============================= -->
       <v-row width="100%">
-        <Testimonials/>
+        <Testimonials />
       </v-row>
     </v-main>
-
-    <!-- ============================= FOOTER ============================= -->
-    <section id="footer" class="homefone">
-      <div class="base-title">
-        <a href="#footer" class="core-goto"></a>
-          <v-row width="100%">
-            <Footer :page.sync="page" />
-          </v-row>
-      </div>
-    </section>
 
   </v-container>
 </template>
 
-<style>
-
+<style scoped>
+section {
+  width: 100%;
+}
 </style>
 
 <script>
 
 import { mapState, mapGetters } from 'vuex'
 
-import AppHeader from '@/components/home/AppHeader.vue'
 import CovidInfo from '@/components/home/CovidInfo.vue'
 import Top from '@/components/home/Top.vue'
 import CheckAvailability from '@/components/home/CheckAvailability.vue'
 import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
-import InternetPlans from '@/components/home/InternetPlans.vue'
-import Footer from '@/components/home/Footer.vue'
-import HowToConnect from '@/components/home/HowToConnect.vue'
+import PoweredByDGtek from '@/components/home/GreenSection.vue'
 import SpeedTest from '@/components/home/SpeedTest.vue'
-import Testimonials from '@/components/home/Testimonials.vue'
+import InternetPlans from '@/components/home/InternetPlans.vue'
 
 export default {
   name: 'Home',
   components: {
-    InternetPlans,
     CovidInfo,
     Top,
     CheckAvailability,
+    PoweredByDGtek,
     WhoAreWe,
-    Footer,
-    HowToConnect,
-    Testimonials,
     SpeedTest,
-    AppHeader
+    InternetPlans
   },
+  props: ['section'],
   data () {
     return {
-      page: 0,
+      path: '/top',
+      howToConnectClicked: 0,
       contactUs: false,
       getConnected: false,
       business: false,
@@ -112,47 +112,40 @@ export default {
     ...mapGetters('clientInfo', ['address', 'addressAvalable'])
   },
   watch: {
-    contactUs (val) {
-      if (val) this.$router.push({ name: 'contact' })
-    },
-    getConnected (val) {
-      if (val) {
-        window.open(this.connectEndpoint, '_blank')
-      }
-    },
-    business (val) {
-      if (val) {
-        this.page = this.pages.indexOf('Business')
-      }
-    },
-    residential (val) {
-      this.page = this.pages.indexOf('Residential')
-    },
-    page (val) {
-      if (this.pages[val] === 'Sign In') {
-        window.open(this.signInEndpoint, '_blank')
-        this.page = undefined
-        return
-      }
-      if (this.selectors[val] === '#connect') {
-        window.open(this.connectEndpoint, '_blank')
-        this.page = undefined
-        return
-      }
-      if (this.selectors[val] === '#contact') {
-        this.$router.push({ name: 'contact' })
-        return
-      }
-      if (this.selectors[val] === '#plans') {
-        this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
-      }
-      if (this.selectors[val]) {
-        this.$vuetify.goTo(this.selectors[val], {
+    $route: {
+      deep: true,
+      handler (route) {
+        if (route.path === '/contact') return
+        this.$vuetify.goTo(route.path.split('/').join('#'), {
           duration: 500,
-          offset: 0,
+          offset: -20,
           easing: 'easeInOutCubic'
         })
       }
+    },
+    howToConnectClicked (val) {
+      if (!val) return
+      if (val === 1) this.$router.push({ name: 'contact' })
+      if (val === 2) this.$openExternalLink(this.connectEndpoint)
+    },
+    business (val) {
+      if (val) {
+        this.$store.commit('CHANGE_PLAN', 'business')
+        if (this.$route.path !== '/plans') this.$router.push({ name: 'home', params: { section: 'plans' } })
+        this.business = false
+      }
+    },
+    residential (val) {
+      if (!val) return
+      this.$store.commit('CHANGE_PLAN', 'residential')
+      if (this.$route.path !== '/plans') this.$router.push({ name: 'home', params: { section: 'plans' } })
+      this.residential = false
+    },
+    contactUs (val) {
+      console.log('CONTACT US: ', val)
+      if (!val) return
+      this.$router.push({ name: 'contact' })
+      this.contactUs = false
     }
   },
   methods: {
@@ -163,6 +156,18 @@ export default {
   },
   mounted () {
     this.page = this.$route.params.page || 0
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const sectionName = to.path.split('/')
+      const section = !sectionName[1] ? '#top' : sectionName.join('#')
+
+      vm.$vuetify.goTo(section, {
+        duration: 500,
+        offset: -100,
+        easing: 'easeInOutCubic'
+      })
+    })
   }
 }
 </script>

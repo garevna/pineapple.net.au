@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card flat class="d-flex flex-wrap justify-center transparent">
+    <v-card flat class="d-flex flex-wrap text-center transparent">
       <v-card flat class="transparent text-centered mx-10" width="240">
         <ContactUs :contact.sync="contactClicked" />
         <v-card-title>

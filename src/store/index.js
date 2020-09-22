@@ -13,18 +13,12 @@ export default new Vuex.Store({
     generalInfoEndpoint: 'https://api.pineapple.net.au/content/general',
     emailSubject: 'Pineapple NET',
     emailText: 'Thank you for your interest in Pineapple NET! A member of our team will be in touch shortly.',
-    // officeAddress: '75 Brighton Road, Elwood VIC 3184',
-    // officePhone: '1300 857 501',
-    // officeEmail: 'info@pineapple.net.au',
-    // officeABN: '55 618 934 437',
-    // linkedIn: 'https://www.linkedin.com/company/pineapplenet/',
-    // faceBook: 'https://www.facebook.com/PineappleNetAU/',
     viewport: 'lg',
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
     plan: 'residential',
     pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-    selectors: ['#top', '#about', '#plans', '#plans', '#connect', '#contact', 'https://user.pineapple.net.au/']
+    selectors: ['top', 'about', 'plans', 'plans', 'connect', 'contact', 'sign-in']
   },
   modules,
 
@@ -37,10 +31,10 @@ export default new Vuex.Store({
 
   mutations: {
     CHANGE_VIEWPORT: (state) => {
-      state.viewport = window.innerWidth >= 1904 ? 'xl'
-        : window.innerWidth >= 1264 ? 'lg'
-          : window.innerWidth >= 960 ? 'md'
-            : window.innerWidth >= 600 ? 'sm' : 'xs'
+      // state.viewport = window.innerWidth >= 1904 ? 'xl'
+      //   : window.innerWidth >= 1264 ? 'lg'
+      //     : window.innerWidth >= 960 ? 'md'
+      //       : window.innerWidth >= 600 ? 'sm' : 'xs'
       state.viewportWidth = window.innerWidth
       state.viewportHeight = window.innerHeight
     },
@@ -49,16 +43,16 @@ export default new Vuex.Store({
 
     CHANGE_PLAN: (state, plan) => { state.plan = plan },
 
-    ERROR_HANDLER: (state, { moduleName, error }) => {
-      state.errorsLog.push({
-        module: moduleName,
-        error,
-        time: new Date().getTime()
-      })
-    },
-    ERRORS_CLEAR: (state) => {
-      state.errorsLog = []
-    },
+    // ERROR_HANDLER: (state, { moduleName, error }) => {
+    //   state.errorsLog.push({
+    //     module: moduleName,
+    //     error,
+    //     time: new Date().getTime()
+    //   })
+    // },
+    // ERRORS_CLEAR: (state) => {
+    //   state.errorsLog = []
+    // },
     SET_PROPERTY: (state, payload) => {
       Vue.set(payload.object, payload.propertyName, payload.value)
     },

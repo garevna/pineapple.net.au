@@ -156,10 +156,7 @@ export default {
   data () {
     return {
       success: false,
-      failure: false,
-      businessClicked: false,
-      residentialClicked: false,
-      contactClicked: false
+      failure: false
     }
   },
   computed: {
@@ -169,6 +166,30 @@ export default {
     ...mapState('content', ['checkAddress']),
     screen () {
       return this.viewportWidth < 960 ? 'shrink' : 'wide'
+    },
+    businessClicked: {
+      get () {
+        return this.business
+      },
+      set (val) {
+        this.$emit('update:business', val)
+      }
+    },
+    residentialClicked: {
+      get () {
+        return this.residential
+      },
+      set (val) {
+        this.$emit('update:residential', val)
+      }
+    },
+    contactClicked: {
+      get () {
+        return this.contact
+      },
+      set (val) {
+        this.$emit('update:contact', val)
+      }
     },
     buttonHeight () {
       return this.viewportWidth < 960 ? 40 : 70

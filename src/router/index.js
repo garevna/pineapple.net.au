@@ -7,6 +7,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'home-top',
+    component: Home
+  },
+  {
+    path: '/:section',
     name: 'home',
     component: Home,
     props: true
@@ -24,7 +29,7 @@ const routes = [
   {
     path: '/covid',
     name: 'covid',
-    component: () => import(/* webpackChunkName: "contact" */ '@/views/COVID19.vue')
+    component: () => import(/* webpackChunkName: "covid" */ '@/views/COVID19.vue')
   }
 ]
 

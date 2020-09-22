@@ -107,7 +107,7 @@ export default {
     ...mapState(['viewportWidth', 'contactEndpoint', 'emailSubject', 'emailText']),
     ...mapState('content', ['footer']),
     top () {
-      const top = this.viewportWidth < 360 ? 64
+      const top = this.viewportWidth < 380 ? 64
         : this.viewportWidth < 608 ? 140
           : this.viewportWidth < 900 ? 128
             : this.viewportWidth < 1440 ? 160

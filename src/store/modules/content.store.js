@@ -19,9 +19,26 @@ const state = {
     ]
   },
   howToConnect: {
-    contactUs: 'Get in touch to find out if Pineapple is available at your address',
-    getConnected: 'Our team of installers get you connected to our network',
-    enjoy: 'Fast fibre internet'
+    header: '',
+    text: '',
+    button: null,
+    items: [
+      {
+        icon: 'https://api.pineapple.net.au/icons/icon-1.svg',
+        title: 'Contact Us',
+        text: 'Get in touch to find out if Pineapple is available at your address'
+      },
+      {
+        icon: 'https://api.pineapple.net.au/icons/icon-2.svg',
+        title: 'Get connected',
+        text: 'Our team of installers get you connected to our network'
+      },
+      {
+        icon: 'https://api.pineapple.net.au/icons/icon-3.svg',
+        title: 'Enjoy',
+        text: 'Fast fibre internet'
+      }
+    ]
   },
   checkAddress: {
     text: 'Enter your address to find out if Pineapple Net is available',
@@ -31,6 +48,9 @@ const state = {
   internetPlans: {
     text: `Zero connection fee with 12 month plans<br>
           Commitment issues? month-to-month plans also available`
+  },
+  testimonials: {
+    header: ''
   },
   covidLand: {
     text: 'As a Telecommunications company, installers have permission to work during Stage 4 restrictions and are taking heed of advice from the Chief Health Officer of Victoria. Your health and the health of our installation team is crucial to us. To prevent the spread of COVID-19, our onsite installers at all times will be required to:',

@@ -1,6 +1,17 @@
 <template>
-  <v-app class="transparent">
+  <v-app class="transparent" style="overflow: hidden">
+    <AppHeader :section.sync="section" />
+
     <router-view class="mt-12 mx-0 px-0"></router-view>
+    <!-- ============================= FOOTER ============================= -->
+    <section id="footer" class="homefone" v-if="$route.name !== 'contact'">
+      <div class="base-title">
+        <a href="#footer" class="core-goto"></a>
+          <v-row width="100%">
+            <Footer :page.sync="page" />
+          </v-row>
+      </div>
+    </section>
   </v-app>
 </template>
 
@@ -107,21 +118,45 @@ svg.defs-only {
 
 <script>
 
-// import 'pineapple-styles'
+import 'pineapple-styles'
 
 import { mapState, mapActions } from 'vuex'
 
+import AppHeader from '@/components/home/AppHeader.vue'
+import Footer from '@/components/home/Footer.vue'
+
+/* HowToConnect */
+import 'pineapple-how-to-connect'
+import 'pineapple-how-to-connect/dist/pineapple-how-to-connect.css'
+
+/* Testimonials */
+import 'pineapple-testimonials'
+import 'pineapple-testimonials/dist/pineapple-testimonials.css'
+
+/* InternetPlans */
+// import 'pineapple-internet-plans'
+// import 'pineapple-internet-plans/dist/pineapple-internet-plans.css'
+
+/* Popup */
 import 'pineapple-popup'
 import 'pineapple-popup/dist/pineapple-popup.css'
 
 export default {
   name: 'App',
+  components: {
+    AppHeader,
+    Footer
+  },
 
   data: () => ({
-
+    page: 0,
+    section: '#top',
+    contactUs: false,
+    getConnected: false
   }),
 
   computed: {
+    ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
     ...mapState('map', ['serviceAvailable'])
   },
 

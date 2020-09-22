@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <AppHeader :pages="pages" :selected.sync="page"/>
+    <!-- <AppHeader :pages="pages" :selected.sync="page"/> -->
     <v-main tag="main" class="homefone">
       <!-- ============================= HOME ============================= -->
       <section id="top">
@@ -10,14 +10,14 @@
         </div>
       </section>
       <!-- ============================= FOOTER ============================= -->
-      <section id="footer">
+      <!-- <section id="footer">
         <div class="base-title">
           <a href="#footer" class="core-goto"></a>
             <v-row width="100%">
               <Footer />
             </v-row>
         </div>
-      </section>
+      </section> -->
     </v-main>
   </v-container>
 </template>
@@ -27,9 +27,9 @@
 </style>
 
 <script>
-import AppHeader from '@/components/home/AppHeader.vue'
+// import AppHeader from '@/components/home/AppHeader.vue'
 import CovidMain from '@/components/home/CovidMain.vue'
-import Footer from '@/components/home/Footer.vue'
+// import Footer from '@/components/home/Footer.vue'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -40,9 +40,9 @@ export default {
     }
   },
   components: {
-    AppHeader,
-    CovidMain,
-    Footer
+    // AppHeader,
+    // Footer,
+    CovidMain
   },
   computed: {
     ...mapState(['plan', 'pages', 'selectors']),
