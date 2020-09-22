@@ -142,7 +142,6 @@ export default {
       this.residential = false
     },
     contactUs (val) {
-      console.log('CONTACT US: ', val)
       if (!val) return
       this.$router.push({ name: 'contact' })
       this.contactUs = false
@@ -164,7 +163,7 @@ export default {
 
       vm.$vuetify.goTo(section, {
         duration: 500,
-        offset: -100,
+        offset: 0,
         easing: 'easeInOutCubic'
       })
     })

@@ -2,7 +2,6 @@
     <v-container class="land-covid-ref">
     <v-row>
       <v-col>
-        <!-- <router-link to="covid"> -->
         <v-card
             flat
             color="primary"
@@ -12,7 +11,6 @@
           COVID-19 UPDATE: In the light of the Victorian Government's Stage 4 restrictions, Pineapple Net would like to assure you that we are still trading.<br>
           <u @click="$router.push({ name: 'covid' })">Click here to find out more.</u>
         </v-card>
-        <!-- </router-link> -->
       </v-col>
     </v-row>
   </v-container>
@@ -21,6 +19,9 @@
 <style scoped>
 a {
   text-decoration: none;
+}
+u {
+  cursor: pointer;
 }
 .land-covid-ref {
   min-width: 100%!important;
