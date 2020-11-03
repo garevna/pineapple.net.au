@@ -64,8 +64,11 @@
             </p>
           </a>
           <br>
-          <br>
-          <br>
+          <a class="left-14 ref" href="../../../public/Pineapple_Net_Service_Agreement_Blank_Complete_2020_10.pdf" download>
+            <p class="left-14 ref">
+              Download Service Agreement
+            </p>
+          </a>
           <p class="left-14 ref">FAQs & Support</p>
         </v-card-text>
       </v-card>
