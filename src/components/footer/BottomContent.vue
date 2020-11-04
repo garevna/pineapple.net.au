@@ -64,7 +64,10 @@
             </p>
           </a>
           <br>
-          <a class="left-14 ref" href="../../../public/Pineapple_Net_Service_Agreement_Blank_Complete_2020_10.pdf" download>
+          <a
+            class="left-14 ref"
+            href="Pineapple_Net_Service_Agreement_Blank_Complete_2020_10.pdf"
+            download>
             <p class="left-14 ref">
               Download Service Agreement
             </p>
