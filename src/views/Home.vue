@@ -6,8 +6,8 @@
       <section id="top" class="mb-12">
         <div class="base-title">
           <a href="#top" class="mr-2 d-inline-flex core-goto text--primary"></a>
-          <CovidInfo />
-          <Top/>
+          <!-- <CovidInfo /> -->
+          <Top />
         </div>
       </section>
       <!-- ============================= CHECK AVAILABILITY ============================= -->
@@ -77,24 +77,24 @@ section {
 
 import { mapState, mapGetters } from 'vuex'
 
-import CovidInfo from '@/components/home/CovidInfo.vue'
-import Top from '@/components/home/Top.vue'
-import CheckAvailability from '@/components/home/CheckAvailability.vue'
-import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
-import PoweredByDGtek from '@/components/home/GreenSection.vue'
-import SpeedTest from '@/components/home/SpeedTest.vue'
-import InternetPlans from '@/components/home/InternetPlans.vue'
+// import CovidInfo from '@/components/home/CovidInfo.vue'
+// import Top from '@/components/home/Top.vue'
+// import CheckAvailability from '@/components/home/CheckAvailability.vue'
+// import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
+// import PoweredByDGtek from '@/components/home/GreenSection.vue'
+// import SpeedTest from '@/components/home/SpeedTest.vue'
+// import InternetPlans from '@/components/home/InternetPlans.vue'
 
 export default {
   name: 'Home',
   components: {
-    CovidInfo,
-    Top,
-    CheckAvailability,
-    PoweredByDGtek,
-    WhoAreWe,
-    SpeedTest,
-    InternetPlans
+    // CovidInfo,
+    Top: () => import(/* webpackChunkName: "top" */ '@/components/home/Top.vue'),
+    CheckAvailability: () => import(/* webpackChunkName: "CheckAvailability" */ '@/components/home/CheckAvailability.vue'),
+    PoweredByDGtek: () => import(/* webpackChunkName: "PoweredByDGtek" */ '@/components/home/GreenSection.vue'),
+    WhoAreWe: () => import(/* webpackChunkName: "WhoAreWe" */ '@/components/home/WhoAreWeCircles.vue'),
+    SpeedTest: () => import(/* webpackChunkName: "SpeedTest" */ '@/components/home/SpeedTest.vue'),
+    InternetPlans: () => import(/* webpackChunkName: "InternetPlans" */ '@/components/home/InternetPlans.vue')
   },
   props: ['section'],
   data () {

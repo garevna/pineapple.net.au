@@ -2,8 +2,8 @@
 <v-container fluid style="overflow-x: hidden">
   <v-row width="100%" align="center" justify="center">
     <v-col sm="12" md="6">
-        <v-card flat class="transparent">
-          <v-img :src="familyPicture" max-width="800" class="mx-auto"></v-img>
+        <v-card flat class="transparent mx-auto mt-lg-12">
+          <v-img :src="familyPicture" max-width="800" />
         </v-card>
       </v-col>
       <v-col sm="12" md="6">

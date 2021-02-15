@@ -192,7 +192,8 @@ export default {
     goto (index) {
       if (index === undefined) return
       if (this.selectors[index] === 'sign-in') {
-        this.$openExternalLink(this.signInEndpoint)
+        // this.$openExternalLink(this.signInEndpoint)
+        this.$openExternalLink('https://pineapple.chargebeeportal.com')
         this.$emit('update:section', undefined)
         return
       }
@@ -219,6 +220,9 @@ export default {
     disable (index) {
       return this.$route.name === 'contact' && this.selectors[index] === 'contact'
     }
+  },
+  mounted () {
+    console.log(this.signInEndpoint)
   }
 }
 </script>
