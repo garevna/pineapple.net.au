@@ -1,6 +1,6 @@
 <template>
-<v-container fluid style="overflow-x: hidden">
-  <v-row width="100%" align="center" justify="center">
+<v-card flat class="top-container transparent mx-auto">
+  <v-row align="center" justify="center">
     <v-col sm="12" md="6">
         <v-card flat class="transparent mx-auto mt-lg-12">
           <v-img :src="familyPicture" max-width="800" />
@@ -17,13 +17,17 @@
         </v-card>
     </v-col>
   </v-row>
-</v-container>
+</v-card>
 </template>
 
 <style>
+
+.top-container {
+  max-width: 1600px;
+}
 .width-100 {
   width: 100%;
-  border-right: solid 10px transparent;
+  border-right: solid 12px transparent;
 }
 
 </style>

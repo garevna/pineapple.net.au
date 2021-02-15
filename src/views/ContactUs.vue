@@ -128,7 +128,7 @@ import { mapState, mapGetters } from 'vuex'
 import Map from '@/components/map/Map.vue'
 
 export default {
-  name: 'Home',
+  name: 'ContactUs',
   components: {
     Map
   },
@@ -187,27 +187,6 @@ export default {
     disabledButton () {
       const duplicated = this.buttonValue === this.fullName + this.email + this.message
       return duplicated || this.fullNameError || this.emailError || this.messageError
-    }
-  },
-  watch: {
-    page (val) {
-      // if (this.pages[val] === 'Sign In') {
-      //   this.$openExternalLink(this.signInEndpoint)
-      //   this.page = undefined
-      //   return
-      // }
-      // if (this.pages[val] === 'Contact Us') return
-      // if (this.pages[val] === 'Connect') {
-      //   this.$openExternalLink(this.connectEndpoint)
-      //   this.page = undefined
-      //   return
-      // }
-      // if (this.selectors[val] === '#plans') {
-      //   this.$store.commit('CHANGE_PLAN', this.pages[this.page].toLowerCase())
-      //   console.log('PATH: ', this.$route.path)
-      //   if (this.$route.path === '/plans') return
-      // }
-      // this.$router.push({ name: 'home', params: { section: this.selectors[val].slice(1) } })
     }
   },
   methods: {

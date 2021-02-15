@@ -10,8 +10,8 @@
                 order-xs="first"
                 class="images"
             >
-              <Pictures v-if="picturesVisibility"/>
-              <Slider v-if="!picturesVisibility"/>
+              <Pictures v-if="picturesVisibility" />
+              <Slider v-if="!picturesVisibility" />
             </v-col>
             <v-col
                   cols="12"

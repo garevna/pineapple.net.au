@@ -6,7 +6,7 @@
       <section id="top" class="mb-12">
         <div class="base-title">
           <a href="#top" class="mr-2 d-inline-flex core-goto text--primary"></a>
-          <!-- <CovidInfo /> -->
+          <CovidInfo />
           <Top />
         </div>
       </section>
@@ -88,7 +88,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'Home',
   components: {
-    // CovidInfo,
+    CovidInfo: () => import(/* webpackChunkName: "covid" */ '@/components/home/CovidInfo.vue'),
     Top: () => import(/* webpackChunkName: "top" */ '@/components/home/Top.vue'),
     CheckAvailability: () => import(/* webpackChunkName: "CheckAvailability" */ '@/components/home/CheckAvailability.vue'),
     PoweredByDGtek: () => import(/* webpackChunkName: "PoweredByDGtek" */ '@/components/home/GreenSection.vue'),

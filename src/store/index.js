@@ -31,10 +31,10 @@ export default new Vuex.Store({
 
   mutations: {
     CHANGE_VIEWPORT: (state) => {
-      // state.viewport = window.innerWidth >= 1904 ? 'xl'
-      //   : window.innerWidth >= 1264 ? 'lg'
-      //     : window.innerWidth >= 960 ? 'md'
-      //       : window.innerWidth >= 600 ? 'sm' : 'xs'
+      state.viewport = window.innerWidth >= 1904 ? 'xl'
+        : window.innerWidth >= 1264 ? 'lg'
+          : window.innerWidth >= 960 ? 'md'
+            : window.innerWidth >= 600 ? 'sm' : 'xs'
       state.viewportWidth = window.innerWidth
       state.viewportHeight = window.innerHeight
     },

@@ -11,17 +11,6 @@ const routes = [
     component: Home
   },
   {
-    path: '/:section',
-    name: 'home',
-    component: Home,
-    props: true
-  },
-  {
-    path: '/connect',
-    name: 'connect',
-    component: () => import(/* webpackChunkName: "plans" */ '@/views/Connect.vue')
-  },
-  {
     path: '/contact',
     name: 'contact',
     component: () => import(/* webpackChunkName: "contact" */ '@/views/ContactUs.vue')
@@ -30,6 +19,17 @@ const routes = [
     path: '/covid',
     name: 'covid',
     component: () => import(/* webpackChunkName: "covid" */ '@/views/COVID19.vue')
+  },
+  {
+    path: '/:section',
+    name: 'home',
+    component: Home,
+    props: true
+  },
+  {
+    path: '/*',
+    name: '404',
+    component: () => import(/* webpackChunkName: "page-not-found" */ '@/views/PageNotFound.vue')
   }
 ]
 

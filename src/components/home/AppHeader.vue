@@ -192,8 +192,7 @@ export default {
     goto (index) {
       if (index === undefined) return
       if (this.selectors[index] === 'sign-in') {
-        // this.$openExternalLink(this.signInEndpoint)
-        this.$openExternalLink('https://pineapple.chargebeeportal.com')
+        this.$openExternalLink(this.signInEndpoint)
         this.$emit('update:section', undefined)
         return
       }
