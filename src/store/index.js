@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     host: location.origin,
     connectEndpoint: 'https://user.pineapple.net.au/signup',
-    signInEndpoint: 'https://user.pineapple.net.au/',
+    signInEndpoint: 'https://pineapple.chargebeeportal.com',
     contactEndpoint: 'https://api.pineapple.net.au/email/forms',
     generalInfoEndpoint: 'https://api.pineapple.net.au/content/general',
     emailSubject: 'Pineapple NET',
