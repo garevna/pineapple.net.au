@@ -13,35 +13,26 @@
     </v-card-text>
 
     <v-card-actions class="text-center my-4 mb-md-8">
-      <v-btn
-          v-if="available"
+      <a :href="link" target="_blank" class="px-auto mx-auto mb-8 mb-md-12">
+        <v-btn
           color="buttons"
           dark
           rounded
-          width="100%"
+          width="160"
           height="40"
           class="px-auto mx-auto mb-8 mb-md-12"
-          @click="gotoConnect"
-      >
-        Sign up now
-      </v-btn>
-      <v-btn
-          v-else
-          color="buttons"
-          dark
-          rounded
-          width="100%"
-          height="40"
-          class="px-auto mx-auto mb-8 mb-md-12"
-          @click="$emit('update:contact', true)"
-      >
-        Contact Us
-      </v-btn>
+        >
+          Subscribe
+        </v-btn>
+      </a>
     </v-card-actions>
   </v-card>
 </template>
 
 <style>
+a {
+  text-decoration: none;
+}
 
 .price-card {
   padding: 30px 20px;
@@ -108,18 +99,25 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'PriceCard',
-  props: ['item', 'index', 'selected', 'connect', 'contact'],
+  // props: ['item', 'index', 'selected', 'connect', 'contact'],
+  props: ['item', 'index', 'selected', 'tariffId'],
   computed: {
     ...mapState('clientInfo', ['personalInfo']),
+    link () {
+      return `https://pineapple.chargebee.com/hosted_pages/plans/${this.tariffId}`
+    },
     available () {
       return this.personalInfo.addressAvalable
     }
   },
   methods: {
-    gotoConnect () {
-      this.$emit('update:selected', this.index)
-      this.$emit('update:connect', true)
+    subscribe () {
+      this.$openExternalLink(this.link)
     }
+    // gotoConnect () {
+    //   this.$emit('update:selected', this.index)
+    //   this.$emit('update:connect', true)
+    // }
   }
 }
 </script>

@@ -163,7 +163,7 @@ export default {
   methods: {
     ...mapActions({
       getGeneralInfo: 'GET_GENERAL_INFO',
-      getPlans: 'internetPlans/GET_PRICES',
+      // getPlans: 'internetPlans/GET_PRICES',
       getAvailable: 'map/GET_AVAILABLE',
       getReviews: 'testimonials/GET_CONTENT'
     }),
@@ -174,7 +174,7 @@ export default {
 
   beforeMount () {
     this.getGeneralInfo()
-    this.getPlans()
+    // this.getPlans()
     this.getReviews()
   },
 

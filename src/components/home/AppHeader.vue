@@ -219,9 +219,6 @@ export default {
     disable (index) {
       return this.$route.name === 'contact' && this.selectors[index] === 'contact'
     }
-  },
-  mounted () {
-    console.log(this.signInEndpoint)
   }
 }
 </script>

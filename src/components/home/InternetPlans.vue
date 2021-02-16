@@ -17,17 +17,16 @@
 
     <v-slide-x-transition leave-absolute>
       <v-card
-              flat
-              class="d-flex flex-wrap justify-center transparent"
+        flat
+        class="d-flex flex-wrap justify-center transparent"
       >
         <PriceCard class="d-none d-md-block"
-                  v-for="(item, index) in plans[plan]"
-                  :key="index"
-                  :item="item"
-                  :index="index"
-                  :selected.sync="selected"
-                  :connect.sync="getConnect"
-                  :contact.sync="getContact"
+          v-for="(item, index) in plans[plan]"
+          :key="index"
+          :item="item"
+          :index="index"
+          :selected.sync="selected"
+          :tariffId="getTariffId(index)"
         />
 
       <v-carousel
@@ -55,8 +54,7 @@
                         :item="item"
                         :index="index"
                         :selected.sync="selected"
-                        :connect.sync="getConnect"
-                        :contact.sync="getContact"
+                        :tariffId="getTariffId(index)"
               />
               </v-row>
             </v-sheet>
@@ -110,22 +108,21 @@ export default {
     selected (val) {
       if (val === null) return
       this.$store.dispatch('internetPlans/SELECT_TARIF', val)
-    },
-    getConnect (val) {
-      this.$emit('update:connect', val)
-      this.getConnect = false
-    },
-    getContact (val) {
-      this.$emit('update:contact', val)
     }
+    // getConnect (val) {
+    //   this.$emit('update:connect', val)
+    //   this.getConnect = false
+    // },
+    // getContact (val) {
+    //   this.$emit('update:contact', val)
+    // }
   },
   methods: {
-    goToConnect () {
-
+    getTariffId (index) {
+      const planName = this.plan === 'business' ? 'commercial' : this.plan
+      const plan = this.plans[this.plan][index]
+      return `${planName}-${plan.upload || plan.download}`
     }
-  },
-  mounted () {
-    //
   }
 }
 </script>
