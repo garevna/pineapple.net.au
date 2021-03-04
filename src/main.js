@@ -10,6 +10,17 @@ import vuetify from './plugins/vuetify'
 import '@/sass/fonts.scss'
 import '@/sass/variables.scss'
 
+const requireComponent = require.context('./components', false, /[A-Z]\w+\.(vue|js)$/)
+
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+  const componentName = fileName.split('/').pop().slice(0, -4)
+  Vue.component(
+    componentName,
+    componentConfig.default || componentConfig
+  )
+})
+
 Vue.config.productionTip = false
 
 Vue.prototype.$geo = window.google.maps

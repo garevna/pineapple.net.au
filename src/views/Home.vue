@@ -35,7 +35,10 @@
       <section id="plans">
         <div class="base-title">
           <a href="#plans" class="core-goto"></a>
-          <InternetPlans :connect.sync="getConnected" :contact.sync="contactUs"/>
+          <InternetPlans
+            :connect.sync="getConnected"
+            :contact.sync="contactUs"
+          />
         </div>
       </section>
 
@@ -77,20 +80,12 @@ section {
 
 import { mapState, mapGetters } from 'vuex'
 
-// import CovidInfo from '@/components/home/CovidInfo.vue'
-// import Top from '@/components/home/Top.vue'
-// import CheckAvailability from '@/components/home/CheckAvailability.vue'
-// import WhoAreWe from '@/components/home/WhoAreWeCircles.vue'
-// import PoweredByDGtek from '@/components/home/GreenSection.vue'
-// import SpeedTest from '@/components/home/SpeedTest.vue'
-// import InternetPlans from '@/components/home/InternetPlans.vue'
-
 export default {
   name: 'Home',
   components: {
     CovidInfo: () => import(/* webpackChunkName: "covid" */ '@/components/home/CovidInfo.vue'),
     Top: () => import(/* webpackChunkName: "top" */ '@/components/home/Top.vue'),
-    CheckAvailability: () => import(/* webpackChunkName: "CheckAvailability" */ '@/components/home/CheckAvailability.vue'),
+    // CheckAvailability: () => import(/* webpackChunkName: "CheckAvailability" */ '@/components/home/CheckAvailability.vue'),
     PoweredByDGtek: () => import(/* webpackChunkName: "PoweredByDGtek" */ '@/components/home/GreenSection.vue'),
     WhoAreWe: () => import(/* webpackChunkName: "WhoAreWe" */ '@/components/home/WhoAreWeCircles.vue'),
     SpeedTest: () => import(/* webpackChunkName: "SpeedTest" */ '@/components/home/SpeedTest.vue'),
@@ -109,18 +104,14 @@ export default {
   },
   computed: {
     ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
-    ...mapGetters('clientInfo', ['address', 'addressAvalable'])
+    ...mapGetters('clientInfo', ['address', 'addressAvailable'])
   },
   watch: {
     $route: {
       deep: true,
       handler (route) {
         if (route.path === '/contact') return
-        this.$vuetify.goTo(route.path.split('/').join('#'), {
-          duration: 500,
-          offset: -20,
-          easing: 'easeInOutCubic'
-        })
+        this.scrollToRoute(route.path.split('/').join('#'))
       }
     },
     howToConnectClicked (val) {
@@ -132,6 +123,7 @@ export default {
       if (val) {
         this.$store.commit('CHANGE_PLAN', 'business')
         if (this.$route.path !== '/plans') this.$router.push({ name: 'home', params: { section: 'plans' } })
+        else this.scrollToRoute('#plans')
         this.business = false
       }
     },
@@ -139,6 +131,7 @@ export default {
       if (!val) return
       this.$store.commit('CHANGE_PLAN', 'residential')
       if (this.$route.path !== '/plans') this.$router.push({ name: 'home', params: { section: 'plans' } })
+      else this.scrollToRoute('#plans')
       this.residential = false
     },
     contactUs (val) {
@@ -151,6 +144,13 @@ export default {
     onScroll (event) {
       const scrollValue = window.pageYOffset || document.documentElement.scrollTop
       if (scrollValue === 0) this.page = 0
+    },
+    scrollToRoute (route) {
+      this.$vuetify.goTo(route, {
+        duration: 500,
+        offset: -20,
+        easing: 'easeInOutCubic'
+      })
     }
   },
   mounted () {
@@ -160,10 +160,9 @@ export default {
     next(vm => {
       const sectionName = to.path.split('/')
       const section = !sectionName[1] ? '#top' : sectionName.join('#')
-
       vm.$vuetify.goTo(section, {
         duration: 500,
-        offset: 0,
+        offset: -50,
         easing: 'easeInOutCubic'
       })
     })

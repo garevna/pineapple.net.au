@@ -50,11 +50,11 @@
                 justify="center"
               >
               <PriceCard
-                        :mode="plan"
-                        :item="item"
-                        :index="index"
-                        :selected.sync="selected"
-                        :tariffId="getTariffId(index)"
+                :mode="plan"
+                :item="item"
+                :index="index"
+                :selected.sync="selected"
+                :tariffId="getTariffId(index)"
               />
               </v-row>
             </v-sheet>
@@ -79,14 +79,14 @@
 
 import { mapState } from 'vuex'
 
-import PriceCard from '@/components/plans/PriceCard.vue'
-import SwitchMode from '@/components/plans/SwitchToggle.vue'
+// import PriceCard from '@/components/plans/PriceCard.vue'
+// import SwitchMode from '@/components/plans/SwitchToggle.vue'
 
 export default {
   name: 'InternetPlans',
   components: {
-    PriceCard,
-    SwitchMode
+    PriceCard: () => import('@/components/plans/PriceCard.vue'),
+    SwitchMode: () => import('@/components/plans/SwitchToggle.vue')
   },
   props: ['connect', 'contact'],
   data () {
@@ -107,7 +107,7 @@ export default {
   watch: {
     selected (val) {
       if (val === null) return
-      this.$store.dispatch('internetPlans/SELECT_TARIF', val)
+      this.$store.dispatch('internetPlans/SELECT_TARIFF', val)
     }
     // getConnect (val) {
     //   this.$emit('update:connect', val)

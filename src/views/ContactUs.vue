@@ -123,14 +123,14 @@ h3, p, small {
 
 <script>
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
-import Map from '@/components/map/Map.vue'
+// import Map from '@/components/map/Map.vue'
 
 export default {
   name: 'ContactUs',
   components: {
-    Map
+    Map: () => import('@/components/map/Map.vue')
   },
   data () {
     return {
@@ -151,13 +151,22 @@ export default {
     ...mapState(['viewportWidth', 'officeAddress', 'officePhone', 'connectEndpoint', 'signInEndpoint']),
     ...mapState('contact', ['userFullName', 'userEmail', 'userAddress', 'userMessage']),
     ...mapGetters('contact', ['pages', 'selectors']),
+    ...mapState('clientInfo', ['personalInfo']),
+    checkedAddress: {
+      get () {
+        return this.personalInfo.address
+      },
+      set (val) {
+        this.updateAddress(val)
+      }
+    },
     plans () {
       return this.selectors[this.page] === '#plans' ? this.pages[this.page].toLowerCase() : 'residential'
     },
     fullName: {
       get () { return this.userFullName },
       set (val) {
-        this.$store.commit('contact/USER_FULL_NAME', val)
+        this.setName(val)
         this.fullNameError = this.fullName.length < 2
         this.fullNameHint = this.fullNameError ? 'Enter your full name please' : ''
       }
@@ -168,20 +177,20 @@ export default {
         this.emailError = !this.validateEmail(val)
         this.emailColor = val && this.emailError ? '#f00' : '#000'
         this.emailHint = this.emailError ? 'Invalid email' : ''
-        this.$store.commit('contact/USER_EMAIL', val)
+        this.setEmail(val)
       }
     },
     address: {
       get () { return this.userAddress },
       set (val) {
-        this.$store.commit('contact/USER_ADDRESS', val)
+        this.setAddress(val)
       }
     },
     message: {
       get () { return this.userMessage },
       set (val) {
         this.messageError = this.message.length < 20
-        this.$store.commit('contact/USER_MESSAGE', val)
+        this.setMessage(val)
       }
     },
     disabledButton () {
@@ -190,6 +199,18 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('contact', {
+      setName: 'USER_FULL_NAME',
+      setEmail: 'USER_EMAIL',
+      setAddress: 'USER_ADDRESS',
+      setMessage: 'USER_MESSAGE'
+    }),
+    ...mapMutations('clientInfo', {
+      update: 'UPDATE_PERSONAL_DATA'
+    }),
+    updateAddress (value) {
+      this.update({ prop: 'address', value })
+    },
     validateEmail (val) {
       return val.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     },
@@ -207,6 +228,7 @@ export default {
     }
   },
   mounted () {
+    this.address = this.checkedAddress
     this.$vuetify.goTo(0)
     const inputElement = this.$refs.autocompleteAddressField.$refs.input
     const autocomplete = new this.$Autocomplete(inputElement, { componentRestrictions: { country: 'au' } })
@@ -214,6 +236,7 @@ export default {
       const place = autocomplete.getPlace()
       inputElement.value = place.formatted_address
       this.address = place.formatted_address
+      this.updateAddress(place.formatted_address)
     }.bind(this))
   }
 }

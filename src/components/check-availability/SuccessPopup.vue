@@ -56,7 +56,55 @@
     </div>
 </template>
 
+<script>
+import { mapState } from 'vuex'
+
+// import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
+// import LikeSymbol from '@/components/check-availability/LikeSymbol.vue'
+
+export default {
+  name: 'SuccessPopup',
+  components: {
+    FoneSymbol: () => import('@/components/check-availability/FoneSymbol.vue'),
+    LikeSymbol: () => import('@/components/check-availability/LikeSymbol.vue')
+  },
+  props: {
+    success: Boolean,
+    business: Boolean,
+    residential: Boolean
+  },
+  computed: {
+    ...mapState({
+      screen: 'viewportWidth'
+    }),
+    size () {
+      return this.screen > 750 ? 'wide' : 'shrink'
+    },
+    width () {
+      return this.screen > 750 ? 730 : 298
+    },
+    height () {
+      return this.screen > 750 ? 352 : 477
+    },
+    likeSize () {
+      return this.screen > 750 ? 290 : 150
+    }
+  },
+  methods: {
+    residentialPricing () {
+      this.$emit('update:residential', true)
+      this.$emit('update:success', false)
+    },
+    businessPricing () {
+      this.$emit('update:business', true)
+      this.$emit('update:success', false)
+    }
+  }
+}
+</script>
+
 <style scoped>
+
 .success-content {
   position: relative;
   top:0;
@@ -155,55 +203,3 @@
     left: 48px;
   }
 </style>
-
-<script>
-import { mapState } from 'vuex'
-
-import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
-import LikeSymbol from '@/components/check-availability/LikeSymbol.vue'
-
-export default {
-  name: 'SuccessPopup',
-  components: {
-    FoneSymbol,
-    LikeSymbol
-  },
-  props: {
-    success: Boolean,
-    business: Boolean,
-    residential: Boolean
-  },
-  data () {
-    return {
-      //
-    }
-  },
-  computed: {
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
-    size () {
-      return this.screen > 750 ? 'wide' : 'shrink'
-    },
-    width () {
-      return this.screen > 750 ? 730 : 298
-    },
-    height () {
-      return this.screen > 750 ? 352 : 477
-    },
-    likeSize () {
-      return this.screen > 750 ? 290 : 150
-    }
-  },
-  methods: {
-    residentialPricing () {
-      this.$emit('update:residential', true)
-      this.$emit('update:success', false)
-    },
-    businessPricing () {
-      this.$emit('update:business', true)
-      this.$emit('update:success', false)
-    }
-  }
-}
-</script>

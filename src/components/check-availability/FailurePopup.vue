@@ -24,57 +24,101 @@
           <ContactSymbol :size="likeSize" :class="`failure-content-${size}--like`"/>
           <p :class="`failure-content--title failure-content-${size}--title`">Sorry...</p>
           <p :class="`failure-content--text failure-content-${size}--text`">Unfortunately Pineapple Net is not available at your address right now</p>
-          <v-card-actions justify-center style="position: absolute; bottom: 20px; width: 88%; margin-left: 6%;">
-            <v-row justify="center" class="mx-auto" style="width: 88%">
-              <v-col cols="12" md="4" class="mx-auto text-center my-1 py-0">
-                <v-btn
-                    :class="`failure-content-button failure-content-button-${size}`"
-                    rounded
-                    light
-                    outlined
-                    depressed
-                    height="42"
-                    width="200"
-                    color="#20731C"
-                    @click="contactUs"
-                >
-                  Register your interest
-                </v-btn>
-              </v-col>
-              <v-col cols="12" md="4" class="mx-auto text-center my-1 py-0">
-                <v-btn
-                    :class="`failure-content-button failure-content-button-${size}`"
-                    rounded
-                    dark
-                    depressed
-                    height="42"
-                    width="200"
-                    color="#72BF44"
-                    @click="businessPricing"
-                >
-                  Business Pricing
-                </v-btn>
-              </v-col>
-              <v-col cols="12" md="4" class="mx-auto text-center my-1 py-0">
-                <v-btn
-                    :class="`failure-content-button failure-content-button-${size}`"
-                    rounded
-                    dark
-                    depressed
-                    height="42"
-                    width="200"
-                    color="#72BF44"
-                    @click="residentialPricing"
-                >
-                  Residential Pricing
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
+          <v-card-text class="text-center" style="position: absolute; bottom: 24px; width: 100%;">
+            <v-btn
+              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
+              rounded
+              light
+              outlined
+              depressed
+              height="42"
+              color="#20731C"
+              @click="contactUs"
+            >
+              Register your interest
+            </v-btn>
+            <v-btn
+              v-if="!popup"
+              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
+              rounded
+              dark
+              depressed
+              height="42"
+              color="#72BF44"
+              @click="businessPricing"
+            >
+              Business Pricing
+            </v-btn>
+            <v-btn
+              v-if="!popup"
+              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
+              rounded
+              dark
+              depressed
+              height="42"
+              color="#72BF44"
+              @click="residentialPricing"
+            >
+              Residential Pricing
+            </v-btn>
+          </v-card-text>
         </v-card>
       </v-dialog>
     </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+// import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
+// import ContactSymbol from '@/components/check-availability/ContactSymbol.vue'
+
+export default {
+  name: 'FailurePopup',
+  components: {
+    FoneSymbol: () => import('@/components/check-availability/FoneSymbol.vue'),
+    ContactSymbol: () => import('@/components/check-availability/ContactSymbol.vue')
+  },
+  props: {
+    failure: Boolean,
+    residential: Boolean,
+    business: Boolean,
+    contact: Boolean,
+    popup: Boolean
+  },
+  computed: {
+    ...mapState({
+      screen: 'viewportWidth'
+    }),
+    size () {
+      return this.screen > 750 ? 'wide' : 'shrink'
+    },
+    width () {
+      return this.screen > 750 ? 730 : 298
+    },
+    height () {
+      return this.screen > 750 ? 352 : 477
+    },
+    likeSize () {
+      return this.screen > 750 ? 290 : 150
+    }
+  },
+  methods: {
+    residentialPricing () {
+      this.$emit('update:residential', true)
+      this.$emit('update:failure', false)
+    },
+    businessPricing () {
+      this.$emit('update:business', true)
+      this.$emit('update:failure', false)
+    },
+    contactUs () {
+      this.$emit('update:contact', true)
+      this.$emit('update:failure', false)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .failure-content {
@@ -164,62 +208,4 @@
 .failure-content-button-wide {
 
 }
-
 </style>
-
-<script>
-import { mapState } from 'vuex'
-
-import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
-import ContactSymbol from '@/components/check-availability/ContactSymbol.vue'
-
-export default {
-  name: 'FailurePopup',
-  components: {
-    FoneSymbol,
-    ContactSymbol
-  },
-  props: {
-    failure: Boolean,
-    residential: Boolean,
-    business: Boolean,
-    contact: Boolean
-  },
-  data () {
-    return {
-      //
-    }
-  },
-  computed: {
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
-    size () {
-      return this.screen > 750 ? 'wide' : 'shrink'
-    },
-    width () {
-      return this.screen > 750 ? 730 : 298
-    },
-    height () {
-      return this.screen > 750 ? 352 : 477
-    },
-    likeSize () {
-      return this.screen > 750 ? 290 : 150
-    }
-  },
-  methods: {
-    residentialPricing () {
-      this.$emit('update:residential', true)
-      this.$emit('update:failure', false)
-    },
-    businessPricing () {
-      this.$emit('update:business', true)
-      this.$emit('update:failure', false)
-    },
-    contactUs () {
-      this.$emit('update:contact', true)
-      this.$emit('update:failure', false)
-    }
-  }
-}
-</script>

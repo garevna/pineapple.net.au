@@ -19,7 +19,7 @@
         <v-col>
           <p class="normal-text">Plan</p>
           <span class="dollar-small">$</span>
-          <span class="price-small">{{ tarif ? tarif.price : '' }}</span>
+          <span class="price-small">{{ tariff ? tariff.price : '' }}</span>
           <span class="mo-small">/mo</span>
         </v-col>
       </v-row>
@@ -30,7 +30,7 @@
     </v-col>
     <v-col cols="4" class="mt-2">
       <sup class="dollar">$</sup>
-      <span class="price">{{ tarif ? tarif.price + modemPrice : '' }}</span>
+      <span class="price">{{ tariff ? tariff.price + modemPrice : '' }}</span>
       <span class="mo">/mo</span>
     </v-col>
   </v-row>
@@ -123,7 +123,7 @@ export default {
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('clientInfo', ['personalInfo', 'modemPrice']),
-    ...mapGetters('internetPlans', ['tarif']),
+    ...mapGetters('internetPlans', ['tariff']),
     address: {
       get () {
         return this.personalInfo.address

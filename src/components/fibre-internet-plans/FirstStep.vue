@@ -14,22 +14,22 @@
             hover
             width="640"
             height="140"
-            v-for="(tarif, index) in plans[plan]"
+            v-for="(tariff, index) in plans[plan]"
             :key="index"
             class="card--wide mx-auto my-2"
-            @click="selectTarif(index)"
-            :color="tarif.selected ? selectedColor : 'white'"
+            @click="selectTariff(index)"
+            :color="tariff.selected ? selectedColor : 'white'"
       >
         <v-row align="center" justify="space-around" width="100%">
           <v-col cols="3">
-            <sup class="dollar" :style="{ color: greenTextColor(tarif) }">$</sup>
-            <span class="price" :style="{ color: greenTextColor(tarif) }">{{ tarif.price }}</span>
-            <span class="mo" :style="{ color: greenTextColor(tarif) }">/mo</span>
+            <sup class="dollar" :style="{ color: greenTextColor(tariff) }">$</sup>
+            <span class="price" :style="{ color: greenTextColor(tariff) }">{{ tariff.price }}</span>
+            <span class="mo" :style="{ color: greenTextColor(tariff) }">/mo</span>
           </v-col>
           <v-col cols="4">
-            <p class="normal-text" :style="{ color: grayTextColor(tarif) }">
-              {{ tarif.download }} Mbps Download<br>
-              {{ tarif.download }} Mbps Upload<br>
+            <p class="normal-text" :style="{ color: grayTextColor(tariff) }">
+              {{ tariff.download }} Mbps Download<br>
+              {{ tariff.download }} Mbps Upload<br>
               Unlimited Data
             </p>
           </v-col>
@@ -43,21 +43,21 @@
             hover
             width="340"
             height="158"
-            v-for="(tarif, index) in tarifs"
+            v-for="(tariff, index) in tariffs"
             :key="index"
             class="mx-auto my-2"
-            @click="selectTarif(index)"
-            :color="tarif.selected ? selectedColor : 'white'"
+            @click="selectTariff(index)"
+            :color="tariff.selected ? selectedColor : 'white'"
       >
         <v-row align="center" justify="space-around" width="100%">
           <v-col cols="6">
-            <sup class="dollar" :style="{ color: greenTextColor(tarif) }">$</sup>
-            <span class="price" :style="{ color: greenTextColor(tarif) }">{{ tarif.price }}</span>
-            <span class="mo" :style="{ color: greenTextColor(tarif) }">/mo</span>
+            <sup class="dollar" :style="{ color: greenTextColor(tariff) }">$</sup>
+            <span class="price" :style="{ color: greenTextColor(tariff) }">{{ tariff.price }}</span>
+            <span class="mo" :style="{ color: greenTextColor(tariff) }">/mo</span>
             <br><br>
-            <p class="normal-text shrink" :style="{ color: grayTextColor(tarif) }">
-              {{ tarif.download }} Mbps Download<br>
-              {{ tarif.download }} Mbps Upload<br>
+            <p class="normal-text shrink" :style="{ color: grayTextColor(tariff) }">
+              {{ tariff.download }} Mbps Download<br>
+              {{ tariff.download }} Mbps Upload<br>
               Unlimited Data
             </p>
           </v-col>
@@ -215,7 +215,7 @@ export default {
   computed: {
     ...mapState(['viewportWidth', 'plan']),
     ...mapState('internetPlans', ['plans']),
-    tarifs () {
+    tariffs () {
       return this.plans[this.plan]
     },
     header () {
@@ -230,17 +230,17 @@ export default {
     }
   },
   methods: {
-    grayTextColor (tarif) {
-      return tarif.selected ? '#fff' : '#353535'
+    grayTextColor (tariff) {
+      return tariff.selected ? '#fff' : '#353535'
     },
-    blackTextColor (tarif) {
-      return tarif.selected ? '#fff' : '#000'
+    blackTextColor (tariff) {
+      return tariff.selected ? '#fff' : '#000'
     },
-    greenTextColor (tarif) {
-      return tarif.selected ? '#fff' : '#20731C'
+    greenTextColor (tariff) {
+      return tariff.selected ? '#fff' : '#20731C'
     },
-    selectTarif (index) {
-      this.$store.dispatch('internetPlans/SELECT_TARIF', index)
+    selectTariff (index) {
+      this.$store.dispatch('internetPlans/SELECT_TARIFF', index)
     }
   },
   mounted () {

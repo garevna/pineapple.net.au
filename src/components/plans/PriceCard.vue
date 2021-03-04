@@ -13,7 +13,7 @@
     </v-card-text>
 
     <v-card-actions class="text-center my-4 mb-md-8">
-      <a :href="link" target="_blank" class="px-auto mx-auto mb-8 mb-md-12">
+      <!-- <a :href="link" target="_blank" class="px-auto mx-auto mb-8 mb-md-12"> -->
         <v-btn
           color="buttons"
           dark
@@ -21,15 +21,86 @@
           width="160"
           height="40"
           class="px-auto mx-auto mb-8 mb-md-12"
+          @click="$emit('update:selected', index)"
         >
           Subscribe
         </v-btn>
-      </a>
+      <!-- </a> -->
     </v-card-actions>
+    <v-row justify="space-around">
+      <v-col cols="auto">
+        <v-dialog
+          v-model="check"
+          transition="dialog-bottom-transition"
+          max-width="832"
+        >
+          <v-card>
+            <v-toolbar
+              color="primary"
+              dark
+              class="text-right mb-12"
+              style="padding: 0!important"
+            >
+              <v-spacer />
+              <v-btn
+                text
+                class="transparent"
+                @click="check = false"
+              >
+                <v-icon large>mdi-close</v-icon>
+              </v-btn>
+            </v-toolbar>
+            <CheckAvailability
+              :popup="true"
+              :open.sync="check"
+            />
+          </v-card>
+        </v-dialog>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
+<script>
+
+import { mapState, mapGetters } from 'vuex'
+
+export default {
+  name: 'PriceCard',
+  props: ['item', 'index', 'selected'],
+  data: () => ({
+    check: false
+  }),
+  computed: {
+    ...mapState('clientInfo', ['personalInfo']),
+    ...mapGetters('internetPlans', ['link']),
+    active () {
+      return this.selected === this.index
+    },
+    address () {
+      return this.personalInfo.address
+    },
+    available () {
+      return this.personalInfo.addressAvailable
+    }
+  },
+  watch: {
+    available (val) {
+      if (val && this.active) this.$openExternalLink(this.link)
+    },
+    selected (val) {
+      if (!this.active) return
+      if (!this.address) this.check = true
+      else this.available ? this.$openExternalLink(this.link) : this.$router.push({ name: 'contact' })
+    }
+  }
+}
+</script>
+
 <style>
+.v-toolbar__content, .v-toolbar__extension {
+    padding: 4px 0;
+}
 a {
   text-decoration: none;
 }
@@ -92,32 +163,3 @@ p {
 }
 
 </style>
-
-<script>
-
-import { mapState } from 'vuex'
-
-export default {
-  name: 'PriceCard',
-  // props: ['item', 'index', 'selected', 'connect', 'contact'],
-  props: ['item', 'index', 'selected', 'tariffId'],
-  computed: {
-    ...mapState('clientInfo', ['personalInfo']),
-    link () {
-      return `https://pineapple.chargebee.com/hosted_pages/plans/${this.tariffId}`
-    },
-    available () {
-      return this.personalInfo.addressAvalable
-    }
-  },
-  methods: {
-    subscribe () {
-      this.$openExternalLink(this.link)
-    }
-    // gotoConnect () {
-    //   this.$emit('update:selected', this.index)
-    //   this.$emit('update:connect', true)
-    // }
-  }
-}
-</script>

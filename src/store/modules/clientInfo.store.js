@@ -12,7 +12,7 @@ const state = {
     address: '',
     occupancyType: '',
     infoSource: '',
-    addressAvalable: false,
+    addressAvailable: false,
     location: null
   },
   card: {
@@ -32,14 +32,14 @@ const state = {
 
 const getters = {
   plan: (state, getters, rootState) => rootState.plan,
-  tarif: (state, getters) => state.plans[getters.plan].find(item => item.selected),
+  tariff: (state, getters, rootState) => rootState.internetPlans.plans[getters.plan].find(item => item.selected),
   business: (state, getters) => getters.plan === 'business',
   address: state => state.personalInfo.address,
-  addressAvalable: state => state.personalInfo.addressAvalable
+  addressAvailable: state => state.personalInfo.addressAvailable
 }
 
 const mutations = {
-  UPDATE_PERSONAL_DATA: (state, payload) => { state.personalInfo[payload.prop] = payload.value },
+  UPDATE_PERSONAL_DATA: (state, payload) => { Object.assign(state.personalInfo, { [payload.prop]: payload.value }) },
   UPDATE_PAYMENT_DETAILS: (state, payload) => { state.card[payload.prop] = payload.value },
   UPDATE_BUSINESS_INFO: (state, payload) => { state.businessInfo[payload.prop] = payload.value },
   UPDATE_PROMO_CODE: (state, payload) => { state.promocode = payload },
@@ -58,7 +58,7 @@ const mutations = {
   // USER_CARD_EXPIRY: (state, payload) => { state.card.expiry = payload },
   // USER_CARD_CCV: (state, payload) => { state.card.ccv = payload },
   // USER_ADDRESS: (state, payload) => { state.personalInfo.address = payload },
-  // ADDRESS_AVAILABLE: (state, payload) => { state.personalInfo.addressAvalable = payload },
+  // ADDRESS_AVAILABLE: (state, payload) => { state.personalInfo.addressAvailable = payload },
   UPDATE_MODEM_PRICE: (state, payload) => { state.modemPrice = payload }
 }
 
@@ -75,7 +75,7 @@ const actions = {
       state.businessInfo,
       {
         plan: getters.plan,
-        tarif: getters.tarif,
+        tariff: getters.tariff,
         modemPrice: state.modemPrice,
         promocode: state.promocode
       }

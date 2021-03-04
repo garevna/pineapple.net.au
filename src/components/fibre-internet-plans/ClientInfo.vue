@@ -292,7 +292,7 @@ export default {
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('clientInfo', ['personalInfo']),
-    ...mapGetters('clientInfo', ['plan', 'tarif']),
+    ...mapGetters('clientInfo', ['plan', 'tariff']),
     ...mapState('internetPlans', ['occupancyTypes', 'infoSources']),
     ...mapGetters('internetPlans', ['plan']),
     trigger: {
@@ -300,7 +300,7 @@ export default {
         return this.plan === 'business' ? this.plan : null
       },
       set (newVal) {
-        this.businessHint = 'It will break selected tarif'
+        this.businessHint = 'It will break selected tariff'
         // this.business = !this.business
       }
     },

@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapState(['plan', 'pages', 'selectors']),
-    ...mapGetters('clientInfo', ['address', 'addressAvalable'])
+    ...mapGetters('clientInfo', ['address', 'addressAvailable'])
   },
   watch: {
     page (val) {
