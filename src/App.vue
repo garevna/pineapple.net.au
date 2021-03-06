@@ -15,6 +15,78 @@
   </v-app>
 </template>
 
+<script>
+
+import 'pineapple-styles'
+
+import { mapState, mapActions } from 'vuex'
+
+import AppHeader from '@/components/home/AppHeader.vue'
+import Footer from '@/components/home/Footer.vue'
+
+/* HowToConnect */
+import 'pineapple-how-to-connect'
+import 'pineapple-how-to-connect/dist/pineapple-how-to-connect.css'
+
+/* Testimonials */
+import 'pineapple-testimonials'
+import 'pineapple-testimonials/dist/pineapple-testimonials.css'
+
+/* Popup */
+import 'pineapple-popup'
+import 'pineapple-popup/dist/pineapple-popup.css'
+
+export default {
+  name: 'App',
+  components: {
+    AppHeader,
+    Footer
+  },
+
+  data: () => ({
+    page: 0,
+    section: '#top',
+    contactUs: false,
+    getConnected: false
+  }),
+
+  computed: {
+    ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
+    ...mapState('map', ['serviceAvailable'])
+  },
+
+  methods: {
+    ...mapActions({
+      getGeneralInfo: 'GET_GENERAL_INFO',
+      // getPlans: 'internetPlans/GET_PRICES',
+      getAvailable: 'map/GET_AVAILABLE',
+      getReviews: 'testimonials/GET_CONTENT'
+    }),
+    onResize () {
+      this.$store.commit('CHANGE_VIEWPORT')
+    }
+  },
+
+  beforeMount () {
+    this.getGeneralInfo()
+    // this.getPlans()
+    this.getReviews()
+  },
+
+  mounted () {
+    this.getAvailable()
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+
+  beforeDestroy () {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
+  }
+}
+</script>
+
 <style>
 
 html, body {
@@ -115,79 +187,3 @@ svg.defs-only {
 }
 
 </style>
-
-<script>
-
-import 'pineapple-styles'
-
-import { mapState, mapActions } from 'vuex'
-
-import AppHeader from '@/components/home/AppHeader.vue'
-import Footer from '@/components/home/Footer.vue'
-
-/* HowToConnect */
-import 'pineapple-how-to-connect'
-import 'pineapple-how-to-connect/dist/pineapple-how-to-connect.css'
-
-/* Testimonials */
-import 'pineapple-testimonials'
-import 'pineapple-testimonials/dist/pineapple-testimonials.css'
-
-/* InternetPlans */
-// import 'pineapple-internet-plans'
-// import 'pineapple-internet-plans/dist/pineapple-internet-plans.css'
-
-/* Popup */
-import 'pineapple-popup'
-import 'pineapple-popup/dist/pineapple-popup.css'
-
-export default {
-  name: 'App',
-  components: {
-    AppHeader,
-    Footer
-  },
-
-  data: () => ({
-    page: 0,
-    section: '#top',
-    contactUs: false,
-    getConnected: false
-  }),
-
-  computed: {
-    ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
-    ...mapState('map', ['serviceAvailable'])
-  },
-
-  methods: {
-    ...mapActions({
-      getGeneralInfo: 'GET_GENERAL_INFO',
-      // getPlans: 'internetPlans/GET_PRICES',
-      getAvailable: 'map/GET_AVAILABLE',
-      getReviews: 'testimonials/GET_CONTENT'
-    }),
-    onResize () {
-      this.$store.commit('CHANGE_VIEWPORT')
-    }
-  },
-
-  beforeMount () {
-    this.getGeneralInfo()
-    // this.getPlans()
-    this.getReviews()
-  },
-
-  mounted () {
-    this.getAvailable()
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
-  },
-
-  beforeDestroy () {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.onResize, { passive: true })
-    }
-  }
-}
-</script>

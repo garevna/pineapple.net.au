@@ -26,27 +26,29 @@
           <p :class="`success-content--text success-content-${size}--text`">Pineapple Net is available at your address!</p>
           <v-card-actions>
             <v-btn
-                :class="`success-content-button success-content-button-${size}--light`"
-                rounded
-                light
-                outlined
-                depressed
-                height="42"
-                width="191"
-                color="#20731C"
-                @click="businessPricing"
+              v-if="!popup"
+              :class="`success-content-button success-content-button-${size}--light`"
+              rounded
+              light
+              outlined
+              depressed
+              height="42"
+              width="191"
+              color="#20731C"
+              @click="businessPricing"
             >
               Business Pricing
             </v-btn>
             <v-btn
-                :class="`success-content-button success-content-button-${size}--green`"
-                rounded
-                dark
-                depressed
-                height="42"
-                width="191"
-                color="#72BF44"
-                @click="residentialPricing"
+              v-if="!popup"
+              :class="`success-content-button success-content-button-${size}--green`"
+              rounded
+              dark
+              depressed
+              height="42"
+              width="191"
+              color="#72BF44"
+              @click="residentialPricing"
             >
               Residential Pricing
             </v-btn>
@@ -69,6 +71,7 @@ export default {
     LikeSymbol: () => import('@/components/check-availability/LikeSymbol.vue')
   },
   props: {
+    popup: Boolean,
     success: Boolean,
     business: Boolean,
     residential: Boolean

@@ -1,6 +1,7 @@
 import '@mdi/font/css/materialdesignicons.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import { Ripple } from 'vuetify/lib/directives'
 
 Vue.use(Vuetify)
 
@@ -11,6 +12,9 @@ export default new Vuetify({
       expand: 'mdi-expand-more',
       home: 'mdi-home-circle'
     }
+  },
+  directives: {
+    Ripple
   },
   theme: {
     themes: {

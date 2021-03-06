@@ -66,33 +66,33 @@ const actions = {
 
   UPDATE_PLAN ({ commit }, plan) {
     commit('CHANGE_PLAN', plan, { root: true })
-  },
-
-  async SAVE_USER_DATA ({ state, getters }) {
-    const requestBody = Object.assign({},
-      state.personalInfo,
-      state.card,
-      state.businessInfo,
-      {
-        plan: getters.plan,
-        tariff: getters.tariff,
-        modemPrice: state.modemPrice,
-        promocode: state.promocode
-      }
-    )
-    try {
-      const response = await fetch(getters.customerEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      })
-    } catch (error) { dispatch('LOG_ERROR', error) }
-  },
-
-  LOG_ERROR ({ commit }, error) {
-    commit('ERROR_HANDLER', { moduleName: 'plans', error }, { root: true })
-    return null
   }
+
+  // async SAVE_USER_DATA ({ state, getters }) {
+  //   const requestBody = Object.assign({},
+  //     state.personalInfo,
+  //     state.card,
+  //     state.businessInfo,
+  //     {
+  //       plan: getters.plan,
+  //       tariff: getters.tariff,
+  //       modemPrice: state.modemPrice,
+  //       promocode: state.promocode
+  //     }
+  //   )
+  //   try {
+  //     const response = await fetch(getters.customerEndpoint, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(requestBody)
+  //     })
+  //   } catch (error) { dispatch('LOG_ERROR', error) }
+  // },
+
+  // LOG_ERROR ({ commit }, error) {
+  //   commit('ERROR_HANDLER', { moduleName: 'plans', error }, { root: true })
+  //   return null
+  // }
 }
 
 export default {

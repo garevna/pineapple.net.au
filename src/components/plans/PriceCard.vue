@@ -13,51 +13,19 @@
     </v-card-text>
 
     <v-card-actions class="text-center my-4 mb-md-8">
-      <!-- <a :href="link" target="_blank" class="px-auto mx-auto mb-8 mb-md-12"> -->
-        <v-btn
-          color="buttons"
-          dark
-          rounded
-          width="160"
-          height="40"
-          class="px-auto mx-auto mb-8 mb-md-12"
-          @click="$emit('update:selected', index)"
-        >
-          Subscribe
-        </v-btn>
-      <!-- </a> -->
+      <v-btn
+        color="buttons"
+        dark
+        rounded
+        width="160"
+        height="40"
+        class="px-auto mx-auto mb-8 mb-md-12"
+        @click="clickHandler"
+      >
+        Subscribe
+      </v-btn>
     </v-card-actions>
-    <v-row justify="space-around">
-      <v-col cols="auto">
-        <v-dialog
-          v-model="check"
-          transition="dialog-bottom-transition"
-          max-width="832"
-        >
-          <v-card>
-            <v-toolbar
-              color="primary"
-              dark
-              class="text-right mb-12"
-              style="padding: 0!important"
-            >
-              <v-spacer />
-              <v-btn
-                text
-                class="transparent"
-                @click="check = false"
-              >
-                <v-icon large>mdi-close</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <CheckAvailability
-              :popup="true"
-              :open.sync="check"
-            />
-          </v-card>
-        </v-dialog>
-      </v-col>
-    </v-row>
+    <Subscription :dialog.sync="subscript" />
   </v-card>
 </template>
 
@@ -69,11 +37,11 @@ export default {
   name: 'PriceCard',
   props: ['item', 'index', 'selected'],
   data: () => ({
-    check: false
+    subscript: false
   }),
   computed: {
     ...mapState('clientInfo', ['personalInfo']),
-    ...mapGetters('internetPlans', ['link']),
+    ...mapGetters('internetPlans', ['tariff', 'link']),
     active () {
       return this.selected === this.index
     },
@@ -84,14 +52,22 @@ export default {
       return this.personalInfo.addressAvailable
     }
   },
-  watch: {
-    available (val) {
-      if (val && this.active) this.$openExternalLink(this.link)
-    },
-    selected (val) {
-      if (!this.active) return
-      if (!this.address) this.check = true
-      else this.available ? this.$openExternalLink(this.link) : this.$router.push({ name: 'contact' })
+  // watch: {
+  //   available (val) {
+  //     if (val && this.active) this.subscript = true
+  //   },
+  //   selected (val) {
+  //     if (!this.active) return
+  //     if (!this.address) this.check = true
+  //     else if (this.available) {
+  //       this.subscript = true
+  //     } else this.$router.push({ name: 'contact' })
+  //   }
+  // },
+  methods: {
+    clickHandler () {
+      this.$emit('update:selected', this.index)
+      this.subscript = true
     }
   }
 }

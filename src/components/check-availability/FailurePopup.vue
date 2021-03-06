@@ -70,9 +70,6 @@
 <script>
 import { mapState } from 'vuex'
 
-// import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
-// import ContactSymbol from '@/components/check-availability/ContactSymbol.vue'
-
 export default {
   name: 'FailurePopup',
   components: {
@@ -115,6 +112,7 @@ export default {
     contactUs () {
       this.$emit('update:contact', true)
       this.$emit('update:failure', false)
+      if (this.popup) this.$router.push({ name: 'contact' })
     }
   }
 }
@@ -203,9 +201,5 @@ export default {
 .failure-content-button-shrink {
   font-size: 13px;
   width: 220px;
-}
-
-.failure-content-button-wide {
-
 }
 </style>

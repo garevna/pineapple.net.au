@@ -6,7 +6,7 @@
     min-height="320"
   >
     <div style="position: relative">
-      <FoneAsMap/>
+      <FoneAsMap />
       <v-card flat class="transparent check-availability mx-auto my-0 my-lg-12 pt-0 pt-lg-12" width="100%">
         <v-card-text class="mx-auto text-center">
           <h2 :class="`address-title--${screen}`">CHECK AVAILABILITY</h2>
@@ -42,6 +42,7 @@
       </v-card>
     </div>
     <SuccessPopup
+      :popup="popup"
       :success.sync="success"
       :business.sync="businessClicked"
       :residential.sync="residentialClicked"
@@ -151,11 +152,11 @@ export default {
       if (!this.address) return
       const available = this.serviceAvailable.find(polygon => this.$geoLocation(this.location, polygon))
       this.addressAvailable = !!available
-      if (this.popup) {
-        if (!available) this.$router.push({ name: 'contact' })
-        this.$emit('update:open', false)
-        return
-      }
+      // if (this.popup) {
+      //   if (!available) this.$router.push({ name: 'contact' })
+      //   this.$emit('update:open', false)
+      //   return
+      // }
       this.success = this.addressAvailable
       this.failure = !this.success
     }
