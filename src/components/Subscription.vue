@@ -40,7 +40,7 @@
             <v-btn
               v-if="step === 3 && subscription"
               text
-              class="transparent mt-3"
+              class="transparent"
               @click="subscribe"
             >
               {{ viewportWidth >= 600 ? 'Subscribe' : '' }}
