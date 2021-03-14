@@ -21,7 +21,7 @@
           >
             <v-btn
               v-if="back"
-              class="transparent mt-3"
+              class="transparent"
               @click="step--"
             >
               <v-icon large class="mx-4">mdi-page-previous-outline</v-icon>
@@ -30,7 +30,7 @@
             <v-btn
               v-if="forward"
               text
-              class="transparent mt-3"
+              class="transparent"
               @click="step++"
             >
               {{ viewportWidth >= 600 ? 'Continue' : '' }}
