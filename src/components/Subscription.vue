@@ -5,165 +5,123 @@
         v-model="dialog"
         transition="dialog-bottom-transition"
         max-width="1200"
-        hieght="80%"
+        :fullscreen="viewportWidth < 420"
+         class="mx-0 mx-sm-2 mx-md-4 mx-lg-6"
+        persistent
       >
-        <v-card>
-          <v-toolbar
-            color="primary"
+        <v-card class="homefone">
+          <v-bottom-navigation
+            absolute
             dark
-            class="text-right mb-12"
-            style="padding: 0!important"
+            class="primary"
+            horizontal
+            hide-on-scroll
+            scroll-target="#scroll-threshold"
+            scroll-threshold="500"
           >
-            <h4 class="ml-8" style="color: #fff">{{ stepName[step - 1] }}</h4>
-            <v-spacer />
             <v-btn
-              text
-              class="transparent"
-              @click="$emit('update:dialog', false)"
+              v-if="back"
+              class="transparent mt-3"
+              @click="step--"
             >
-              <v-icon large>mdi-close</v-icon>
+              <v-icon large class="mx-4">mdi-page-previous-outline</v-icon>
+              {{ viewportWidth >= 600 ? 'Back' : '' }}
             </v-btn>
-          </v-toolbar>
+            <v-btn
+              v-if="forward"
+              text
+              class="transparent mt-3"
+              @click="step++"
+            >
+              {{ viewportWidth >= 600 ? 'Continue' : '' }}
+              <v-icon large class="mx-4">mdi-page-next-outline</v-icon>
+            </v-btn>
 
-          <v-row justify="center">
-            <v-stepper v-model="step" style="width:100%!important; box-shadow: none!important">
-              <v-stepper-items>
-                <v-stepper-content step="1">
-                  <CheckAvailability
-                    :popup="true"
-                    :open.sync="check"
-                  />
-                  <v-card flat class="transparent mt-10 mb-4">
-                    <v-row justify="end">
-                      <v-btn
-                        v-if="addressAvailable"
-                        dark
-                        rounded
-                        color="buttons"
-                        class="px-10 py-5 mr-12"
-                        @click="step = 2"
-                      >
-                        Continue
-                        <v-icon large class="ml-5">mdi-page-next-outline</v-icon>
-                      </v-btn>
-                    </v-row>
-                  </v-card>
-                </v-stepper-content>
+            <v-btn
+              v-if="step === 3 && subscription"
+              text
+              class="transparent mt-3"
+              @click="subscribe"
+            >
+              {{ viewportWidth >= 600 ? 'Subscribe' : '' }}
+              <v-icon large class="ml-5">mdi-page-next-outline</v-icon>
+            </v-btn>
+          </v-bottom-navigation>
 
-                <v-stepper-content step="2">
-                  <v-row justify="center" align-content="space-between">
-                    <v-card
-                      v-for="(item, index) in packages"
-                      :key="index"
-                      @click="choosePackage(index)"
-                      class="transparent pa-12"
-                      :class="{ 'package-card-with-border': packageSelectedIndex === index }"
-                      width="360"
-                    >
-                      <v-row justify="center" align-content="space-between">
-                        <v-card
-                          flat
-                          class="transparent text-center"
-                          height="320"
-                        >
-                          <h4>{{ item.title }}</h4>
-                          <p>
-                            <small>{{ item.subtitle }}</small>
-                          </p>
-                          <p v-for="(text, num) in item.text" :key="num">
-                            {{ text }}
-                          </p>
-                          <br>
-                          <p>{{ item.priceText }}</p>
-                          <p>${{ item.price }}</p>
-                        </v-card>
-                        <v-card flat class="transparent" justify-center>
-                          <v-btn
-                            v-if="packageSelectedIndex !== index"
-                            color="buttons"
-                            dark
-                            rounded
-                            outlined
-                            width="180"
-                            height="40"
-                            class="mx-auto mt-12 mb-3"
-                            @click="choosePackage(index)"
-                          >
-                            Choose package
-                          </v-btn>
-                        </v-card>
+          <v-sheet
+            id="scroll-threshold"
+            class="transparent overflow-y-auto pb-16"
+          >
+            <v-row align="start" justify="end">
+              <v-btn
+                text
+                class="transparent mt-1"
+                color="#777"
+                @click="$emit('update:dialog', false)"
+              >
+                <v-icon large>mdi-close</v-icon>
+              </v-btn>
+            </v-row>
+            <v-row align="center" justify="center">
+              <v-stepper
+                v-model="step"
+                class="package-stepper transparent mx-0 px-0 px-md-2 px-lg-4"
+                style="width:100%!important; box-shadow: none!important"
+              >
+                <v-stepper-items>
+                  <v-stepper-content step="1" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
+                    <CheckAvailability
+                      :popup="true"
+                      :open.sync="check"
+                    />
+                    <v-card flat class="transparent mt-10 mb-4">
+                      <v-row justify="end">
                       </v-row>
                     </v-card>
-                  </v-row>
-                  <v-card flat class="transparent mt-10 mb-4">
-                    <v-row justify="space-between">
-                      <v-btn
-                        text
-                        rounded
-                        color="#777"
-                        class="px-10 py-5 ml-5"
-                        @click="step = 1"
-                      >
-                        <v-icon large class="mr-4">mdi-page-previous-outline</v-icon>
-                        Back
-                      </v-btn>
-                      <v-btn
-                        v-if="addressAvailable && packageSelected"
-                        dark
-                        rounded
-                        color="buttons"
-                        class="px-10 py-5 mr-12"
-                        @click="step = 3"
-                      >
-                        Continue
-                        <v-icon large class="ml-5">mdi-page-next-outline</v-icon>
-                      </v-btn>
-                    </v-row>
-                  </v-card>
-                </v-stepper-content>
+                  </v-stepper-content>
 
-                <v-stepper-content step="3">
-                  <v-card
-                    flat
-                    class="transparent ma-auto"
-                    min-width="320"
-                    max-width="480"
-                  >
-                    <p v-for="(phrase, order) in confirmation" :key="order" v-html="phrase">
-                      <!-- {{ phrase }} -->
-                    </p>
-                    <br>
-                    <v-checkbox v-model="agree" label="I agree" />
-                  </v-card>
-                  <v-card flat class="transparent mt-10 mb-4">
-                    <v-row justify="space-between">
-                      <v-btn
-                        text
-                        rounded
-                        color="#777"
-                        class="px-10 py-5 ml-5"
-                        @click="step = 2"
-                      >
-                        <v-icon large class="mr-4">mdi-page-previous-outline</v-icon>
-                        Back
-                      </v-btn>
-                      <v-btn
-                        v-if="subscription"
-                        dark
-                        rounded
-                        color="buttons"
-                        class="px-10 py-5 mr-12"
-                        @click="subscribe"
-                      >
-                        Subscribe
-                        <v-icon large class="ml-5">mdi-page-next-outline</v-icon>
-                      </v-btn>
+                  <v-stepper-content step="2" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
+                    <v-row justify="center" class="homefone" v-if="viewportWidth > widthLimit">
+                      <PackageCard
+                        v-for="(item, index) in packages"
+                        :key="index"
+                        :index="index"
+                        :selected.sync="packageSelectedIndex"
+                        @click="choosePackage(index)"
+                        :class="{ 'package-card-with-border': packageSelectedIndex === index }"
+                        width="360"
+                      />
                     </v-row>
-                  </v-card>
-                </v-stepper-content>
-              </v-stepper-items>
-            </v-stepper>
-          </v-row>
+                    <v-row justify="center" v-else>
+                      <PackageStepper
+                        :selected.sync="packageSelectedIndex"
+                      />
+                    </v-row>
+                  </v-stepper-content>
+
+                  <v-stepper-content step="3" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
+                    <v-card
+                      flat
+                      class="transparent ma-auto"
+                      min-width="320"
+                      max-width="480"
+                    >
+                      <p
+                        v-for="(phrase, order) in confirmation"
+                        :key="order"
+                        v-html="phrase"
+                        style="line-height: 150%"
+                      />
+                      <br>
+                      <v-checkbox v-model="agree" label="I agree" class="ml-4" />
+                    </v-card>
+                  </v-stepper-content>
+                </v-stepper-items>
+              </v-stepper>
+            </v-row>
+            <!-- <v-responsive height="1500"></v-responsive> -->
+          </v-sheet>
+
         </v-card>
       </v-dialog>
     </v-col>
@@ -174,13 +132,22 @@
 
 import { mapState, mapGetters } from 'vuex'
 
+import PackageCard from '@/components/plans/PackageCard.vue'
+import PackageStepper from '@/components/plans/PackageStepper.vue'
+
 export default {
   name: 'Subscription',
+  components: {
+    PackageCard,
+    PackageStepper
+  },
   props: {
     dialog: Boolean
   },
   data: () => ({
+    widthLimit: 1055,
     step: 1,
+    card: 1,
     stepName: [
       'Check Address',
       'Choose your package',
@@ -194,7 +161,7 @@ export default {
     agree: false
   }),
   computed: {
-    // ...mapState(['plan']),
+    ...mapState(['viewportWidth']),
     ...mapGetters('clientInfo', ['address', 'addressAvailable']),
     ...mapState('internetPlans', {
       source: 'packages'
@@ -208,6 +175,17 @@ export default {
     },
     subscription () {
       return this.addressAvailable && this.packageSelected && this.agree
+    },
+    back () {
+      return this.step > 1
+    },
+    forward () {
+      return this.step === 1 ? this.addressAvailable : this.step === 2 ? this.packageSelected : false
+    }
+  },
+  watch: {
+    packageSelectedIndex (val) {
+      if (typeof val === 'number') this.choosePackage(val)
     }
   },
   methods: {
@@ -230,14 +208,19 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.package-card-with-border {
-  box-sizing: border-box;
-  border-style: solid;
-  border-radius: 16px!important;
-  transition: all 0.8s;
-  border-top: 4px solid #20731C!important;
-  border-bottom: 4px solid #20731C90!important;
+<style>
+.v-stepper__wrapper {
+  overflow: visible !important;
+}
+p {
+  overflow-wrap: break-word;
+  padding: 8px 16px;
+}
+@media screen and (max-width: 420px) {
+  .package-stepper {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
 }
 </style>

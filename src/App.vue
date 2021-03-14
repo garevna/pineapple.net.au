@@ -112,6 +112,10 @@ html, body {
   color: #363636;
 }
 
+h1, h2, h3, h4, h5, p, a, div, figure, section {
+  user-select: none;
+}
+
 h1, h2, h3, h4, h5, p {
   font-style: normal;
   line-height: 150%;

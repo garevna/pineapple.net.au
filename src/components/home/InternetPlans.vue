@@ -1,8 +1,8 @@
 <template>
   <v-card
-          flat
-          width="100%"
-          class="transparent my-10"
+    flat
+    width="100%"
+    class="transparent my-10"
   >
     <v-card-text class="mx-auto text-center">
       <h2>FIBRE <span class="green--text">INTERNET PLANS</span></h2>
@@ -30,7 +30,7 @@
         />
 
       <v-carousel
-          :height="carouselHeight"
+          :height="screen < 600 ? 440 : screen < 960 ? 480 : 500"
           hide-delimiter-background
           show-arrows-on-hover
           class="d-block d-md-none"
@@ -40,7 +40,7 @@
             :key="index"
           >
             <v-sheet
-              height="320"
+              :height="screen < 600 ? 380 : screen < 960 ? 440 : 460"
               light
               class="transparent"
             >
@@ -79,9 +79,6 @@
 
 import { mapState } from 'vuex'
 
-// import PriceCard from '@/components/plans/PriceCard.vue'
-// import SwitchMode from '@/components/plans/SwitchToggle.vue'
-
 export default {
   name: 'InternetPlans',
   components: {
@@ -99,23 +96,13 @@ export default {
   computed: {
     ...mapState({ screen: 'viewportWidth', plan: 'plan' }),
     ...mapState('internetPlans', ['plans']),
-    ...mapState('content', ['internetPlans']),
-    carouselHeight () {
-      return this.screen < 960 ? this.screen < 600 ? 420 : 480 : 420
-    }
+    ...mapState('content', ['internetPlans'])
   },
   watch: {
     selected (val) {
       if (val === null) return
       this.$store.dispatch('internetPlans/SELECT_TARIFF', val)
     }
-    // getConnect (val) {
-    //   this.$emit('update:connect', val)
-    //   this.getConnect = false
-    // },
-    // getContact (val) {
-    //   this.$emit('update:contact', val)
-    // }
   },
   methods: {
     getTariffId (index) {

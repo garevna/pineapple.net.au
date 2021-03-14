@@ -6,62 +6,89 @@
         :height="height"
       >
         <v-card
-            class="failure-content"
+            class="py-0"
             :width="width"
             :height="height"
         >
-          <FoneSymbol class="failure-content--svg"/>
-          <v-btn
-              text
-              small
-              :class="`failure-content-${size}--close-button`"
-              @click="$emit('update:failure', false)"
+          <v-toolbar class="transparent mx-0 px-0" style="position: absolute; top: 0; right:0; box-shadow: none!important; z-index: 5">
+            <v-spacer />
+            <v-btn text @click="$emit('update:failure', false)">
+              <v-icon large color="#777">mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <svg width="240" height="219" viewBox="0 0 240 219" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: 0">
+            <path d="M239.21 0.651337C107.098 0.651325 -4.71642e-06 98.4093 -1.52588e-05 219L229.21 219C234.733 219 239.21 214.523 239.21 209L239.21 0.651337Z" fill="#E6FED8"/>
+            <path d="M239.21 57.6468C141.583 57.6468 62.4408 129.887 62.4408 219L219.21 219C228.638 219 233.352 219 236.281 216.071C239.21 213.142 239.21 208.428 239.21 199L239.21 57.6468Z" fill="#D8FEC2"/>
+            <path d="M239.21 117.05C177.525 117.05 127.52 162.695 127.52 219L229.21 219C234.733 219 239.21 214.523 239.21 209L239.21 117.05Z" fill="#C2E9AB"/>
+          </svg>
+          <v-row align="center" justify="center" class="mt-4 mt-md-0" style="position: absolute; top: 0; left: 0; width: 100%; z-index: 1">
+            <v-col cols="12" md="4">
+              <ContactSymbol :size="symbolSize" />
+            </v-col>
+            <v-col cols="12" md="8" class="pr-md-8" style="margin-top: -60px">
+              <h1
+                class="text-center text-md-left"
+                :style="{ color: '#4CAF50', fontSize: screen < 600 ? '28px' : '32px' }"
+              >
+                Sorry...
+              </h1>
+              <h5
+                class="text-center text-md-left"
+                :style="{ fontSize: screen < 960 ? '16px' : '20px' }"
+              >
+                Unfortunately Pineapple Net is not available at your address right now
+              </h5>
+            </v-col>
+          </v-row>
+          <v-row
+            align="center"
+            justify="center"
+            class="px-md-8"
+            style="position: absolute; bottom: 24px; left: 0; width: 100%; z-index: 2"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.6741 12.0008L0.274578 1.60119C-0.0915623 1.23505 -0.0915623 0.64143 0.274578 0.275337C0.640718 -0.0907557 1.23434 -0.0908026 1.60044 0.275337L12 10.6749L22.3995 0.275337C22.7657 -0.0908026 23.3593 -0.0908026 23.7254 0.275337C24.0915 0.641477 24.0915 1.2351 23.7254 1.60119L13.3259 12.0007L23.7254 22.4003C24.0915 22.7664 24.0915 23.3601 23.7254 23.7261C23.5423 23.9092 23.3024 24.0007 23.0624 24.0007C22.8225 24.0007 22.5826 23.9092 22.3995 23.7261L12 13.3266L1.60048 23.7261C1.41744 23.9092 1.17748 24.0007 0.937531 24.0007C0.697578 24.0007 0.457672 23.9092 0.274578 23.7261C-0.0915623 23.36 -0.0915623 22.7664 0.274578 22.4003L10.6741 12.0008Z" fill="black"/>
-            </svg>
-          </v-btn>
-          <ContactSymbol :size="likeSize" :class="`failure-content-${size}--like`"/>
-          <p :class="`failure-content--title failure-content-${size}--title`">Sorry...</p>
-          <p :class="`failure-content--text failure-content-${size}--text`">Unfortunately Pineapple Net is not available at your address right now</p>
-          <v-card-text class="text-center" style="position: absolute; bottom: 24px; width: 100%;">
-            <v-btn
-              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
-              rounded
-              light
-              outlined
-              depressed
-              height="42"
-              color="#20731C"
-              @click="contactUs"
-            >
-              Register your interest
-            </v-btn>
-            <v-btn
-              v-if="!popup"
-              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
-              rounded
-              dark
-              depressed
-              height="42"
-              color="#72BF44"
-              @click="businessPricing"
-            >
-              Business Pricing
-            </v-btn>
-            <v-btn
-              v-if="!popup"
-              :class="`failure-content-button failure-content-button-${size} mx-2 px-4`"
-              rounded
-              dark
-              depressed
-              height="42"
-              color="#72BF44"
-              @click="residentialPricing"
-            >
-              Residential Pricing
-            </v-btn>
-          </v-card-text>
+            <v-col cols="12" md="4" class="text-center text-right pa-1">
+              <v-btn
+                rounded
+                light
+                outlined
+                depressed
+                height="42"
+                :width="screen < 600 ? 230 : 'auto'"
+                color="#20731C"
+                @click="contactUs"
+              >
+                Register your interest
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="4" class="text-center text-md-right pa-1">
+              <v-btn
+                v-if="!popup"
+                rounded
+                dark
+                depressed
+                height="42"
+                :width="screen < 600 ? 230 : 'auto'"
+                color="#72BF44"
+                @click="businessPricing"
+              >
+                Business Pricing
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="4" class="text-center text-left pa-1">
+              <v-btn
+                v-if="!popup"
+                rounded
+                dark
+                depressed
+                height="42"
+                :width="screen < 600 ? 230 : 'auto'"
+                color="#72BF44"
+                @click="residentialPricing"
+              >
+                Residential Pricing
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-card>
       </v-dialog>
     </div>
@@ -73,7 +100,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'FailurePopup',
   components: {
-    FoneSymbol: () => import('@/components/check-availability/FoneSymbol.vue'),
     ContactSymbol: () => import('@/components/check-availability/ContactSymbol.vue')
   },
   props: {
@@ -87,17 +113,14 @@ export default {
     ...mapState({
       screen: 'viewportWidth'
     }),
-    size () {
-      return this.screen > 750 ? 'wide' : 'shrink'
-    },
     width () {
-      return this.screen > 750 ? 730 : 298
+      return this.screen > 960 ? 730 : 320
     },
     height () {
-      return this.screen > 750 ? 352 : 477
+      return this.screen > 960 ? 360 : 480
     },
-    likeSize () {
-      return this.screen > 750 ? 290 : 150
+    symbolSize () {
+      return this.screen > 960 ? 290 : 150
     }
   },
   methods: {
@@ -117,89 +140,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.failure-content {
-  position: relative;
-  top:0;
-  left:0;
-  overflow: hidden;
-}
-.failure-content > * {
-  position: absolute;
-}
-.failure-content--svg {
-  right: 0;
-  bottom: 0;
-}
-.failure-content--title {
-  font-style: normal;
-  font-weight: bold;
-  line-height: 150%;
-  letter-spacing: 0.02em;
-  color: #4CAF50;
-}
-.failure-content--text {
-  font-style: normal;
-  font-weight: normal;
-  line-height: 150%;
-  letter-spacing: 0.02em;
-  color: #353535;
-}
-.failure-content-button {
-  text-transform: none!important;
-}
-
-.failure-content-wide--close-button {
-  top: 29px;
-  right: 32px;
-}
-.failure-content-shrink--close-button {
-  top: 10px;
-  right: 5px;
-  transform: scale(0.5, 0.5);
-}
-
-.failure-content-wide--like {
-  top: 24px;
-  left: -18px;
-}
-.failure-content-shrink--like {
-  top: 40px;
-  left: 0px;
-}
-
-.failure-content-wide--title {
-  left: 274px;
-  top: 60px;
-  font-size: 42px;
-  text-align: left;
-}
-.failure-content-shrink--title {
-  left: calc(50% - 100px);
-  top: 160px;
-  width: 200px;
-  text-align: center;
-  font-size: 24px;
-}
-
-.failure-content-wide--text {
-  left: 274px;
-  top: 130px;
-  width: 327px;
-  font-size: 24px;
-  text-align: left;
-}
-.failure-content-shrink--text {
-  left: calc(50% - 125px);
-  top: 200px;
-  width: 250px;
-  text-align: center;
-  font-size: 18px;
-}
-
-.failure-content-button-shrink {
-  font-size: 13px;
-  width: 220px;
-}
-</style>

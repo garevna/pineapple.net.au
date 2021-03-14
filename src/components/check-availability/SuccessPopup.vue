@@ -1,73 +1,86 @@
 <template>
   <div class="text-center">
-      <v-dialog
-        v-model="success"
+    <v-dialog
+      v-model="success"
+      :width="width"
+      :height="height"
+    >
+      <v-card
         :width="width"
         :height="height"
       >
-        <v-card
-            class="success-content"
-            :width="width"
-            :height="height"
-        >
-          <FoneSymbol class="success-content--svg"/>
-          <v-btn
-              text
-              small
-              :class="`success-content-${size}--close-button`"
-              @click="$emit('update:success', false)"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.6741 12.0008L0.274578 1.60119C-0.0915623 1.23505 -0.0915623 0.64143 0.274578 0.275337C0.640718 -0.0907557 1.23434 -0.0908026 1.60044 0.275337L12 10.6749L22.3995 0.275337C22.7657 -0.0908026 23.3593 -0.0908026 23.7254 0.275337C24.0915 0.641477 24.0915 1.2351 23.7254 1.60119L13.3259 12.0007L23.7254 22.4003C24.0915 22.7664 24.0915 23.3601 23.7254 23.7261C23.5423 23.9092 23.3024 24.0007 23.0624 24.0007C22.8225 24.0007 22.5826 23.9092 22.3995 23.7261L12 13.3266L1.60048 23.7261C1.41744 23.9092 1.17748 24.0007 0.937531 24.0007C0.697578 24.0007 0.457672 23.9092 0.274578 23.7261C-0.0915623 23.36 -0.0915623 22.7664 0.274578 22.4003L10.6741 12.0008Z" fill="black"/>
-            </svg>
+        <v-toolbar class="transparent mx-0 px-0" style="position: absolute; top: 0; right:0; box-shadow: none!important; z-index: 5">
+          <v-spacer />
+          <v-btn text @click="$emit('update:success', false)">
+            <v-icon large color="#777">mdi-close</v-icon>
           </v-btn>
-          <LikeSymbol :size="likeSize" :class="`success-content-${size}--like`"/>
-          <p :class="`success-content--title success-content-${size}--title`">Success!</p>
-          <p :class="`success-content--text success-content-${size}--text`">Pineapple Net is available at your address!</p>
-          <v-card-actions>
+        </v-toolbar>
+        <svg width="240" height="219" viewBox="0 0 240 219" fill="none" style="position: absolute; bottom: 0; right: 0; z-index: 0">
+          <path d="M239.21 0.651337C107.098 0.651325 -4.71642e-06 98.4093 -1.52588e-05 219L229.21 219C234.733 219 239.21 214.523 239.21 209L239.21 0.651337Z" fill="#E6FED8"/>
+          <path d="M239.21 57.6468C141.583 57.6468 62.4408 129.887 62.4408 219L219.21 219C228.638 219 233.352 219 236.281 216.071C239.21 213.142 239.21 208.428 239.21 199L239.21 57.6468Z" fill="#D8FEC2"/>
+          <path d="M239.21 117.05C177.525 117.05 127.52 162.695 127.52 219L229.21 219C234.733 219 239.21 214.523 239.21 209L239.21 117.05Z" fill="#C2E9AB"/>
+        </svg>
+        <v-row align="center" justify="center" class="mt-8 mt-md-0" style="position: absolute; top: -32px; left: 0; width: 100%; z-index: 1">
+          <v-col cols="12" md="4">
+            <LikeSymbol :size="likeSize" />
+          </v-col>
+          <v-col cols="12" md="8">
+            <h1
+              class="text-center text-md-left"
+              :style="{ color: '#4CAF50', fontSize: screen < 600 ? '28px' : '32px' }"
+            >
+              Success!
+            </h1>
+            <h5
+              class="text-center text-md-left"
+              :style="{ fontSize: screen < 960 ? '16px' : '20px' }"
+            >
+              Pineapple Net is available at your address!
+            </h5>
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="center" style="position: absolute; bottom: 24px; left: 0; width: 100%; z-index: 2">
+          <v-col cols="12" md="6" class="text-center">
             <v-btn
               v-if="!popup"
-              :class="`success-content-button success-content-button-${size}--light`"
               rounded
               light
               outlined
               depressed
               height="42"
               width="191"
-              color="#20731C"
+              color="buttons"
               @click="businessPricing"
             >
               Business Pricing
             </v-btn>
+          </v-col>
+          <v-col cols="12" md="6" class="text-center">
             <v-btn
               v-if="!popup"
-              :class="`success-content-button success-content-button-${size}--green`"
               rounded
               dark
               depressed
               height="42"
               width="191"
-              color="#72BF44"
+              color="buttons"
               @click="residentialPricing"
             >
               Residential Pricing
             </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </div>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-// import FoneSymbol from '@/components/check-availability/FoneSymbol.vue'
-// import LikeSymbol from '@/components/check-availability/LikeSymbol.vue'
-
 export default {
   name: 'SuccessPopup',
   components: {
-    FoneSymbol: () => import('@/components/check-availability/FoneSymbol.vue'),
     LikeSymbol: () => import('@/components/check-availability/LikeSymbol.vue')
   },
   props: {
@@ -81,16 +94,16 @@ export default {
       screen: 'viewportWidth'
     }),
     size () {
-      return this.screen > 750 ? 'wide' : 'shrink'
+      return this.screen >= 960 ? 'wide' : 'shrink'
     },
     width () {
-      return this.screen > 750 ? 730 : 298
+      return this.screen >= 960 ? 730 : 298
     },
     height () {
-      return this.screen > 750 ? 352 : 477
+      return this.screen >= 960 ? 352 : 477
     },
     likeSize () {
-      return this.screen > 750 ? 290 : 150
+      return this.screen >= 960 ? 290 : 150
     }
   },
   methods: {
@@ -106,103 +119,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
-.success-content {
-  position: relative;
-  top:0;
-  left:0;
-  overflow: hidden;
+p {
+  word-break: normal;
+  white-space: wrap;
 }
-.success-content * {
-  position: absolute;
-}
-.success-content--svg {
-  right: 0;
-  bottom: 0;
-}
-.success-content--title {
-  font-style: normal;
-  font-weight: bold;
-  line-height: 150%;
-  letter-spacing: 0.02em;
-  color: #4CAF50;
-}
-.success-content--text {
-  font-style: normal;
-  font-weight: normal;
-  line-height: 150%;
-  letter-spacing: 0.02em;
-  color: #353535;
-}
-.success-content-button {
-  text-transform: none!important;
-}
-
-  .success-content-wide--close-button {
-    top: 29px;
-    right: 32px;
-  }
-  .success-content-shrink--close-button {
-    top: 10px;
-    right: 5px;
-    transform: scale(0.5, 0.5);
-  }
-
-  .success-content-wide--like {
-    top: 24px;
-    left: -18px;
-  }
-  .success-content-shrink--like {
-    top: 40px;
-    left: 0px;
-  }
-
-  .success-content-wide--title {
-    left: 274px;
-    top: 73px;
-    font-size: 42px;
-    text-align: left;
-  }
-  .success-content-shrink--title {
-    left: calc(50% - 100px);
-    top: 200px;
-    width: 200px;
-    text-align: center;
-    font-size: 24px;
-  }
-
-  .success-content-wide--text {
-    left: 274px;
-    top: 141px;
-    width: 327px;
-    font-size: 24px;
-    text-align: left;
-  }
-  .success-content-shrink--text {
-    left: calc(50% - 125px);
-    top: 250px;
-    width: 250px;
-    text-align: center;
-    font-size: 18px;
-  }
-
-  .success-content-button-wide--light {
-    top: 250px;
-    left: 274px;
-  }
-  .success-content-button-shrink--light {
-    top: 320px;
-    left: 54px;
-    font-size: 13px;
-  }
-
-  .success-content-button-wide--green {
-    top: 250px;
-    left: 476px;
-  }
-  .success-content-button-shrink--green {
-    top: 380px;
-    left: 48px;
-  }
 </style>

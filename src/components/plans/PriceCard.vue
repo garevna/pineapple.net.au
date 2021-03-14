@@ -1,25 +1,30 @@
 <template>
   <v-card
+      class="mx-2 my-4 px-2 py-4"
+      width="280"
+      :height="viewportWidth < 600 ? 380 : viewportWidth < 960 ? 420 : 460"
       :class="{ 'price-card-with-border': item.selected, 'price-card': true }"
       @click="$emit('update:selected', index)"
   >
     <v-img src="@/assets/price-card-image.png" class="price-card-image"></v-img>
 
     <v-card-text class="mt-2 mt-sm-0" align="center" style="position: relative; z-index: 1">
+      <h5 class="mb-4">{{ item.name }}</h5>
       <h1 class="price"><sup>$</sup>{{ item.price }}<span class="mo">/mo</span></h1>
+      <br />
       <p>{{ item.download }} Mbps Download</p>
       <p>{{ item.upload }} Mbps Upload</p>
       <p>Unlimited Data</p>
     </v-card-text>
 
-    <v-card-actions class="text-center my-4 mb-md-8">
+    <v-card-actions class="text-center mt-0 pt-0 mb-10 mb-md-12">
       <v-btn
         color="buttons"
         dark
         rounded
         width="160"
         height="40"
-        class="px-auto mx-auto mb-8 mb-md-12"
+        class="px-auto mx-auto"
         @click="clickHandler"
       >
         Subscribe
@@ -40,6 +45,7 @@ export default {
     subscript: false
   }),
   computed: {
+    ...mapState(['viewportWidth']),
     ...mapState('clientInfo', ['personalInfo']),
     ...mapGetters('internetPlans', ['tariff', 'link']),
     active () {
@@ -52,18 +58,6 @@ export default {
       return this.personalInfo.addressAvailable
     }
   },
-  // watch: {
-  //   available (val) {
-  //     if (val && this.active) this.subscript = true
-  //   },
-  //   selected (val) {
-  //     if (!this.active) return
-  //     if (!this.address) this.check = true
-  //     else if (this.available) {
-  //       this.subscript = true
-  //     } else this.$router.push({ name: 'contact' })
-  //   }
-  // },
   methods: {
     clickHandler () {
       this.$emit('update:selected', this.index)
@@ -81,13 +75,6 @@ a {
   text-decoration: none;
 }
 
-.price-card {
-  padding: 30px 20px;
-  margin: 40px 20px;
-  width: 280px;
-  height: 380px;
-}
-
 .price-card-with-border {
   box-sizing: border-box;
   border-style: solid;
@@ -99,7 +86,7 @@ a {
 
 p, .question {
   font-size: 16px;
-  line-height: 180%;
+  line-height: 150%;
 }
 
 p {
@@ -127,14 +114,9 @@ p {
 }
 
 @media screen and (max-width: 959px) {
-  .price-card {
-    padding: 16px;
-    width: 250px;
-    height: 320px;
-  }
   p, .question {
     font-size: 13px;
-    line-height: 130%;
+    line-height: 100%;
   }
 }
 
