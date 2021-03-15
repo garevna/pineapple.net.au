@@ -131,7 +131,7 @@ const getters = {
   planName: (state, getters) => getters.plan === 'business' ? 'commercial' : getters.plan,
   tariff: (state, getters) => state.plans[getters.plan].find(item => item.selected)?.tariffId,
   package: (state, getters) => (packageIndex) => state.packages[getters.planName][packageIndex].id,
-  link: (state, getters) => (packageNum) => getters.tariff ? `${state.external}/${getters.tariff}${getters.package(packageNum)}` : null
+  link: (state, getters) => (packageNum) => `${state.external}/${getters.tariff}${getters.package(packageNum)}`
 }
 
 const mutations = {

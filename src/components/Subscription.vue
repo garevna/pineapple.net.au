@@ -168,7 +168,8 @@ export default {
     }),
     ...mapGetters('internetPlans', {
       getLink: 'link',
-      plan: 'planName'
+      plan: 'planName',
+      tariff: 'tariff'
     }),
     packages () {
       return this.source[this.plan]

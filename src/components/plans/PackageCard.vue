@@ -47,8 +47,11 @@ export default {
   computed: {
     ...mapState(['viewportWidth', 'plan']),
     ...mapState('internetPlans', ['packages']),
+    planName () {
+      return this.plan === 'residential' ? this.plan : 'commercial'
+    },
     currentPackage () {
-      return typeof this.index === 'number' ? this.packages[this.plan][this.index] : undefined
+      return typeof this.index === 'number' ? this.packages[this.planName][this.index] : undefined
     },
     active () {
       return this.index === this.selected
