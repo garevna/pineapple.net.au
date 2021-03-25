@@ -21,8 +21,8 @@ import 'pineapple-styles'
 
 import { mapState, mapActions } from 'vuex'
 
-import AppHeader from '@/components/home/AppHeader.vue'
-import Footer from '@/components/home/Footer.vue'
+// import AppHeader from '@/components/home/AppHeader.vue'
+// import Footer from '@/components/home/Footer.vue'
 
 /* HowToConnect */
 import 'pineapple-how-to-connect'
@@ -39,8 +39,8 @@ import 'pineapple-popup/dist/pineapple-popup.css'
 export default {
   name: 'App',
   components: {
-    AppHeader,
-    Footer
+    AppHeader: () => import('@/components/home/AppHeader.vue'),
+    Footer: () => import('@/components/home/Footer.vue')
   },
 
   data: () => ({

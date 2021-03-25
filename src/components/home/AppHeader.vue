@@ -95,6 +95,69 @@
 </v-container>
 </template>
 
+<script>
+
+import { mapState } from 'vuex'
+
+import ContactUsIcon from '@/components/svg/ContactUsIcon'
+
+export default {
+  name: 'AppHeader',
+  components: {
+    ContactUsIcon
+  },
+  props: ['section'],
+  data () {
+    return {
+      toggle: 0,
+      panel: undefined,
+      selectedIndex: undefined
+    }
+  },
+  computed: {
+    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
+    burgerMenuClassFirst () {
+      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
+    },
+    burgerMenuClassSecond () {
+      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
+    }
+  },
+  methods: {
+    goto (index) {
+      if (index === undefined) return
+      if (this.selectors[index] === 'sign-in') {
+        this.$openExternalLink(this.signInEndpoint)
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'connect') {
+        this.$openExternalLink(this.connectEndpoint)
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'contact') {
+        this.$router.push({ name: 'contact', params: { section: null } })
+        this.$emit('update:section', undefined)
+        return
+      }
+      if (this.selectors[index] === 'plans') {
+        this.$store.commit('CHANGE_PLAN', this.pages[index].toLowerCase())
+        if (this.$route.path === '/plans') return
+      }
+      this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
+    },
+    getClassName (pageName) {
+      const className = pageName === 'Sign In' ? ' app-bar-menu-bordered py-2 px-12' : ''
+      return `app-bar-menu${className}`
+    },
+    disable (index) {
+      return this.$route.name === 'contact' && this.selectors[index] === 'contact'
+    }
+  }
+}
+</script>
+
 <style scoped>
 .v-btn-toggle > .v-btn.v-btn--active {
   color: #72BF44!important;
@@ -159,66 +222,3 @@
   line-height: 40px;
 }
 </style>
-
-<script>
-
-import { mapState } from 'vuex'
-
-import ContactUsIcon from '@/components/svg/ContactUsIcon'
-
-export default {
-  name: 'AppHeader',
-  components: {
-    ContactUsIcon
-  },
-  props: ['section'],
-  data () {
-    return {
-      toggle: 0,
-      panel: undefined,
-      selectedIndex: undefined
-    }
-  },
-  computed: {
-    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
-    burgerMenuClassFirst () {
-      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
-    },
-    burgerMenuClassSecond () {
-      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
-    }
-  },
-  methods: {
-    goto (index) {
-      if (index === undefined) return
-      if (this.selectors[index] === 'sign-in') {
-        this.$openExternalLink(this.signInEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'connect') {
-        this.$openExternalLink(this.connectEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'contact') {
-        this.$router.push({ name: 'contact', params: { section: null } })
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'plans') {
-        this.$store.commit('CHANGE_PLAN', this.pages[index].toLowerCase())
-        if (this.$route.path === '/plans') return
-      }
-      this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
-    },
-    getClassName (pageName) {
-      const className = pageName === 'Sign In' ? ' app-bar-menu-bordered py-2 px-12' : ''
-      return `app-bar-menu${className}`
-    },
-    disable (index) {
-      return this.$route.name === 'contact' && this.selectors[index] === 'contact'
-    }
-  }
-}
-</script>

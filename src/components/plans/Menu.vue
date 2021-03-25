@@ -29,30 +29,6 @@
   </div>
 </template>
 
-<style scoped>
-.menu {
-  position: absolute;
-  top: 40px;
-  left: 10px;
-  width: 200px;
-  border-top: solid 1px #20731C40!important;
-  border-bottom: solid 1px #20731C80!important;
-  border-left: solid 1px #20731C50!important;
-  border-right: solid 1px #20731C90!important;
-  background: #fff!important;
-  z-index:10;
-  transition: all 0.5s;
-}
-
-.menu-item {
-  color: #555;
-}
-.menu-item:hover {
-  background: #20731C50;
-  color: #20731C;
-}
-</style>
-
 <script>
 
 export default {
@@ -92,3 +68,27 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.menu {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  width: 200px;
+  border-top: solid 1px #20731C40!important;
+  border-bottom: solid 1px #20731C80!important;
+  border-left: solid 1px #20731C50!important;
+  border-right: solid 1px #20731C90!important;
+  background: #fff!important;
+  z-index:10;
+  transition: all 0.5s;
+}
+
+.menu-item {
+  color: #555;
+}
+.menu-item:hover {
+  background: #20731C50;
+  color: #20731C;
+}
+</style>

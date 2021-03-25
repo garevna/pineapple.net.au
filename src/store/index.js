@@ -17,8 +17,8 @@ export default new Vuex.Store({
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
     plan: 'residential',
-    pages: ['Home', 'About Us', 'Residential', 'Business', 'Connect', 'Contact Us', 'Sign In'],
-    selectors: ['top', 'about', 'plans', 'plans', 'connect', 'contact', 'sign-in']
+    pages: ['Home', 'About Us', 'Residential', 'Business', 'Contact Us', 'Sign In'],
+    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'sign-in']
   },
   modules,
 
