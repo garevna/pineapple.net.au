@@ -71,13 +71,6 @@
 .input-field {
   width: 280px;
 }
-
-/* @media screen and (max-width: 420) {
-  .footer--top-content {
-    top: -40px;
-  }
-} */
-
 </style>
 
 <script>

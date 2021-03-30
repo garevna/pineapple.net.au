@@ -119,9 +119,6 @@ export default {
       } else this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
       if (this.selectors[index] === 'plans') this.$store.commit('CHANGE_PLAN', this.pages[index].toLowerCase())
     }
-  },
-  mounted () {
-    console.log(this.selectors)
   }
 }
 </script>

@@ -2,7 +2,9 @@
   <v-app class="transparent" style="overflow: hidden">
     <AppHeader :section.sync="section" />
 
-    <router-view class="mt-12 mx-0 px-0"></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view class="mt-12 mx-0 px-0"></router-view>
+    </transition>
     <!-- ============================= FOOTER ============================= -->
     <section id="footer" class="homefone" v-if="$route.name !== 'contact'">
       <div class="base-title">
@@ -188,6 +190,18 @@ svg.defs-only {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #72BF44;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 
 </style>
