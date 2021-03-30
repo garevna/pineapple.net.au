@@ -31,7 +31,13 @@
           <!-- <p class="left-14 ref" @click="goto(2)">Residential</p>
           <p class="left-14 ref" @click="goto(3)">Business</p> -->
           <!-- <p class="left-14 ref" @click="$openExternalLink(connectEndpoint, '_blank')">Connect</p> -->
-          <p class="left-14 ref" @click="$router.push({ name: 'contact' })">Contact Us</p>
+          <p
+            v-if="$route.name !== 'contact'"
+            @click="$router.push({ name: 'contact' })"
+            class="left-14 ref"
+          >
+            Contact Us
+          </p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -107,8 +113,6 @@ export default {
       //   this.$emit('update:section', undefined)
       //   return
       // }
-
-      console.log(this.selectors[index])
 
       if (this.$route.path === `/${this.selectors[index]}`) {
         this.$vuetify.goTo(`#${this.selectors[index]}`, {

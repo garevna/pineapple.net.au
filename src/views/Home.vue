@@ -148,7 +148,7 @@ export default {
     scrollToRoute (route) {
       this.$vuetify.goTo(route, {
         duration: 500,
-        offset: -20,
+        offset: 0,
         easing: 'easeInOutCubic'
       })
     }
@@ -162,7 +162,7 @@ export default {
       const section = !sectionName[1] ? '#top' : sectionName.join('#')
       vm.$vuetify.goTo(section, {
         duration: 500,
-        offset: -50,
+        offset: 0,
         easing: 'easeInOutCubic'
       })
     })
