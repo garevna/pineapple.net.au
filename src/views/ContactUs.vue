@@ -117,7 +117,9 @@ h3, p, small {
   .contact-fone {
     margin-top: 64px!important;
   }
-
+  p {
+    font-size: 12px;
+  }
 }
 </style>
 

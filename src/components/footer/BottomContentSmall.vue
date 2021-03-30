@@ -48,9 +48,15 @@
 .copyright {
   text-align: center;
   color: #9B9B9B;
-  font-size: 11px;
+  font-size: 11px !important;
   margin-top: 20px;
   margin-bottom: 0;
+}
+
+@media screen and (max-width: 375px) {
+  .copyright {
+    font-size: 10px !important;
+  }
 }
 </style>
 

@@ -8,8 +8,8 @@
             :emailText="emailText"
       />
     </v-row>
-    <FooterBottomContent v-if="viewportWidth >= 770" />
-    <FooterBottomContentSmall  v-if="viewportWidth < 770" class="footer--bottom-content-small"/>
+    <FooterBottomContent v-if="viewportWidth >= 900" />
+    <FooterBottomContentSmall  v-if="viewportWidth < 900" class="footer--bottom-content-small"/>
   </v-container>
 </template>
 
@@ -71,6 +71,12 @@
 .input-field {
   width: 280px;
 }
+
+/* @media screen and (max-width: 420) {
+  .footer--top-content {
+    top: -40px;
+  }
+} */
 
 </style>
 

@@ -8,7 +8,7 @@
       ></div>
       <FooterBottomContent
           class="footer--bottom-content"
-          v-if="viewportWidth >= 777"
+          v-if="viewportWidth >= 900"
       />
       <FooterBottomContentSmall
           class="footer--bottom-content"
@@ -26,16 +26,16 @@
 
 import { mapState } from 'vuex'
 
-import FooterFone from '@/components/footer/FooterFone.vue'
-import FooterBottomContent from '@/components/footer/BottomContent.vue'
-import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
+// import FooterFone from '@/components/footer/FooterFone.vue'
+// import FooterBottomContent from '@/components/footer/BottomContent.vue'
+// import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 import mapConfigs from '@/components/map/mapConfig'
 
 export default {
   components: {
-    FooterFone,
-    FooterBottomContent,
-    FooterBottomContentSmall
+    FooterFone: () => import('@/components/footer/FooterFone.vue'),
+    FooterBottomContent: () => import('@/components/footer/BottomContent.vue'),
+    FooterBottomContentSmall: () => import('@/components/footer/BottomContentSmall.vue')
   },
   props: ['height'],
   data () {
@@ -132,3 +132,8 @@ export default {
   }
 }
 </script>
+
+<style>
+
+
+</style>

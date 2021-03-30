@@ -8,7 +8,6 @@
         </v-card-title>
         <v-card-text>
           <p class="left-14">{{ about }}</p>
-          <p></p>
           <p class="left-14">{{ officeAddress }}</p>
           <p class="left-14">
             <span width="10" height="10" class="mr-2" style="display: inline-block;">
@@ -31,8 +30,8 @@
           <p class="left-14 ref" @click="goto(1)">About</p>
           <!-- <p class="left-14 ref" @click="goto(2)">Residential</p>
           <p class="left-14 ref" @click="goto(3)">Business</p> -->
-          <p class="left-14 ref" @click="$openExternalLink(connectEndpoint, '_blank')">Connect</p>
-          <p class="left-14 ref" @click="goto(5)">Contact Us</p>
+          <!-- <p class="left-14 ref" @click="$openExternalLink(connectEndpoint, '_blank')">Connect</p> -->
+          <p class="left-14 ref" @click="$router.push({ name: 'contact' })">Contact Us</p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -72,23 +71,13 @@
               Download Service Agreement
             </p>
           </a>
-          <p class="left-14 ref">FAQs & Support</p>
+          <!-- <p class="left-14 ref">FAQs & Support</p> -->
         </v-card-text>
       </v-card>
     </v-col>
   </v-row>
 </v-container>
 </template>
-
-<style scoped>
-.footer--bottom-content {
-  position: absolute;
-  left: 0;
-  /* overflow: hidden; */
-  margin-bottom: -4px;
-  bottom: 10px;
-}
-</style>
 
 <script>
 
@@ -103,21 +92,23 @@ export default {
   methods: {
     goto (index) {
       if (index === undefined) return
-      if (this.selectors[index] === 'sign-in') {
-        this.$openExternalLink(this.signInEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'connect') {
-        this.$openExternalLink(this.connectEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'contact') {
-        this.$router.push({ name: 'contact', params: { section: null } })
-        this.$emit('update:section', undefined)
-        return
-      }
+      // if (this.selectors[index] === 'sign-in') {
+      //   this.$openExternalLink(this.signInEndpoint)
+      //   this.$emit('update:section', undefined)
+      //   return
+      // }
+      // if (this.selectors[index] === 'connect') {
+      //   this.$openExternalLink(this.connectEndpoint)
+      //   this.$emit('update:section', undefined)
+      //   return
+      // }
+      // if (this.selectors[index] === 'contact') {
+      //   this.$router.push({ name: 'contact', params: { section: null } })
+      //   this.$emit('update:section', undefined)
+      //   return
+      // }
+
+      console.log(this.selectors[index])
 
       if (this.$route.path === `/${this.selectors[index]}`) {
         this.$vuetify.goTo(`#${this.selectors[index]}`, {
@@ -128,6 +119,25 @@ export default {
       } else this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
       if (this.selectors[index] === 'plans') this.$store.commit('CHANGE_PLAN', this.pages[index].toLowerCase())
     }
+  },
+  mounted () {
+    console.log(this.selectors)
   }
 }
 </script>
+
+<style scoped>
+
+.footer--bottom-content {
+  position: absolute;
+  left: 0;
+  /* overflow: hidden; */
+  margin-bottom: -4px;
+  bottom: 40px;
+}
+
+p {
+  line-height: 140% !important;
+  margin: 0;
+}
+</style>
