@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid align-start justify-center style="position: relative; margin-bottom: -10px; box-sizing: border-box;">
+  <v-container fluid align-start justify-center style="position: relative; margin-bottom: -10px!important; box-sizing: border-box;">
     <FooterFone :footerHeight="footerHeight" />
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
       <div
@@ -26,9 +26,6 @@
 
 import { mapState } from 'vuex'
 
-// import FooterFone from '@/components/footer/FooterFone.vue'
-// import FooterBottomContent from '@/components/footer/BottomContent.vue'
-// import FooterBottomContentSmall from '@/components/footer/BottomContentSmall.vue'
 import mapConfigs from '@/components/map/mapConfig'
 
 export default {
@@ -66,7 +63,8 @@ export default {
       return height
     },
     mapHeight () {
-      return this.viewportWidth < 777 ? 270 : this.footerHeight - 348 - 120
+      if (this.viewportWidth < 777) return 271
+      return this.footerHeight - 348 - 120
     },
     mapWidth () {
       return this.viewportWidth < 400 ? '100%' : '80%'
@@ -117,10 +115,6 @@ export default {
         document.body.offsetHeight, document.documentElement.offsetHeight,
         document.body.clientHeight, document.documentElement.clientHeight
       )
-      // if (this.getPageHeight() < window.innerHeight) {
-      //   this.mapHeight += window.innerHeight - this.getPageHeight()
-      //   this.footerHeight = this.mapHeight + this.mapTop + 40 + 348
-      // }
     }
   },
 

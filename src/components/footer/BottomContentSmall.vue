@@ -49,8 +49,8 @@
   text-align: center;
   color: #9B9B9B;
   font-size: 11px !important;
-  margin-top: 20px;
-  margin-bottom: 0;
+  margin-top: 12px;
+  /* margin-bottom: 16px; */
 }
 
 @media screen and (max-width: 375px) {
