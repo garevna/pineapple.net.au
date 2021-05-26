@@ -66,8 +66,7 @@ export default {
       return height
     },
     mapHeight () {
-      if (this.viewportWidth < 777) return 271
-      return this.footerHeight - 348 - 110
+      return this.viewportWidth < 777 ? 270 : this.footerHeight - 348 - 120
     },
     mapWidth () {
       return this.viewportWidth < 400 ? '100%' : '80%'
@@ -133,7 +132,8 @@ export default {
 }
 </script>
 
-<style>
-
-
+<style scoped>
+.footer--bottom-content {
+  margin-top: 32px!important;
+}
 </style>

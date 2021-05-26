@@ -10,7 +10,7 @@ const state = {
     topText: 'Leave your inquiry and we\'ll get back to you within 24 hours on business days'
   },
   about: 'Pineapple Net is an Australian Internet service provider offering the fastest and most affordable fibre optic connection to business and residential customers.',
-  copyright: 'Copyright © 2020 TPG Internet Pty Ltd ABN 15 068 383 737',
+  copyright: 'Copyright © 2020 MyISP pty ltd ABN 12 644 398 603',
   whoAreWe: 'Pineapple Net is an authorised retail service provider. Our fibre optic broadband is a superior alternative to the NBN.',
   speedTest: {
     text: [

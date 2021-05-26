@@ -86,7 +86,7 @@
         </v-col>
       </v-row>
       <!-- ============================= FOOTER && MAP ============================= -->
-      <Map :height.sync="mapHeight"/>
+      <Map :height.sync="mapHeight" class="mb-12"/>
     </v-main>
     <Popup :opened.sync="popupOpened" :type="popupType" />
   </v-container>
@@ -116,9 +116,6 @@ h3, p, small {
 @media screen and (max-width: 420px) {
   .contact-fone {
     margin-top: 64px!important;
-  }
-  p {
-    font-size: 12px;
   }
 }
 </style>
