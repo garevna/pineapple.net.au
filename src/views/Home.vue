@@ -40,6 +40,26 @@
             :contact.sync="contactUs"
           />
         </div>
+
+        <v-row justify="center">
+          <p
+            v-if="showResidentialButton"
+            @click="$openExternalLink('/pdf/residential-critical-information-summary.pdf')"
+            style="cursor: pointer"
+          >
+            <v-icon>mdi-file-pdf-box</v-icon>
+            Residential Critical Information Summary
+          </p>
+          <p
+            v-if="showBusinessButton"
+            @click="$openExternalLink('/pdf/business-critical-information-summary.pdf')"
+            style="cursor: pointer"
+          >
+            <v-icon>mdi-file-pdf-box</v-icon>
+            Business Critical Information Summary
+          </p>
+        </v-row>
+
       </section>
 
       <!-- ============================= POWERED BY ============================= -->
@@ -102,10 +122,18 @@ export default {
       residential: false
     }
   },
+
   computed: {
     ...mapState(['plan', 'pages', 'selectors', 'contactEndpoint', 'connectEndpoint', 'signInEndpoint']),
-    ...mapGetters('clientInfo', ['address', 'addressAvailable'])
+    ...mapGetters('clientInfo', ['address', 'addressAvailable']),
+    showResidentialButton () {
+      return this.plan === 'residential'
+    },
+    showBusinessButton () {
+      return this.plan === 'business'
+    }
   },
+
   watch: {
     $route: {
       deep: true,
@@ -114,11 +142,13 @@ export default {
         this.scrollToRoute(route.path.split('/').join('#'))
       }
     },
+
     howToConnectClicked (val) {
       if (!val) return
       if (val === 1) this.$router.push({ name: 'contact' })
       if (val === 2) this.$openExternalLink(this.connectEndpoint)
     },
+
     business (val) {
       if (val) {
         this.$store.commit('CHANGE_PLAN', 'business')
@@ -127,6 +157,7 @@ export default {
         this.business = false
       }
     },
+
     residential (val) {
       if (!val) return
       this.$store.commit('CHANGE_PLAN', 'residential')
@@ -134,17 +165,20 @@ export default {
       else this.scrollToRoute('#plans')
       this.residential = false
     },
+
     contactUs (val) {
       if (!val) return
       this.$router.push({ name: 'contact' })
       this.contactUs = false
     }
   },
+
   methods: {
     onScroll (event) {
       const scrollValue = window.pageYOffset || document.documentElement.scrollTop
       if (scrollValue === 0) this.page = 0
     },
+
     scrollToRoute (route) {
       this.$vuetify.goTo(route, {
         duration: 500,
@@ -153,9 +187,11 @@ export default {
       })
     }
   },
+
   mounted () {
     this.page = this.$route.params.page || 0
   },
+
   beforeRouteEnter (to, from, next) {
     next(vm => {
       const sectionName = to.path.split('/')

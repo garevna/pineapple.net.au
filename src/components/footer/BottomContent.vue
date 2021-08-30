@@ -52,32 +52,40 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col style="max-width: 180px">
+    <v-col style="max-width: 420px">
       <v-card flat class="transparent mx-auto">
         <v-card-title>
           <p class="left-16">CONNECT</p>
         </v-card-title>
         <v-card-text>
-          <a :href="faceBook" target="_blank" class="ref">
-            <p class="left-14 ref">
-              <v-img src="@/assets/icons/facebook.svg" class="icon"></v-img>Facebook
-            </p>
-          </a>
-          <a :href="linkedIn" target="_blank" class="ref">
-            <p class="left-14 ref">
-              <v-img src="@/assets/icons/linkedin.svg" class="icon"></v-img> Linkedin
-            </p>
-          </a>
-          <br>
-          <a
-            class="left-14 ref"
-            href="Pineapple_Net_Service_Agreement_Blank_Complete_2020_10.pdf"
-            download>
-            <p class="left-14 ref">
-              Download Service Agreement
-            </p>
-          </a>
-          <!-- <p class="left-14 ref">FAQs & Support</p> -->
+          <p class="left-14 ref" @click="$openExternalLink(faceBook)">
+            <v-img src="@/assets/icons/facebook.svg" class="icon"></v-img>Facebook
+          </p>
+          <p class="left-14 ref" @click="$openExternalLink(linkedIn)">
+            <v-img src="@/assets/icons/linkedin.svg" class="icon"></v-img> Linkedin
+          </p>
+          <br style="font-size: 9px">
+          <p class="left-14 ref" @click="$openExternalLink('/pdf/service-agreement.pdf')">
+            <v-icon small color="#fff">mdi-file-pdf-box</v-icon>
+            Service Agreement
+          </p>
+          <br style="font-size: 9px">
+          <p class="left-14 ref" @click="$openExternalLink('/pdf/privacy-policy.pdf')">
+            <v-icon small color="#fff">mdi-file-pdf-box</v-icon>
+            Privacy Policy
+          </p>
+          <p class="left-14 ref" @click="$openExternalLink('/pdf/complaints-policy.pdf')">
+            <v-icon small color="#fff">mdi-file-pdf-box</v-icon>
+            Complaints Policy
+          </p>
+          <p class="left-14 ref" @click="$openExternalLink('/pdf/financial-hardship-policy.pdf')">
+            <v-icon small color="#fff">mdi-file-pdf-box</v-icon>
+            Financial Hardship Policy
+          </p>
+          <p class="left-14 ref" @click="$openExternalLink('/pdf/appointment-of-authorised-representative.pdf')">
+            <v-icon small color="#fff">mdi-file-pdf-box</v-icon>
+            Appointment of Authorised Representative
+          </p>
         </v-card-text>
       </v-card>
     </v-col>
@@ -96,6 +104,10 @@ export default {
     ...mapState('content', ['about', 'copyright'])
   },
   methods: {
+    openNewWindow (target) {
+      this.$openExternalLink(target)
+    },
+
     goto (index) {
       if (index === undefined) return
       // if (this.selectors[index] === 'sign-in') {
@@ -128,6 +140,10 @@ export default {
 </script>
 
 <style scoped>
+
+.left-14 {
+  font-size: 13px !important;
+}
 
 .footer--bottom-content {
   position: absolute;
