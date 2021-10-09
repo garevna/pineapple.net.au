@@ -3,16 +3,16 @@
     <FooterFone :footerHeight="footerHeight" />
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
       <div
-          id="map-container"
-          :style="{ height: mapHeight + 'px', width: mapWidth, marginLeft: mapMargin, marginRight: mapMargin, marginTop: '80px', marginBottom: '20px' }"
+        id="map-container"
+        :style="{ height: mapHeight + 'px', width: mapWidth, marginLeft: mapMargin, marginRight: mapMargin, marginTop: '80px', marginBottom: '20px' }"
       ></div>
       <FooterBottomContent
-          class="footer--bottom-content"
-          v-if="viewportWidth >= 900"
+        class="footer--bottom-content"
+        v-if="viewportWidth > 960"
       />
       <FooterBottomContentSmall
-          class="footer--bottom-content"
-          v-else
+        class="footer--bottom-content"
+        v-else
       />
     </div>
   </v-container>
@@ -63,14 +63,14 @@ export default {
       return height
     },
     mapHeight () {
-      if (this.viewportWidth < 777) return 271
-      return this.footerHeight - 348 - 120
+      return this.viewportWidth <= 420 ? this.footerHeight - 600 : this.viewportWidth <= 960 ? this.footerHeight - 300 : this.footerHeight - 480
     },
     mapWidth () {
-      return this.viewportWidth < 400 ? '100%' : '80%'
+      return this.viewportWidth <= 420 ? '100%' : '80%'
     },
     mapMargin () {
-      return this.viewportWidth < 400 ? '0' : '10%'
+      // return this.viewportWidth <= 420 ? '0' : '5%'
+      return 'auto'
     }
   },
 
@@ -118,16 +118,20 @@ export default {
     }
   },
 
+  beforeDestroy () {
+    window.removeEventListener('resize', this.resize)
+  },
+
   mounted () {
-    this.resize()
     this.init()
     window.addEventListener('resize', this.resize)
+    this.resize()
   }
 }
 </script>
 
 <style scoped>
 .footer--bottom-content {
-  margin-top: 32px!important;
+  bottom: 8px!important;
 }
 </style>
