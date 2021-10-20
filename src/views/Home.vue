@@ -15,9 +15,10 @@
         <div class="base-title">
           <a href="#check" class="mr-2 d-inline-flex core-goto text--primary"></a>
           <CheckAvailability
-              :residential.sync="residential"
-              :business.sync="business"
-              :contact.sync="contactUs"
+            :popup="false"
+            :residential.sync="residential"
+            :business.sync="business"
+            :contact.sync="contactUs"
           />
         </div>
         <SpeedTest/>
@@ -105,7 +106,6 @@ export default {
   components: {
     // CovidInfo: () => import(/* webpackChunkName: "covid" */ '@/components/home/CovidInfo.vue'),
     Top: () => import(/* webpackChunkName: "top" */ '@/components/home/Top.vue'),
-    // CheckAvailability: () => import(/* webpackChunkName: "CheckAvailability" */ '@/components/home/CheckAvailability.vue'),
     PoweredByDGtek: () => import(/* webpackChunkName: "PoweredByDGtek" */ '@/components/home/GreenSection.vue'),
     WhoAreWe: () => import(/* webpackChunkName: "WhoAreWe" */ '@/components/home/WhoAreWeCircles.vue'),
     SpeedTest: () => import(/* webpackChunkName: "SpeedTest" */ '@/components/home/SpeedTest.vue'),
@@ -185,7 +185,27 @@ export default {
         offset: 0,
         easing: 'easeInOutCubic'
       })
+    },
+
+    showResidentialPrices () {
+      this.business = false
+      this.residential = true
+    },
+
+    showBusinessPrices () {
+      this.residential = false
+      this.business = true
     }
+  },
+
+  beforeMount () {
+    window.addEventListener('show-residential-prices', this.showResidentialPrices)
+    window.addEventListener('show-business-prices', this.showBusinessPrices)
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('show-residential-prices', this.showResidentialPrices)
+    window.removeEventListener('show-business-prices', this.showBusinessPrices)
   },
 
   mounted () {

@@ -1,9 +1,9 @@
 <template>
-  <div class="text-center">
     <v-dialog
-      v-model="success"
+      v-model="opened"
       :width="width"
       :height="height"
+      persistent
     >
       <v-card
         :width="width"
@@ -11,7 +11,7 @@
       >
         <v-toolbar class="transparent mx-0 px-0" style="position: absolute; top: 0; right:0; box-shadow: none!important; z-index: 5">
           <v-spacer />
-          <v-btn text @click="$emit('update:success', false)">
+          <v-btn text @click="opened = false">
             <v-icon large color="#777">mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
@@ -27,13 +27,13 @@
           <v-col cols="12" md="8">
             <h1
               class="text-center text-md-left"
-              :style="{ color: '#4CAF50', fontSize: screen < 600 ? '28px' : '32px' }"
+              :style="{ color: '#4CAF50', fontSize: viewportWidth < 600 ? '28px' : '32px' }"
             >
               Success!
             </h1>
             <h5
               class="text-center text-md-left"
-              :style="{ fontSize: screen < 960 ? '16px' : '20px' }"
+              :style="{ fontSize: viewportWidth < 960 ? '16px' : '20px' }"
             >
               Pineapple Net is available at your address!
             </h5>
@@ -41,80 +41,91 @@
         </v-row>
         <v-row align="center" justify="center" style="position: absolute; bottom: 24px; left: 0; width: 100%; z-index: 2">
           <v-col cols="12" md="6" class="text-center">
-            <v-btn
-              v-if="!popup"
-              rounded
-              light
-              outlined
-              depressed
-              height="42"
-              width="191"
-              color="buttons"
-              @click="businessPricing"
-            >
-              Business Pricing
-            </v-btn>
+            <PriceButton v-if="!checkAddressPopup" type="business" />
           </v-col>
           <v-col cols="12" md="6" class="text-center">
-            <v-btn
-              v-if="!popup"
-              rounded
-              dark
-              depressed
-              height="42"
-              width="191"
-              color="buttons"
-              @click="residentialPricing"
-            >
-              Residential Pricing
-            </v-btn>
+            <PriceButton v-if="!checkAddressPopup" type="residential" />
           </v-col>
         </v-row>
       </v-card>
     </v-dialog>
-  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+
+// import { setSearchResult } from '@/helpers'
+
+import PriceButton from '@/components/check-availability/PriceButton.vue'
+import LikeSymbol from '@/components/check-availability/LikeSymbol.vue'
 
 export default {
   name: 'SuccessPopup',
+
   components: {
-    LikeSymbol: () => import('@/components/check-availability/LikeSymbol.vue')
+    LikeSymbol,
+    PriceButton
   },
-  props: {
-    popup: Boolean,
-    success: Boolean,
-    business: Boolean,
-    residential: Boolean
-  },
+
+  data: () => ({
+    opened: false
+  }),
+
   computed: {
-    ...mapState({
-      screen: 'viewportWidth'
-    }),
+    ...mapState(['viewportWidth', 'eventTimeStamp', 'checkAddressPopup']),
     size () {
-      return this.screen >= 960 ? 'wide' : 'shrink'
+      return this.viewportWidth >= 960 ? 'wide' : 'shrink'
     },
     width () {
-      return this.screen >= 960 ? 730 : 298
+      return this.viewportWidth >= 960 ? 730 : 298
     },
     height () {
-      return this.screen >= 960 ? 352 : 477
+      return this.viewportWidth >= 960 ? 352 : 477
     },
     likeSize () {
-      return this.screen >= 960 ? 290 : 150
+      return this.viewportWidth >= 960 ? 290 : 150
     }
   },
+
   methods: {
-    residentialPricing () {
-      this.$emit('update:residential', true)
-      this.$emit('update:success', false)
+    ...mapMutations({
+      setTimeStamp: 'SET_EVENT_TIME_STAMP'
+    }),
+    ...mapMutations('clientInfo', {
+      update: 'UPDATE_PERSONAL_DATA',
+      setAddressAvailable: 'SET_ADDRESS_AVAILABLE'
+    }),
+    ...mapMutations('contact', {
+      setAddress: 'USER_ADDRESS'
+    }),
+    open (event) {
+      if (event.timeStamp - this.eventTimeStamp < 1000) return
+      // setSearchResult.call(this)
+      const { address, status } = window[Symbol.for('global.addressData')]
+      this.update({ prop: 'address', value: address })
+      this.setAddress(address)
+      this.setAddressAvailable(status === 'success')
+
+      this.opened = event.timeStamp - this.eventTimeStamp > 1000
+      this.opened && this.setTimeStamp(event.timeStamp)
     },
-    businessPricing () {
-      this.$emit('update:business', true)
-      this.$emit('update:success', false)
+    close () {
+      this.opened = false
     }
+  },
+
+  beforeMount () {
+    window.addEventListener('show-residential-prices', this.close)
+    window.addEventListener('show-business-prices', this.close)
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('show-residential-prices', this.close)
+    window.removeEventListener('show-business-prices', this.close)
+  },
+
+  mounted () {
+    window.addEventListener('open-success-popup', this.open)
   }
 }
 </script>

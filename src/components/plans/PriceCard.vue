@@ -36,7 +36,7 @@
 
 <script>
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'PriceCard',
@@ -45,7 +45,7 @@ export default {
     subscript: false
   }),
   computed: {
-    ...mapState(['viewportWidth']),
+    ...mapState(['viewportWidth', 'checkAddressPopup']),
     ...mapState('clientInfo', ['personalInfo']),
     ...mapGetters('internetPlans', ['tariff', 'link']),
     active () {
@@ -59,7 +59,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setCheckAddressPopup: 'SET_CHECK_ADDRESS_POPUP'
+    }),
     clickHandler () {
+      this.setCheckAddressPopup(true)
       this.$emit('update:selected', this.index)
       this.subscript = true
     }

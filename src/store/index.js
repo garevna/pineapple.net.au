@@ -19,7 +19,9 @@ export default new Vuex.Store({
     viewportHeight: window.innerHeight,
     plan: 'residential',
     pages: ['Home', 'About Us', 'Residential', 'Business', 'Contact Us', 'Sign In'],
-    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'sign-in']
+    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'sign-in'],
+    checkAddressPopup: false,
+    eventTimeStamp: 0
   },
   modules,
 
@@ -31,6 +33,12 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    SET_EVENT_TIME_STAMP: (state, value) => {
+      state.eventTimeStamp = value
+    },
+    SET_CHECK_ADDRESS_POPUP: (state, value) => {
+      state.checkAddressPopup = value
+    },
     CHANGE_VIEWPORT: (state) => {
       state.viewport = window.innerWidth >= 1904 ? 'xl'
         : window.innerWidth >= 1264 ? 'lg'

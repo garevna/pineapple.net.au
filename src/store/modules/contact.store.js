@@ -7,14 +7,14 @@ const state = {
   userAddress: '',
   userMessage: '',
   targets: [
-    { text: 'New connections', value: 'forms@pineapple.net.au' },
+    { text: 'New connections', value: 'sales@pineapple.net.au' },
     { text: 'Technical Support', value: 'support@pineapple.net.au' },
     { text: 'Existing account', value: 'billing@pineapple.net.au' },
     { text: 'General enquiry', value: 'info@pineapple.net.au' }
   ],
   target: {
     text: 'New connections',
-    value: 'forms@pineapple.net.au'
+    value: 'sales@pineapple.net.au'
   },
   progress: false,
   response: null

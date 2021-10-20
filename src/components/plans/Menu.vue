@@ -2,18 +2,18 @@
   <div class="d-flex justify-center">
     <div style="position: relative; width: 220px">
       <v-btn
-              text
-              outlined
-              rounded
-              :width="menuWidth"
-              height="40"
-              :style="{ border: border, fontSize: font }"
-              :color="color || '#20731C'"
-              @click="clickHandler('Menu button event\n', $event)"
+        text
+        outlined
+        rounded
+        :width="menuWidth"
+        height="40"
+        :style="{ border: border, fontSize: font }"
+        :color="color || '#20731C'"
+        @click="clickHandler('Menu button event\n', $event)"
       >
-                  {{ selected }}
-                  <v-spacer></v-spacer>
-              <v-icon class="ml-10">mdi-chevron-down</v-icon>
+        {{ selected }}
+        <v-spacer></v-spacer>
+        <v-icon class="ml-10">mdi-chevron-down</v-icon>
       </v-btn>
       <v-slide-y-transition>
         <v-list v-if="visible" @mouseleave.native="visible=false" light class="menu" transition="expand">

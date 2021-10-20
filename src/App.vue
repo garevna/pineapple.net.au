@@ -14,6 +14,9 @@
           </v-row>
       </div>
     </section>
+
+    <failure-popup />
+    <success-popup />
   </v-app>
 </template>
 
@@ -22,9 +25,6 @@
 import 'pineapple-styles'
 
 import { mapState, mapActions } from 'vuex'
-
-// import AppHeader from '@/components/home/AppHeader.vue'
-// import Footer from '@/components/home/Footer.vue'
 
 /* HowToConnect */
 import 'pineapple-how-to-connect'
@@ -60,8 +60,7 @@ export default {
   methods: {
     ...mapActions({
       getGeneralInfo: 'GET_GENERAL_INFO',
-      // getPlans: 'internetPlans/GET_PRICES',
-      getAvailable: 'map/GET_AVAILABLE',
+      getPlans: 'internetPlans/GET_PRICES',
       getReviews: 'testimonials/GET_CONTENT'
     }),
     onResize () {
@@ -71,12 +70,11 @@ export default {
 
   beforeMount () {
     this.getGeneralInfo()
-    // this.getPlans()
+    this.getPlans()
     this.getReviews()
   },
 
   mounted () {
-    this.getAvailable()
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },

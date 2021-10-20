@@ -39,6 +39,7 @@ const getters = {
 }
 
 const mutations = {
+  SET_ADDRESS_AVAILABLE: (state, value) => { state.personalInfo.addressAvailable = value },
   UPDATE_PERSONAL_DATA: (state, payload) => { Object.assign(state.personalInfo, { [payload.prop]: payload.value }) },
   UPDATE_PAYMENT_DETAILS: (state, payload) => { state.card[payload.prop] = payload.value },
   UPDATE_BUSINESS_INFO: (state, payload) => { state.businessInfo[payload.prop] = payload.value },

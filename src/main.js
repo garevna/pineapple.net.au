@@ -10,6 +10,12 @@ import vuetify from './plugins/vuetify'
 import '@/sass/fonts.scss'
 import '@/sass/variables.scss'
 
+import SuccessPopup from '@/components/check-availability/SuccessPopup.vue'
+import FailurePopup from '@/components/check-availability/FailurePopup.vue'
+
+Vue.component('success-popup', SuccessPopup)
+Vue.component('failure-popup', FailurePopup)
+
 const requireComponent = require.context('./components', false, /[A-Z]\w+\.(vue|js)$/)
 
 requireComponent.keys().forEach(fileName => {
@@ -20,6 +26,13 @@ requireComponent.keys().forEach(fileName => {
     componentConfig.default || componentConfig
   )
 })
+
+window[Symbol.for('global.addressData')] = {
+  address: '',
+  addressComponents: {},
+  coordinates: [],
+  status: null
+}
 
 Vue.config.productionTip = false
 

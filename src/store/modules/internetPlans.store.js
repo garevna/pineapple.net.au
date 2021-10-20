@@ -135,17 +135,17 @@ const getters = {
 }
 
 const mutations = {
-  // UPDATE_INTERNET_PLANS: (state, payload) => {
-  //   state.plans = payload
-  // },
+  UPDATE_INTERNET_PLANS: (state, payload) => {
+    state.plans = payload
+  }
 }
 
 const actions = {
 
-  // async GET_PRICES ({ state, commit }, payload) {
-  //   const { plans } = await (await fetch(state.endpoint)).json()
-  //   commit('UPDATE_INTERNET_PLANS', plans)
-  // },
+  async GET_PRICES ({ state, commit }, payload) {
+    const { plans } = await (await fetch(state.endpoint)).json()
+    commit('UPDATE_INTERNET_PLANS', plans)
+  },
 
   SELECT_PLAN ({ commit }, payload) {
     commit('CHANGE_PLAN', payload, { root: true })
