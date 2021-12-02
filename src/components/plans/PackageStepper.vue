@@ -22,15 +22,19 @@ import PackageCard from '@/components/plans/PackageCard.vue'
 
 export default {
   name: 'PackageStepper',
+
   components: {
     PackageCard
   },
+
   props: {
     selected: Number /* sync */
   },
+
   data: () => ({
     step: 1
   }),
+
   computed: {
     ...mapState(['plan']),
     ...mapState('internetPlans', ['packages']),

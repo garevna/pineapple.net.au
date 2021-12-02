@@ -65,27 +65,20 @@
   </v-card>
 </template>
 
-<style>
-.v-btn.v-btn--icon {
-  background: #94C578!important;
-}
-.v-window__prev .v-btn:hover,
-.v-window__next .v-btn:hover {
-  background: #20731C!important;
-}
-</style>
-
 <script>
 
 import { mapState } from 'vuex'
 
 export default {
   name: 'InternetPlans',
+
   components: {
     PriceCard: () => import('@/components/plans/PriceCard.vue'),
     SwitchMode: () => import('@/components/plans/SwitchToggle.vue')
   },
+
   props: ['connect', 'contact'],
+
   data () {
     return {
       getConnect: false,
@@ -93,17 +86,20 @@ export default {
       selected: null
     }
   },
+
   computed: {
     ...mapState({ screen: 'viewportWidth', plan: 'plan' }),
     ...mapState('internetPlans', ['plans']),
     ...mapState('content', ['internetPlans'])
   },
+
   watch: {
     selected (val) {
       if (val === null) return
       this.$store.dispatch('internetPlans/SELECT_TARIFF', val)
     }
   },
+
   methods: {
     getTariffId (index) {
       const planName = this.plan === 'business' ? 'commercial' : this.plan
@@ -113,3 +109,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-btn.v-btn--icon {
+  background: #94C578!important;
+}
+.v-window__prev .v-btn:hover,
+.v-window__next .v-btn:hover {
+  background: #20731C!important;
+}
+</style>

@@ -71,7 +71,6 @@ export default new Vuex.Store({
   },
 
   actions: {
-
     async GET_GENERAL_INFO ({ state, commit }) {
       const generalInfo = await (await fetch(state.generalInfoEndpoint)).json()
       for (const field in generalInfo) {

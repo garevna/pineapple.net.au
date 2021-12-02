@@ -54,8 +54,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 
-// import { setSearchResult } from '@/helpers'
-
 import PriceButton from '@/components/check-availability/PriceButton.vue'
 import LikeSymbol from '@/components/check-availability/LikeSymbol.vue'
 
@@ -100,7 +98,6 @@ export default {
     }),
     open (event) {
       if (event.timeStamp - this.eventTimeStamp < 1000) return
-      // setSearchResult.call(this)
       const { address, status } = window[Symbol.for('global.addressData')]
       this.update({ prop: 'address', value: address })
       this.setAddress(address)
