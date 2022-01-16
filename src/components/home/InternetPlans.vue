@@ -49,13 +49,19 @@
                 align="center"
                 justify="center"
               >
-              <PriceCard
+                <PriceCard
+                  :item="item"
+                  :index="index"
+                  :selected.sync="selected"
+                  :tariffId="getTariffId(index)"
+                />
+              <!-- <PriceCard
                 :mode="plan"
                 :item="item"
                 :index="index"
                 :selected.sync="selected"
                 :tariffId="getTariffId(index)"
-              />
+              /> -->
               </v-row>
             </v-sheet>
           </v-carousel-item>

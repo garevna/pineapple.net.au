@@ -1,7 +1,7 @@
 <template>
   <v-carousel v-model="step" height="420" hide-delimiter-background>
     <v-carousel-item
-        v-for="(currentPackage, index) in packages[plan]"
+        v-for="(currentPackage, index) in packages"
         :key="index"
         :step="index + 1"
       >
@@ -16,7 +16,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import PackageCard from '@/components/plans/PackageCard.vue'
 
@@ -27,9 +27,7 @@ export default {
     PackageCard
   },
 
-  props: {
-    selected: Number /* sync */
-  },
+  props: ['selected'],
 
   data: () => ({
     step: 1
@@ -37,7 +35,15 @@ export default {
 
   computed: {
     ...mapState(['plan']),
-    ...mapState('internetPlans', ['packages']),
+    ...mapState('internetPlans', { source: 'packages' }),
+    ...mapGetters('internetPlans', {
+      getLink: 'link',
+      plan: 'planName',
+      tariff: 'tariff'
+    }),
+    packages () {
+      return this.source[this.plan]
+    },
     selectedCard: {
       get () {
         return this.selected

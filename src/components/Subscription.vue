@@ -70,10 +70,6 @@
             <v-stepper-items>
               <v-stepper-content step="1" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
                 <CheckAvailability :open.sync="check" />
-                <!-- <v-card flat class="transparent mt-10 mb-4">
-                  <v-row justify="end">
-                  </v-row>
-                </v-card> -->
               </v-stepper-content>
 
               <v-stepper-content step="2" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
@@ -83,7 +79,6 @@
                     :key="index"
                     :index="index"
                     :selected.sync="packageSelectedIndex"
-                    @click="choosePackage(index)"
                     :class="{ 'package-card-with-border': packageSelectedIndex === index }"
                     width="360"
                   />
@@ -113,7 +108,6 @@
             </v-stepper-items>
           </v-stepper>
         </v-row>
-        <!-- <v-responsive height="1500"></v-responsive> -->
       </v-sheet>
     </v-card>
   </v-dialog>
@@ -128,6 +122,7 @@ import PackageStepper from '@/components/plans/PackageStepper.vue'
 
 export default {
   name: 'Subscription',
+
   components: {
     PackageCard,
     PackageStepper
