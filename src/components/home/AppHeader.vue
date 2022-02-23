@@ -115,7 +115,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint']),
+    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint', 'netLogEndpoint']),
     burgerMenuClassFirst () {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
     },
@@ -124,18 +124,28 @@ export default {
     }
   },
   methods: {
+    openExternalLink (selector) {
+      const links = {
+        'sign-in': this.signInEndpoint,
+        connect: this.connectEndpoint,
+        netlog: this.netLogEndpoint
+      }
+
+      const result = Object.keys(links).includes(selector)
+
+      if (result) {
+        this.$openExternalLink(links[selector])
+        this.$emit('update:section', undefined)
+      }
+
+      return result
+    },
+
     goto (index) {
       if (index === undefined) return
-      if (this.selectors[index] === 'sign-in') {
-        this.$openExternalLink(this.signInEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
-      if (this.selectors[index] === 'connect') {
-        this.$openExternalLink(this.connectEndpoint)
-        this.$emit('update:section', undefined)
-        return
-      }
+
+      if (this.openExternalLink(this.selectors[index])) return
+
       if (this.selectors[index] === 'contact') {
         this.$router.push({ name: 'contact', params: { section: null } })
         this.$emit('update:section', undefined)
@@ -147,10 +157,12 @@ export default {
       }
       this.$router.push({ name: 'home', params: { section: this.selectors[index] } })
     },
+
     getClassName (pageName) {
       const className = pageName === 'Sign In' ? ' app-bar-menu-bordered py-2 px-12' : ''
       return `app-bar-menu${className}`
     },
+
     disable (index) {
       return this.$route.name === 'contact' && this.selectors[index] === 'contact'
     }

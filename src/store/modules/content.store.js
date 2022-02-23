@@ -40,18 +40,22 @@ const state = {
       }
     ]
   },
+
   checkAddress: {
     text: 'Enter your address to find out if Pineapple Net is available',
     placeholder: 'Enter your address',
     buttonText: 'Check Now'
   },
+
   internetPlans: {
     text: `Zero connection fee with 12 month plans<br>
           Commitment issues? month-to-month plans also available`
   },
+
   testimonials: {
     header: ''
   },
+
   covidLand: {
     text: 'As a Telecommunications company, installers have permission to work during Stage 4 restrictions and are taking heed of advice from the Chief Health Officer of Victoria. Your health and the health of our installation team is crucial to us. To prevent the spread of COVID-19, our onsite installers at all times will be required to:',
     covidList: [

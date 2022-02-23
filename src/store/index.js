@@ -9,6 +9,7 @@ export default new Vuex.Store({
     host: location.origin,
     connectEndpoint: 'https://user.pineapple.net.au/signup',
     signInEndpoint: 'https://pineapple.chargebeeportal.com',
+    netLogEndpoint: 'https://status.pineapple.net.au/',
     // contactEndpoint: 'https://api.pineapple.net.au/email/forms',
     contactEndpoint: 'https://portal.dgtek.net/send-email',
     generalInfoEndpoint: 'https://api.pineapple.net.au/content/general',
@@ -18,8 +19,8 @@ export default new Vuex.Store({
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
     plan: 'residential',
-    pages: ['Home', 'About Us', 'Residential', 'Business', 'Contact Us', 'Sign In'],
-    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'sign-in'],
+    pages: ['Home', 'About Us', 'Residential', 'Business', 'Contact Us', 'Network Status', 'Sign In'],
+    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'netlog', 'sign-in'],
     checkAddressPopup: false,
     eventTimeStamp: 0
   },
