@@ -12,6 +12,7 @@ export default new Vuex.Store({
     netLogEndpoint: 'https://status.pineapple.net.au/',
     // contactEndpoint: 'https://api.pineapple.net.au/email/forms',
     contactEndpoint: 'https://portal.dgtek.net/send-email',
+    helpEndpoint: 'https://kb.pineapple.net.au/help',
     generalInfoEndpoint: 'https://api.pineapple.net.au/content/general',
     emailSubject: 'Pineapple NET',
     emailText: 'Thank you for your interest in Pineapple NET! A member of our team will be in touch shortly.',
@@ -19,8 +20,8 @@ export default new Vuex.Store({
     viewportWidth: window.innerWidth,
     viewportHeight: window.innerHeight,
     plan: 'residential',
-    pages: ['Home', 'About Us', 'Residential', 'Business', 'Contact Us', 'Network Status', 'Sign In'],
-    selectors: ['top', 'about', 'plans', 'plans', 'contact', 'netlog', 'sign-in'],
+    pages: ['Home', 'About Us', 'Residential', 'Business', 'Help', 'Contact Us', 'Network Status', 'Sign In'],
+    selectors: ['top', 'about', 'plans', 'plans', 'help', 'contact', 'netlog', 'sign-in'],
     checkAddressPopup: false,
     eventTimeStamp: 0
   },

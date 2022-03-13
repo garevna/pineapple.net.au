@@ -115,7 +115,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint', 'netLogEndpoint']),
+    ...mapState(['pages', 'selectors', 'connectEndpoint', 'signInEndpoint', 'netLogEndpoint', 'helpEndpoint']),
     burgerMenuClassFirst () {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
     },
@@ -128,7 +128,8 @@ export default {
       const links = {
         'sign-in': this.signInEndpoint,
         connect: this.connectEndpoint,
-        netlog: this.netLogEndpoint
+        netlog: this.netLogEndpoint,
+        help: this.helpEndpoint
       }
 
       const result = Object.keys(links).includes(selector)
