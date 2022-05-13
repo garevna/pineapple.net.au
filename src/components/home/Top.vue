@@ -13,6 +13,7 @@
           </v-card-title>
           <v-card-text class="width-100 text-center text-md-left mx-sm-auto mx-lg-0">
             <h4 class="width-100 text-center text-md-left">{{ top.text }}</h4>
+            <v-img :src="awardLogo" max-width="180" class="mt-5" />
           </v-card-text>
         </v-card>
     </v-col>
@@ -40,7 +41,7 @@ export default {
   name: 'Top',
   computed: {
     ...mapState('content', ['top']),
-    ...mapGetters(['familyPicture'])
+    ...mapGetters(['familyPicture', 'awardLogo'])
   }
 }
 </script>
