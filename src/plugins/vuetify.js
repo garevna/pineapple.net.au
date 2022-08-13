@@ -10,7 +10,9 @@ export default new Vuetify({
     iconfont: 'mdi',
     values: {
       expand: 'mdi-expand-more',
-      home: 'mdi-home-circle'
+      home: 'mdi-home-circle',
+      prev: 'mdi-arrow-left-bold-box-outline',
+      next: 'mdi-arrow-right-bold-box-outline'
     }
   },
   directives: {

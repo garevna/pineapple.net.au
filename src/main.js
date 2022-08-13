@@ -36,14 +36,15 @@ window[Symbol.for('global.addressData')] = {
 
 Vue.config.productionTip = false
 
-Vue.prototype.$geo = window.google.maps
-Vue.prototype.$geoCoder = new window.google.maps.Geocoder()
-Vue.prototype.$Autocomplete = window.google.maps.places.Autocomplete
-Vue.prototype.$geoLocation = window.google.maps.geometry.poly.containsLocation
-
-Vue.prototype.$openExternalLink = function (url) {
-  window.open(url, 'blank')
-}
+Object.assign(Vue.prototype, {
+  $geo: window.google.maps,
+  $geoCoder: new window.google.maps.Geocoder(),
+  $Autocomplete: window.google.maps.places.Autocomplete,
+  $geoLocation: window.google.maps.geometry.poly.containsLocation,
+  $openExternalLink (url) {
+    window.open(url, 'blank')
+  }
+})
 
 const vue = new Vue({
   router,

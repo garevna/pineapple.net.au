@@ -177,51 +177,6 @@
   </v-card>
 </template>
 
-<style>
-.radio-custom label {
-  font-style: normal!important;
-  font-weight: bold!important;
-  line-height: 250%!important;
-  letter-spacing: 0.02em!important;
-  color: #000!important;
-  text-align: left!important;
-  font-size: 14px!important;
-  left: 10px!important;
-}
-</style>
-
-<style scoped>
-
-.about {
-  position: relative;
-  top: 14px;
-  width: 638px;
-  margin-top: 16px;
-  padding: 0 30px;
-}
-
-.normal-text, .grey-comment {
-  font-style: normal;
-  letter-spacing: 0.02em;
-  text-align: left;
-  font-size: 14px;
-}
-.normal-text {
-  font-weight: bold;
-  line-height: 100%;
-  color: #000;
-}
-
-.grey-comment {
-  font-style: normal;
-  font-weight: normal;
-  line-height: 120%;
-  color: #767676;
-  padding: 0 16px;
-  margin-top: -20px;
-}
-</style>
-
 <script>
 
 import { mapState, mapGetters } from 'vuex'
@@ -364,3 +319,48 @@ export default {
   }
 }
 </script>
+
+<style>
+.radio-custom label {
+  font-style: normal!important;
+  font-weight: bold!important;
+  line-height: 250%!important;
+  letter-spacing: 0.02em!important;
+  color: #000!important;
+  text-align: left!important;
+  font-size: 14px!important;
+  left: 10px!important;
+}
+</style>
+
+<style scoped>
+
+.about {
+  position: relative;
+  top: 14px;
+  width: 638px;
+  margin-top: 16px;
+  padding: 0 30px;
+}
+
+.normal-text, .grey-comment {
+  font-style: normal;
+  letter-spacing: 0.02em;
+  text-align: left;
+  font-size: 14px;
+}
+.normal-text {
+  font-weight: bold;
+  line-height: 100%;
+  color: #000;
+}
+
+.grey-comment {
+  font-style: normal;
+  font-weight: normal;
+  line-height: 120%;
+  color: #767676;
+  padding: 0 16px;
+  margin-top: -20px;
+}
+</style>

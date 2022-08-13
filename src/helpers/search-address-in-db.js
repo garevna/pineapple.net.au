@@ -3,7 +3,7 @@ import { emitEvent } from './'
 export async function searchAddressInDB () {
   Object.assign(window[Symbol.for('global.addressData')], { status: null })
 
-  const response = await fetch('https://portal.dgtek.net/building/search', {
+  const response = await fetch('https://portal.staging.dgtek.net/building/search', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -18,10 +18,15 @@ export async function searchAddressInDB () {
   const { status } = result.data
 
   Object.assign(window[Symbol.for('global.addressData')], {
-    status: status === 'LIT' || status === 'Footprint' ? 'success' : 'failure'
+    status: status === 'LIT'
+      ? 'success'
+      : status === 'Footprint'
+        ? 'footprint'
+        : 'failure'
   })
 
   if (window[Symbol.for('global.addressData')].status === 'success') emitEvent('open-success-popup')
+  if (window[Symbol.for('global.addressData')].status === 'footprint') emitEvent('open-footprint-popup')
 
   return window[Symbol.for('global.addressData')].status
 }

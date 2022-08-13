@@ -28,14 +28,14 @@
         <v-row align="center" justify="center">
             <v-card-text :class="`mx-auto address-card address-card--${screen}`">
               <v-text-field
-                    :class="`transparent address-input address-input--${screen}`"
-                    :height="buttonHeight"
-                    rounded
-                    v-model="address"
-                    :placeholder="checkAddress.placeholder"
-                    :id="autocompleteId"
-                  >
-              </v-text-field>
+                :class="`transparent address-input address-input--${screen}`"
+                :height="buttonHeight"
+                rounded
+                v-model="address"
+                :placeholder="checkAddress.placeholder"
+                :id="autocompleteId"
+              />
+
               <v-btn
                 :class="`address-button address-button--${screen}`"
                 depressed
@@ -122,12 +122,14 @@ export default {
         this.setAddress(value)
       }
     },
+
     location: {
       get () { return this.personalInfo.location },
       set (value) {
         this.update({ prop: 'location', value })
       }
     },
+
     addressAvailable: {
       get () {
         return this.personalInfo.addressAvailable
@@ -142,6 +144,7 @@ export default {
     businessClicked (val) {
       this.$emit('update:business', val)
     },
+
     residentialClicked (val) {
       this.$emit('update:residential', val)
     }
@@ -152,15 +155,19 @@ export default {
       update: 'UPDATE_PERSONAL_DATA',
       setAddressAvailable: 'SET_ADDRESS_AVAILABLE'
     }),
+
     ...mapMutations('contact', {
       setAddress: 'USER_ADDRESS'
     }),
+
     startProgress () {
       this.progress = true
     },
+
     stopProgress () {
       this.progress = false
     },
+
     async checkAvailable () {
       if (!window[Symbol.for('global.addressData')].address) return
       // this.setSearchResult()

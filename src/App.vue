@@ -5,6 +5,7 @@
     <transition name="fade" mode="out-in">
       <router-view class="mt-12 mx-0 px-0"></router-view>
     </transition>
+
     <!-- ============================= FOOTER ============================= -->
     <section id="footer" class="homefone" v-if="$route.name !== 'contact'">
       <div class="base-title">

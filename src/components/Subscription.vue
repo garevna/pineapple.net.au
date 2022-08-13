@@ -22,7 +22,7 @@
           class="transparent"
           @click="step--"
         >
-          <v-icon large class="mx-4">mdi-page-previous-outline</v-icon>
+          <v-icon large class="mx-4">$prev</v-icon>
           {{ viewportWidth >= 600 ? 'Back' : '' }}
         </v-btn>
 
@@ -33,18 +33,38 @@
           @click="step++"
         >
           {{ viewportWidth >= 600 ? 'Continue' : '' }}
-          <v-icon large class="mx-4">mdi-page-next-outline</v-icon>
+          <v-icon large class="mx-4">$next</v-icon>
         </v-btn>
 
         <v-btn
           v-if="step === 3 && subscription"
           text
           class="transparent"
+          @click="booking"
+        >
+          {{ viewportWidth >= 600 ? 'Booking' : '' }}
+          <v-icon large class="ml-5">$next</v-icon>
+        </v-btn>
+
+        <v-btn
+          v-if="step === 4 && subscription"
+          text
+          class="transparent"
           @click="subscribe"
         >
           {{ viewportWidth >= 600 ? 'Subscribe' : '' }}
-          <v-icon large class="ml-5">mdi-page-next-outline</v-icon>
+          <v-icon large class="ml-5">$next</v-icon>
         </v-btn>
+
+        <!-- <v-btn
+          v-if="step === 3 && subscription"
+          text
+          class="transparent"
+          @click="subscribe"
+        >
+          {{ viewportWidth >= 600 ? 'Subscribe' : '' }}
+          <v-icon large class="ml-5">$next</v-icon>
+        </v-btn> -->
       </v-bottom-navigation>
 
       <v-sheet
@@ -105,6 +125,18 @@
                   <v-checkbox v-model="agree" label="I agree" class="ml-4" />
                 </v-card>
               </v-stepper-content>
+
+              <v-stepper-content step="4" class="mx-0 mx-sm-2 mx-md-4 mx-lg-6">
+                <v-card
+                  flat
+                  class="transparent ma-auto"
+                  min-width="320"
+                  max-width="480"
+                >
+                  <iframe src="https://app.arrivy.com/bk/17oXqJS " width="100%" style="height: 70vh; border: none; box-shadow: 0 0 8px #0005;">
+                  </iframe>
+                </v-card>
+              </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
         </v-row>
@@ -117,15 +149,15 @@
 
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
-import PackageCard from '@/components/plans/PackageCard.vue'
-import PackageStepper from '@/components/plans/PackageStepper.vue'
+// import PackageCard from '@/components/plans/PackageCard.vue'
+// import PackageStepper from '@/components/plans/PackageStepper.vue'
 
 export default {
   name: 'Subscription',
 
   components: {
-    PackageCard,
-    PackageStepper
+    PackageCard: () => import('@/components/plans/PackageCard.vue'),
+    PackageStepper: () => import('@/components/plans/PackageStepper.vue')
   },
 
   props: {
@@ -139,7 +171,8 @@ export default {
     stepName: [
       'Check Address',
       'Choose your package',
-      'Confirmation'
+      'Confirmation',
+      'Booking'
     ],
     packageSelected: false,
     packageSelectedIndex: undefined,
@@ -193,6 +226,9 @@ export default {
       this.confirmation = Object.assign({}, this.packages[index].confirmation)
       this.confirmation[0] = `${this.confirmation[0]}<br><b>${this.address}</b>`
       this.link = this.getLink(index)
+    },
+    booking () {
+      this.step = 4
     },
     subscribe () {
       this.$openExternalLink(this.link)

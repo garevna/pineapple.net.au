@@ -12,7 +12,7 @@ export async function searchAddressInPolygons () {
     const polygon = new window.google.maps.Polygon({ paths: coordinates })
     if (window.google.maps.geometry.poly.containsLocation(latLng, polygon)) {
       Object.assign(window[Symbol.for('global.addressData')], { status: 'success' })
-      emitEvent('open-success-popup', 'success')
+      emitEvent('open-success-popup', 'footprint')
 
       return 200
     }
